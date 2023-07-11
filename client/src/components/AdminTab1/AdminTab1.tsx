@@ -78,7 +78,7 @@ const AdminTab1 = () => {
                 {moment(order.ordertime).format(' HH:mm:ss    DD.MM.YYYY')}
               </Card> */}
             </Col>
-            <Col span={13}>
+            <Col span={14}>
               <p>{`Адрес: ${order.address}`}</p>
               <p>Доп.услуги:</p>
               {/* <Card title={order.address} bordered={false}>
@@ -87,7 +87,6 @@ const AdminTab1 = () => {
             </Col>
 
             <Col
-              span={4}
               style={{
                 textAlign: 'center',
               }}
@@ -95,23 +94,24 @@ const AdminTab1 = () => {
               {order.cleaner ? (
                 <>
                   <p>{`Клинер: ${order.cleaner}`}</p>
-                  <Button size="small">Изменить</Button>
+                  <Button>Изменить</Button>
                 </>
               ) : (
                 <>
                   <p>Клинер не выбран</p>
-                  <Button size="small">Назначить</Button>
+                  <Button>Назначить</Button>
                 </>
               )}
-              <Button
-                danger
-                style={{
-                  margin: '5px',
-                }}
-                size="small"
-              >
-                Удалить
-              </Button>
+              <Row justify="center">
+                <Button
+                  danger
+                  style={{
+                    margin: '5px',
+                  }}
+                >
+                  Удалить
+                </Button>
+              </Row>
             </Col>
           </Row>
         </Card>
