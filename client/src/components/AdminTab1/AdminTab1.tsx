@@ -1,7 +1,6 @@
 import React from 'react';
 
 import moment from 'moment';
-// moment(el.createdAt).format('YYYY-MM-DD HH:mm:ss')
 
 const dbOrders = [
   {
@@ -33,7 +32,7 @@ const dbOrders = [
     address: 'xfregergegz',
     ordertime: new Date('2023-01-08 10:51:49.612 +0300'),
     user: 'Pasha',
-    cleaner: 'Masha',
+    cleaner: 'Хьюберт Блейн',
     price: 1055,
     rooms: 4,
     bathroooms: 1,
@@ -63,22 +62,22 @@ const AdminTab1 = () => {
       {dbOrders.map((order) => (
         <Card
           style={{
-            marginLeft: '300px',
+            marginLeft: '15%',
             textAlign: 'start',
-            marginRight: '300px',
+            marginRight: '15%',
             marginBottom: '10px',
           }}
         >
           <Row gutter={16}>
             <Col span={5}>
               <p>{`Заказчик: ${order.user}`}</p>
-              <p>{moment(order.ordertime).format(' HH:mm:ss')}</p>
+              <p>{moment(order.ordertime).format('HH:mm:ss')}</p>
               <p>{moment(order.ordertime).format('DD.MM.YYYY')}</p>
               {/* <Card title={`Заказчик: ${order.user}`} bordered={false}>
                 {moment(order.ordertime).format(' HH:mm:ss    DD.MM.YYYY')}
               </Card> */}
             </Col>
-            <Col span={14}>
+            <Col span={15}>
               <p>{`Адрес: ${order.address}`}</p>
               <p>Доп.услуги:</p>
               {/* <Card title={order.address} bordered={false}>
@@ -94,7 +93,7 @@ const AdminTab1 = () => {
               {order.cleaner ? (
                 <>
                   <p>{`Клинер: ${order.cleaner}`}</p>
-                  <Button>Изменить</Button>
+                  <Button type="dashed">Изменить</Button>
                 </>
               ) : (
                 <>
