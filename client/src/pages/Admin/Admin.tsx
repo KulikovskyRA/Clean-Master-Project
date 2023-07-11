@@ -11,10 +11,10 @@ import AdminTab1 from '../../components/AdminTab1/AdminTab1';
 const Admin = () => {
   return (
     <div>
-      <Title>Работай, контролируй</Title>
+      <Title>Работай, управляй, решай</Title>
       <Tabs defaultActiveKey="1" centered style={{ height: 220 }}>
         <TabPane tab={'Заказы'} key="tab1">
-          <AdminTab1 style={{ paddingLeft: '200px', textAlign: 'start' }} />
+          <AdminTab1 />
         </TabPane>
         <TabPane tab={'Финансы'} key="tab2">
           <AdminTab2 />
