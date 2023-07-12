@@ -6,6 +6,7 @@ const FileStore = require('session-file-store')(session);
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const authRouter = require('./src/routers/auth.router');
 
 const { PORT, CORS_URL, SECRET_KEY_SESSION } = process.env;
 const corsOptions = {
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // Routes
+app.use('api/auth/', authRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
