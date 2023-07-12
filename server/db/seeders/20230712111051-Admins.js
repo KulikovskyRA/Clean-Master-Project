@@ -18,7 +18,8 @@ module.exports = {
       [
         {
           email: 'adminboba@biba.ru',
-          password: 'adminbiba',
+          password:
+            '$2b$10$ZVPQs5Yfp6Xlq4dBiNYwQe8hGB62PKwIz0VWd1yuxi5qbAqanTanm',
           adminName: 'adminboba',
           createdAt: Sequelize.DataTypes.NOW().toString(),
           updatedAt: Sequelize.DataTypes.NOW().toString(),

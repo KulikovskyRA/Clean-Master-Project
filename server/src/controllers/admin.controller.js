@@ -25,6 +25,6 @@ module.exports.adminLogin = async (req, res) => {
       res.sendStatus(403);
     }
   } catch (error) {
-    res.status(404).json({ error: 'Ошибка авторизации.' });
+    res.status(404).json({ error });
   }
 };

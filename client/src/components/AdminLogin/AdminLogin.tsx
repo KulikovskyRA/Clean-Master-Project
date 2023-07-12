@@ -1,8 +1,54 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
 const { Title } = Typography;
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+
+import { Link, useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+
+  const [err, setErr] = React.useState({ status: false, message: '' });
+
+  const onFinishStatus = (err, errorInfo: any) => {
+    setErr((prev) => ({
+      err,
+      message: errorInfo,
+    }));
+  };
+
+  const onFinish = async (values: any): Promise<void> => {
+    // console.log(values);
+    const res = await fetch(import.meta.env.VITE_URL + 'admin/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(values),
+    });
+
+    if (res.status === 200) {
+      const result = await res.json();
+
+      // dispatch({
+      //   type: LOGIN,
+      //   payload: {
+      //     auth: result.auth,
+      //     userId: result.id,
+      //     username: result.username,
+      //   },
+      // });
+
+      // navigate('/admin');
+      onFinishStatus(false, '');
+    } else if (res.status === 403) {
+      onFinishStatus(true, 'Неверный email/пароль');
+    } else {
+      onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
+    }
+  };
+
   return (
     <>
       <Title>Авторизация администратора</Title>
@@ -12,29 +58,36 @@ const AdminLogin = () => {
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
+        onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
       >
+        {!err.status && <Form.Item validateStatus="error" help={err.message} />}
+
         <Form.Item
           name="email"
           rules={[
             {
               type: 'email',
               required: true,
-              message: 'Неправильно введена электронная почта!',
+              message: 'Некорректно введена электронная почта!',
             },
           ]}
         >
-          <Input placeholder="Введите электронную почту" />
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Введите электронную почту"
+          />
         </Form.Item>
 
         <Form.Item
           name="password"
           rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
         >
-          <Input.Password placeholder="Введите пароль" />
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder="Введите пароль"
+          />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
