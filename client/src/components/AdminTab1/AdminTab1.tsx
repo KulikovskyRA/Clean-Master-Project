@@ -52,6 +52,7 @@ const dbOrders = [
     score: 3,
   },
 ];
+
 import { Button, Space, Descriptions, Card, Col, Row } from 'antd';
 
 import { Divider } from 'antd';
@@ -73,16 +74,10 @@ const AdminTab1 = () => {
               <p>{`Заказчик: ${order.user}`}</p>
               <p>{moment(order.ordertime).format('HH:mm:ss')}</p>
               <p>{moment(order.ordertime).format('DD.MM.YYYY')}</p>
-              {/* <Card title={`Заказчик: ${order.user}`} bordered={false}>
-                {moment(order.ordertime).format(' HH:mm:ss    DD.MM.YYYY')}
-              </Card> */}
             </Col>
             <Col span={15}>
               <p>{`Адрес: ${order.address}`}</p>
               <p>Доп.услуги:</p>
-              {/* <Card title={order.address} bordered={false}>
-                Доп.услуги:
-              </Card> */}
             </Col>
 
             <Col
@@ -120,26 +115,3 @@ const AdminTab1 = () => {
 };
 
 export default AdminTab1;
-
-{
-  /* <Space style={{ paddingLeft: '200px', textAlign: 'start' }}>
-            <Descriptions
-              title={moment(order.ordertime).format(' HH:mm:ss    DD.MM.YYYY')}
-              size="small"
-            >
-              <Descriptions.Item label="User">{order.user}</Descriptions.Item>
-              <Descriptions.Item label="Cleaner">
-                {order.cleaner}
-              </Descriptions.Item>
-
-              <Descriptions.Item label="Remark">
-                <Button type="text">Text Button</Button>
-              </Descriptions.Item>
-
-              <Descriptions.Item label="Address">
-                {order.address}
-              </Descriptions.Item>
-            </Descriptions>
-          </Space>
-          <Divider /> */
-}
