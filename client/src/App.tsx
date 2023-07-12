@@ -10,13 +10,23 @@ function App() {
   // const [count, setCount] = useState(0);
 
   return (
-    <>
-      <Layout className="layout">
-        <Navbar />
-        <AppRouter />
-      </Layout>
+
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      {/* <Layout> */}
+      <Navbar />
+      <AppRouter />
       <Paralax />
-    </>
+      {/* </Layout> */}
+    </div>
+
   );
 }
 

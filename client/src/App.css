@@ -194,3 +194,7 @@
     width: 290px;
   }
 }
+
+button:focus {
+  outline: none !important;
+}
