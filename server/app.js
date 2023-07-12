@@ -7,6 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const authRouter = require('./src/routers/auth.router');
+const adminRouter = require('./src/routers/admin.router');
 
 const { PORT, CORS_URL, SECRET_KEY_SESSION } = process.env;
 const corsOptions = {
@@ -39,6 +40,7 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use('api/auth/', authRouter);
+app.use('api/admin/', adminRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
