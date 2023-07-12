@@ -4,11 +4,13 @@ const { Title } = Typography;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { Link, useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { authReducer } from '../../redux/authSlice';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [err, setErr] = React.useState({ status: false, message: '' });
 
@@ -31,14 +33,16 @@ const AdminLogin = () => {
     if (res.status === 200) {
       const result = await res.json();
 
-      // dispatch({
-      //   type: LOGIN,
-      //   payload: {
-      //     auth: result.auth,
-      //     userId: result.id,
-      //     username: result.username,
-      //   },
-      // });
+      // console.log(result);
+
+      dispatch(
+        authReducer({
+          type: 'admin',
+          name: result.adminName,
+          id: result.id,
+          email: result.email,
+        })
+      );
 
       // navigate('/admin');
       onFinishStatus(false, '');
