@@ -15,19 +15,8 @@ const Paralax = () => {
     <>
       <div id="parallax-world-of-ugg">
         <section>
-          <div></div>
-          <div className="title">
-            <div className="title-item">Заказать уборку</div>
-            <div className="title-item">О сервисе</div>
-            <div className="title-item"> Личный кабинет</div>
-
-            <h1></h1>
-          </div>
-        </section>
-
-        <section>
           <div className="parallax-one">
-            <h2>Clean Master </h2>
+            <div className="main-title">Clean Master </div>
             <div className="sec-title">УБОРКА КВАРТИР В ТАШКЕНТЕ</div>
             <br />
             <div className="btn-box">
@@ -48,66 +37,101 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <TeamOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgb(228, 196, 56)',
+                      }}
                     />
                   </p>
-                  <p className="top-item-text">ОПЫТНЫЕ КЛИНЕРЫ</p>
+                  <div className="top-item-text">ОПЫТНЫЕ КЛИНЕРЫ</div>
+                  <br />
+                  <div>
+                    Все наши сотрудники <br /> прошли обучение и соблюдают
+                    стандарты уборки
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <SafetyOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '42px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</p>
+                  <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
+                  <br />
+                  <div>
+                    Клинер исправит недочёты, если вам не понравится результат
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <DollarOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">ЧЕСТНАЯ ЦЕНА</p>
+                  <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
+                  <br />
+                  <div>
+                    Стоимость уборки зависит <br /> от количества комнат <br />и
+                    наличия доп. услуг
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <LikeOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">ОПЛАТА ПОСЛЕ УБОКИ</p>
+                  <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
+                  <br />
+                  <div>Вы платите за услугу только после завершения уборки</div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <UsergroupAddOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">ДОВЕРИЕ</p>
+                  <div className="top-item-text">ДОВЕРИЕ</div>
+                  <br />
+
+                  <div>
+                    Клинер может взять ключи <br /> и сделать уборку без вашего
+                    присутсвия
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <SmileOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">НАДЁЖНОСТЬ</p>
+                  <div className="top-item-text">НАДЁЖНОСТЬ</div>
+                  <br />
+                  <div>
+                    Компенсируем ущерб, <br /> если что-то пойдет не так
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <HeartOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">ЭКО СРЕДСТВА</p>
+                  <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
+                  <br />
+                  <div>
+                    Гипоаллергенны <br /> и не вредят питомцам
+                  </div>
                 </div>
                 <div className="top-item">
-                  <p>
+                  <p className="img-item">
                     <GiftOutlined
                       style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
                     />
                   </p>
-                  <p className="top-item-text">СКИДКИ</p>
+                  <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
+                  <br />
+                  <div>Для постоянных клиентов скидки</div>
                 </div>
               </div>
             </p>
@@ -116,7 +140,9 @@ const Paralax = () => {
 
         <section>
           <div className="parallax-two">
-            <h2>ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, А УБОРКУ ДОВЕРЬТЕ НАМ</h2>
+            <h2>
+              ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, <br /> А УБОРКУ ДОВЕРЬТЕ НАМ
+            </h2>
           </div>
         </section>
 
@@ -127,61 +153,27 @@ const Paralax = () => {
               <div className="text">Что входит в уборку?</div>
             </p>
           </div>
-        </section>
 
-        <section>
-          <div className="parallax-three">
-            <h2>Влажная уборка поверхностей и мытье пола</h2>
-          </div>
-        </section>
-        <div className="block">
-          <p>
-            <span className="first-character ny">I</span>{' '}
-            <div className="text">
-              Прежде, чем приступить к выполнению заказа, клинеры выберут и
-              согласуют с вами подходящие методы, а также средства для
-              генеральной или экспресс-уборки. Мы применяем только
-              сертифицированные препараты европейских марок.
+          <div className="photo-box">
+            <div className="oneCard">
+              <img className="photo-use" src="/public/1.jpeg" alt="" />
+              <div className="text1">Влажная уборка поверхностей</div>
             </div>
-          </p>
-        </div>
-        <section>
-          <div className="parallax-four">
-            <h2>Чистка ковра и мебели</h2>
-          </div>
-        </section>
-        <div className="block">
-          <p>
-            <span className="first-character ny">I</span>{' '}
-            <div className="text">
-              Подготовьте помещение к проведению работ. Перед прибытием CLEAN
-              MASTER обеспечьте доступ к сети электропитания и к санузлу. Все
-              необходимые материалы,оборудование и препараты специалисты
-              привезут с собой.
+
+            <div className="oneCard">
+              <img className="photo-use" src="/public/2.jpeg" alt="" />
+              <div className="text1">Чистка ковра и мебели</div>
             </div>
-          </p>
-        </div>
 
-        <section>
-          <div className="parallax-five">
-            <h2>Уборка на кухне: помоем посуду, плиту и все поверхности</h2>
-          </div>
-        </section>
-
-        <div className="block">
-          <p>
-            <span className="first-character ny">I</span>{' '}
-            <div className="text">
-              Персонал CLEAN MASTER будет работать, используя профессиональную
-              технику, инвентарь, чистящие и моющие составы. Желательно, чтобы
-              при этом не присутствовали маленькие дети и животные.
+            <div className="oneCard">
+              <img className="photo-use" src="/public/3.jpeg" alt="" />
+              <div className="text1">Уборка кухни</div>
             </div>
-          </p>
-        </div>
 
-        <section>
-          <div className="parallax-six">
-            <h2>Санузел: помоем и продезинфицируем сантехнику и зеркала</h2>
+            <div className="oneCard">
+              <img className="photo-use" src="/public/4.jpeg" alt="" />
+              <div className="text1">Дезинфекция сантехники и зеркал</div>
+            </div>
           </div>
         </section>
 
@@ -189,12 +181,24 @@ const Paralax = () => {
           <p>
             <span className="first-character ny">I</span>
             <div className="text">Сколько стоит уборка?</div>
-            <ul>
-              <li className="text1">Однокомнатная квартира: от 249 000 UZS</li>
-              <li className="text1">Двухкомнатная квартира: от 299 000 UZS</li>
-              <li className="text1">Трехкомнатная квартира: от 349 000 UZS</li>
+
+            <ul className="list">
+              <li className="text2">
+                <div className="room">1 комната:</div>
+                <div className="price-room"> от 249 000 UZS</div>
+              </li>
+              <li className="text2">
+                <div className="room">2 комнаты:</div>
+                <div className="price-room"> от 299 000 UZS</div>
+              </li>
+              <li className="text2">
+                <div className="room">3 комнаты:</div>
+                <div className="price-room">от 349 000 UZS</div>
+              </li>
             </ul>
-            <div className="text">Дополнительные услуги</div>
+            <br />
+            <br />
+            <div className="text">Дополнительные услуги:</div>
             <ul>
               <li className="text1">Мытье окон: +25 000 UZS за одно окно</li>
               <li className="text1">Уборка балкона +30 000 UZS</li>
@@ -212,7 +216,7 @@ const Paralax = () => {
               <span className="first-character sc">I</span>{' '}
               <div className="text">Наши Клинеры</div>
             </p>
-            <p className="line-break margin-top-10"></p>
+
             <p className="margin-top-10">
               <div className="box-top">
                 <div className="top-item">
@@ -241,6 +245,20 @@ const Paralax = () => {
                     <img className="photo" src="/public/r.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Рома</p>
+                </div>
+
+                <div className="top-item">
+                  <p className="img-item">
+                    <img className="photo" src="/public/s.jpg" alt="" />
+                  </p>
+                  <p className="top-item-text">Сергей</p>
+                </div>
+
+                <div className="top-item">
+                  <p className="img-item">
+                    <img className="photo" src="/public/an.jpg" alt="" />
+                  </p>
+                  <p className="top-item-text">Антон</p>
                 </div>
               </div>
             </p>
