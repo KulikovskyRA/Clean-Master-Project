@@ -62,6 +62,7 @@ const AdminTab1 = () => {
     <>
       {dbOrders.map((order) => (
         <Card
+          key={`order${order.id}`}
           style={{
             marginLeft: '15%',
             textAlign: 'start',

@@ -46,6 +46,7 @@ const AdminTab3 = () => {
     <>
       {dbCleaners.map((cleaner) => (
         <Card
+          key={`cleaner${cleaner.id}`}
           size="small"
           style={{
             marginLeft: '10%',

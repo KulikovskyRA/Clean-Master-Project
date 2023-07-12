@@ -16,6 +16,7 @@ const AdminTab4 = () => {
     <>
       {dbClients.map((client) => (
         <Card
+          key={`client${client.id}`}
           size="small"
           style={{
             marginLeft: '10%',
