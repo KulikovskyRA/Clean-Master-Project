@@ -4,6 +4,7 @@ const initialState = {
   type: '',
   id: 0,
   name: '',
+  email: '',
 };
 
 const authSlice = createSlice({
@@ -14,10 +15,11 @@ const authSlice = createSlice({
       state.type = action.payload.type;
       state.name = action.payload.name;
       state.id = action.payload.id;
+      state.email = action.payload.email;
     },
   },
 });
 
 export default authSlice.reducer;
 
-export const { adminAuth } = authSlice.actions;
+export const { authReducer } = authSlice.actions;
