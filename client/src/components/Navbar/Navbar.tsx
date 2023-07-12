@@ -1,8 +1,8 @@
-import { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
+
     <div className="nav">
       <Link className="nav-link" to="/">
         Home
@@ -17,6 +17,7 @@ const Navbar = () => {
         Cleaner
       </Link>
     </div>
+
   );
 };
 
