@@ -40,8 +40,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // Routes
-app.use('api/auth/', authRouter);
-app.use('api/admin/', adminRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/admin/', adminRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');

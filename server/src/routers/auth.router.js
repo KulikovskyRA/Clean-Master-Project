@@ -9,6 +9,6 @@ const {
 } = require('../controllers/auth.controller');
 
 module.exports = authRouter
+  .post('/register', register)
   .post('/login', login)
-  .get('/logout', logout)
-  .post('/register', register);
+  .get('/logout', logout);
