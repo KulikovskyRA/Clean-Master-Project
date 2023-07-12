@@ -15,6 +15,8 @@ const corsOptions = {
 
 // Require routes
 
+const authRouter = require('./src/routers/auth.router');
+
 
 // Cookie
 const sessionConfig = {
@@ -39,6 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // Routes
+app.use('/auth', authRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутиться!');
