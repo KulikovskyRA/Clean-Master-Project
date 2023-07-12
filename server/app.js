@@ -15,7 +15,6 @@ const corsOptions = {
 
 // Require routes
 
-
 // Cookie
 const sessionConfig = {
   name: 'CleanMasterCookie',
@@ -32,7 +31,6 @@ const app = express();
 
 app.use(session(sessionConfig));
 
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +39,6 @@ app.use(cors(corsOptions));
 // Routes
 
 app.listen(PORT, () => {
-  console.log('Сервер крутиться!');
+  console.log('Сервер крутится!');
   console.log('➜  Local:   ', `http://localhost:${PORT}/`);
 });
