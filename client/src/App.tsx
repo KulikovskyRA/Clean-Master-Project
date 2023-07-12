@@ -19,6 +19,7 @@ function App() {
         height: '100%',
       }}
     >
+      {' '}
       {/* <Layout> */}
       <Navbar />
       <AppRouter />
