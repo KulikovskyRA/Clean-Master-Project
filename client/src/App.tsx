@@ -10,7 +10,6 @@ function App() {
   // const [count, setCount] = useState(0);
 
   return (
-
     <div
       style={{
         position: 'absolute',
@@ -23,10 +22,9 @@ function App() {
       {/* <Layout> */}
       <Navbar />
       <AppRouter />
-      <Paralax />
+      {/* <Paralax /> */}
       {/* </Layout> */}
     </div>
-
   );
 }
 
