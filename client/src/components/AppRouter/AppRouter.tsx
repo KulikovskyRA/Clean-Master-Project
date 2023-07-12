@@ -5,6 +5,9 @@ import Client from '../../pages/Client/Client';
 import Cleaner from '../../pages/Cleaner/Cleaner';
 import Admin from '../../pages/Admin/Admin';
 
+//! Авторизации и регистрации
+import AdminLogin from '../AdminLogin/AdminLogin';
+
 const AppRouter = () => {
   return (
     <>
@@ -13,6 +16,8 @@ const AppRouter = () => {
         <Route path="/client" Component={Client} />
         <Route path="/cleaner" Component={Cleaner} />
         <Route path="/admin" Component={Admin} />
+
+        <Route path="/adminlogin" Component={AdminLogin} />
       </Routes>
     </>
   );
