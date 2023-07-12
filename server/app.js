@@ -6,8 +6,7 @@ const FileStore = require('session-file-store')(session);
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const authRouter = require('./src/routers/auth.router');
-const adminRouter = require('./src/routers/admin.router');
+
 
 const { PORT, CORS_URL, SECRET_KEY_SESSION } = process.env;
 const corsOptions = {
@@ -16,6 +15,8 @@ const corsOptions = {
 };
 
 // Require routes
+const authRouter = require('./src/routers/auth.router');
+const adminRouter = require('./src/routers/admin.router');
 
 // Cookie
 const sessionConfig = {
