@@ -4,11 +4,13 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import { Layout } from 'antd';
 import AppRouter from './components/AppRouter/AppRouter';
+import Paralax from './components/Paralax/Paralax';
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
+
     <div
       style={{
         position: 'absolute',
@@ -21,8 +23,10 @@ function App() {
       {/* <Layout> */}
       <Navbar />
       <AppRouter />
+      <Paralax />
       {/* </Layout> */}
     </div>
+
   );
 }
 
