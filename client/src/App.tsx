@@ -7,10 +7,7 @@ import AppRouter from './components/AppRouter/AppRouter';
 import Paralax from './components/Paralax/Paralax';
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
-
     <div
       style={{
         position: 'absolute',
@@ -20,13 +17,9 @@ function App() {
         height: '100%',
       }}
     >
-      {/* <Layout> */}
       <Navbar />
       <AppRouter />
-      <Paralax />
-      {/* </Layout> */}
     </div>
-
   );
 }
 
