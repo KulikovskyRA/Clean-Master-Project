@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
 
+body {
+  margin: 0;
+  padding: 0;
+}
 #main {
   width: 100%;
   padding: 0;
@@ -10,6 +14,12 @@
 }
 .breadcrumb {
   display: none;
+}
+.sec-title {
+  text-align: center;
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.781);
+  font-family: 'Oswald', sans-serif;
 }
 
 .margin-top-10 {
@@ -76,10 +86,33 @@
 }
 
 #parallax-world-of-ugg .title {
+  display: flex;
+  justify-content: flex-end;
   background: white;
-  padding: 60px;
-  margin: 0 auto;
-  text-align: center;
+}
+.title-item {
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+.box-top {
+  display: flex;
+
+  flex-wrap: wrap;
+}
+.top-item {
+  border: 2px rgb(179, 201, 241) solid;
+  width: 150px;
+  height: 150px;
+  margin: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  display: flex;
+}
+
+.top-item-text {
+  display: flex;
+  justify-content: center;
 }
 #parallax-world-of-ugg .title h1 {
   font-size: 35px;
@@ -141,7 +174,49 @@
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(https://pro-dachnikov.com/uploads/posts/2023-01/1673743612_pro-dachnikov-com-p-divan-krovat-foto-ramka-video-urok-41.jpg);
+  background-image: url(../public/1.jpeg);
+  background-attachment: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+#parallax-world-of-ugg .parallax-four {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-image: url(../public/2.jpeg);
+  background-attachment: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+#parallax-world-of-ugg .parallax-five {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-image: url(../public/3.jpeg);
+  background-attachment: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+#parallax-world-of-ugg .parallax-six {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-image: url(../public/4.jpeg);
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -162,6 +237,73 @@
   background: none;
   color: black;
   margin-top: 30px;
+}
+.btn-box {
+  display: flex;
+  width: 100%;
+}
+.btn-go {
+  background-color: rgb(240, 203, 37);
+  height: 50px;
+  border-radius: 14px;
+  width: 300px;
+  margin: 0px auto;
+  color: rgba(6, 15, 99, 0.678);
+  font-size: 24px;
+  font-weight: bold;
+}
+.footer {
+  background-color: rgba(36, 36, 36, 0.911);
+}
+.first-box {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.link-footer {
+  font-weight: bold;
+  margin: 10px;
+  display: flex;
+  color: white;
+  text-decoration: none;
+}
+.link-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+.text {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: rgb(5, 5, 59);
+}
+.text1 {
+  font-size: 24px;
+}
+.photo {
+  border-radius: 49%;
+  width: 100px;
+  height: 100px;
+  border: 2px rgb(240, 203, 37) solid;
+}
+
+.box2 {
+  background-image: url(../../client/public/1.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 500px;
+  height: 600px;
+  color: rgba(255, 255, 255, 0.842);
+  font-size: 24px;
+  font-weight: bold;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Oswald', sans-serif;
 }
 
 @media screen and (max-width: 959px) and (min-width: 768px) {
