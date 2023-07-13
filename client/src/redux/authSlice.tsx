@@ -5,6 +5,7 @@ const initialState = {
   id: 0,
   name: '',
   email: '',
+  phoneNumber: '',
 };
 
 const authSlice = createSlice({
@@ -15,7 +16,8 @@ const authSlice = createSlice({
       state.type = action.payload.type;
       state.name = action.payload.name;
       state.id = action.payload.id;
-      state.email = action.payload.email;
+      state.email = action.payload.email || '';
+      state.phoneNumber = action.payload.phoneNumber || '';
     },
   },
 });

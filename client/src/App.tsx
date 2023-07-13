@@ -24,15 +24,16 @@ function App() {
           }
         );
 
-        // console.log(result);
         if (response.ok) {
           const result = await response.json();
+          // console.log(result);
           dispatch(
             authReducer({
               type: result.type,
-              name: result.adminName,
+              name: result.name,
               id: result.id,
               email: result.email,
+              phoneNumber: result.phoneNumber,
             })
           );
         }
