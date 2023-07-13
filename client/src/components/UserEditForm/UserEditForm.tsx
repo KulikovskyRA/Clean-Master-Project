@@ -1,11 +1,25 @@
 import * as React from 'react';
 import { Button, Form, Input } from 'antd';
+import { useSelector } from "react-redux";
+import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 
-const UserEditForm = ({ user }) => {
+const { VITE_URL }: string = import.meta.env;
+
+const UserEditForm = () => {
+  const user = useSelector((state: RootState) => state.authSlice);
   const { name, phone, email } = user;
-  console.log(name);
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+
+  const onFinish = async (values: any) => {
+    try {
+      const response = await fetch(`${VITE_URL}user/edit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(values),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
