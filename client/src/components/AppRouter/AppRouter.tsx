@@ -11,6 +11,7 @@ import AdminLogin from '../AdminLogin/AdminLogin';
 import UserRegistration from "../UserRegistration/UserRegistration";
 
 import Paralax from '../Paralax/Paralax';
+import UserLogin from "../UserLogin/UserLogin";
 
 
 const AppRouter = () => {
@@ -18,15 +19,16 @@ const AppRouter = () => {
     <>
       <Routes>
 
-        <Route path="/" Component={Paralax} />
-        <Route path="/client" Component={Client} />
-        <Route path="/cleaner" Component={Cleaner} />
-        <Route path="/admin" Component={Admin} />
+        <Route path="/" Component={Paralax}/>
+        <Route path="/client" Component={Client}/>
+        <Route path="/cleaner" Component={Cleaner}/>
+        <Route path="/admin" Component={Admin}/>
 
 
         <Route path="/adminlogin" Component={AdminLogin}/>
 
         <Route path="/register" Component={UserRegistration}/>
+        <Route path="/login" Component={UserLogin}/>
       </Routes>
     </>
   );
