@@ -16,7 +16,9 @@ const corsOptions = {
 // Require routes
 const authRouter = require('./src/routers/auth.router');
 const adminRouter = require('./src/routers/admin.router');
+const cleanerRouter = require('./src/routers/cleaner.router');
 const userRouter = require('./src/routers/user.router');
+
 
 // Cookie
 const sessionConfig = {
@@ -45,7 +47,10 @@ app.use('/api/auth', authRouter);
 
 app.use('/api/admin/', adminRouter);
 
+app.use('/api/cleaner/', cleanerRouter);
+
 app.use('/api/user/', userRouter);
+
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');

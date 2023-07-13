@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { authReducer } from './redux/authSlice';
+import { authReducer, checkAuthReducer } from './redux/authSlice';
 
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -24,17 +24,10 @@ function App() {
           }
         );
 
-        // console.log(result);
         if (response.ok) {
           const result = await response.json();
-          dispatch(
-            authReducer({
-              type: result.type,
-              name: result.adminName,
-              id: result.id,
-              email: result.email,
-            })
-          );
+          // console.log(result);
+          dispatch(checkAuthReducer(result));
         }
         // else {
         //   dispatch(

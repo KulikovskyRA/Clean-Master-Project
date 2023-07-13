@@ -39,13 +39,39 @@ const CleanerLogin = () => {
   );
 
   const onFinish = async (values: any): Promise<void> => {
-    const phone = values.prefix + values.phonelast;
-    console.log(phone);
+    const phoneNumber = values.prefix + values.phone;
+
+    const res = await fetch(import.meta.env.VITE_URL + 'cleaner/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password: values.password, phoneNumber }),
+    });
+
+    if (res.ok) {
+      const result = await res.json();
+
+      dispatch(
+        authReducer({
+          type: 'admin',
+          name: result.name,
+          id: result.id,
+          email: '',
+          phoneNumber: result.phoneNumber,
+        })
+      );
+
+      navigate('/cleaner');
+    } else if (res.status === 403) {
+      onFinishStatus(true, 'Неверный email/пароль');
+    } else {
+      onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
+    }
   };
 
   return (
     <>
-      <Title>Авторизация клинета</Title>
+      <Title>Авторизация клинера</Title>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -59,7 +85,7 @@ const CleanerLogin = () => {
         {!err.status && <Form.Item validateStatus="error" help={err.message} />}
 
         <Form.Item
-          name="phonelast"
+          name="phone"
           rules={[
             {
               required: true,
