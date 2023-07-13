@@ -46,5 +46,5 @@ app.use('/api/admin/', adminRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
-  console.log('➜  Local:   ', `http://localhost:${PORT}/`);
+  console.log('➜ ', `http://localhost:${PORT}/`);
 });

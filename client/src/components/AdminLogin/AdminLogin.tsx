@@ -30,7 +30,7 @@ const AdminLogin = () => {
       body: JSON.stringify(values),
     });
 
-    if (res.status === 200) {
+    if (res.ok) {
       const result = await res.json();
 
       // console.log(result);

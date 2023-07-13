@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
-import { IRegisterInputs } from "../../types/typesForms";
-import { useNavigate } from "react-router-dom";
+import { IRegisterInputs } from '../../types/typesForms';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
 const { VITE_URL }: string = import.meta.env;
 
+import { useDispatch } from 'react-redux';
+
+import { authReducer } from '../../redux/authSlice';
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
@@ -22,9 +25,8 @@ const prefixSelector = (
 );
 
 const UserRegistration: React.FC = () => {
-
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const onFinish = async (values: IRegisterInputs): Promise<void> => {
     try {
@@ -35,16 +37,22 @@ const UserRegistration: React.FC = () => {
         body: JSON.stringify(values),
       });
       if (response.ok) {
+        const result = await res.json();
+        dispatch(
+          authReducer({
+            type: 'user',
+            name: result.userName,
+            id: result.id,
+            email: result.email,
+          })
+        );
         navigate('/client');
       } else {
-        
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <Form
@@ -61,34 +69,39 @@ const UserRegistration: React.FC = () => {
       <Form.Item
         label="Как Вас зовут?"
         name="userName"
-        rules={[ { required: true, message: 'Пожалуйста, введите Ваше имя!' } ]}
+        rules={[{ required: true, message: 'Пожалуйста, введите Ваше имя!' }]}
       >
-        <Input/>
+        <Input />
       </Form.Item>
 
       <Form.Item
         label="E-mail"
         name="email"
-        rules={[ { type: 'email', required: true, message: 'Пожалуйста, введите корректный email!' } ]}
+        rules={[
+          {
+            type: 'email',
+            required: true,
+            message: 'Пожалуйста, введите корректный email!',
+          },
+        ]}
       >
-        <Input/>
+        <Input />
       </Form.Item>
 
       <Form.Item
         label="Телефон"
         name="phone"
-        rules={[ { required: true, message: 'Please input your phone number!' } ]}
+        rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <InputNumber addonBefore={prefixSelector} style={{ width: '100%' }}/>
+        <InputNumber addonBefore={prefixSelector} style={{ width: '100%' }} />
       </Form.Item>
-
 
       <Form.Item
         label="Password"
         name="password"
-        rules={[ { required: true, message: 'Please input your password!' } ]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password/>
+        <Input.Password />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
