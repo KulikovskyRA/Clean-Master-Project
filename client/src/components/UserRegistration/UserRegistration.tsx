@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
 
-import { IRegisterInputs, messageType } from "../../types/typesForms";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { IRegisterInputs, messageType } from '../../types/typesForms';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const { Option } = Select;
 
@@ -27,7 +27,7 @@ const prefixSelector = (
 );
 
 const UserRegistration: React.FC = () => {
-  const [ message, setMessage ] = useState<messageType>('');
+  const [message, setMessage] = useState<messageType>('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,12 +53,17 @@ const UserRegistration: React.FC = () => {
         );
         navigate('/client');
       } else {
+        authReducer({
+          type: '',
+          name: '',
+          id: 0,
+          email: '',
+        });
 
         setTimeout(() => {
           setMessage('');
         }, 3000);
         setMessage(result.error);
-
       }
     } catch (error) {
       console.log(error);

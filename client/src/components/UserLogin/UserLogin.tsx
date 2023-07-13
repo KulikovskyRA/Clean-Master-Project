@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const { VITE_URL }: string = import.meta.env;
 
+import { useDispatch } from 'react-redux';
+
+import { authReducer } from '../../redux/authSlice';
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-
 const UserLogin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [ message, setMessage ] = useState('');
+  const [message, setMessage] = useState('');
 
   const onFinish = async (values: any) => {
     try {
@@ -27,8 +30,22 @@ const UserLogin = () => {
       const result = await response.json();
 
       if (response.ok) {
+        dispatch(
+          authReducer({
+            type: 'user',
+            name: result.userName,
+            id: result.id,
+            email: result.email,
+          })
+        );
         navigate('/client');
       } else {
+        authReducer({
+          type: '',
+          name: '',
+          id: 0,
+          email: '',
+        });
         setTimeout(() => {
           setMessage('');
         }, 3000);
@@ -54,19 +71,24 @@ const UserLogin = () => {
       <Form.Item
         label="Email"
         name="email"
-        rules={[ { type: 'email', required: true, message: 'Please input your username!' } ]}
+        rules={[
+          {
+            type: 'email',
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
       >
-        <Input/>
+        <Input />
       </Form.Item>
 
       <Form.Item
         label="Password"
         name="password"
-        rules={[ { required: true, message: 'Please input your password!' } ]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password/>
+        <Input.Password />
       </Form.Item>
-
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

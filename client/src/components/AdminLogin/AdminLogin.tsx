@@ -19,6 +19,13 @@ const AdminLogin = () => {
       err,
       message: errorInfo,
     }));
+
+    setTimeout(() => {
+      setErr((prev) => ({
+        err: false,
+        message: '',
+      }));
+    }, 3000);
   };
 
   const onFinish = async (values: any): Promise<void> => {
@@ -44,7 +51,7 @@ const AdminLogin = () => {
         })
       );
 
-      // navigate('/admin');
+      navigate('/admin');
       onFinishStatus(false, '');
     } else if (res.status === 403) {
       onFinishStatus(true, 'Неверный email/пароль');
