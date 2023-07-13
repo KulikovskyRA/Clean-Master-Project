@@ -5,6 +5,11 @@ const { Cleaner } = require('../../db/models');
 module.exports.cleanerLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
 
+  // //!Cначала очищаем сессию чтобы не путались авторизации юзера, админа и клинера
+  // req.session.destroy(() => {
+  //   res.clearCookie('CleanMasterCookie');
+  // });
+
   try {
     const check = await Cleaner.findOne({ where: { phoneNumber }, raw: true });
     if (check) {
