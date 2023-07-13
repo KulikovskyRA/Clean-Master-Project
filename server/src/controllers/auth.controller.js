@@ -22,31 +22,51 @@ module.exports.register = async (req, res) => {
   const phoneNumber = `+${prefix}${phone}`;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
-
     const response = await User.create({
       userName,
       email,
       prefix,
       phoneNumber,
       password: hashedPassword,
-      isVerified: false
+      isVerified: false,
     });
     const result = response.get({ plain: true });
     console.log('RESULT', result);
     const userSessionData = {
       id: result.id,
-      userName: result.userName
+      userName: result.userName,
     };
     req.session.user = userSessionData;
-    res
-      .status(200)
-      .json({ user: userSessionData })
-      .end();
+    res.status(200).json({ user: userSessionData }).end();
   } catch (error) {
     console.log('ERROR====>', error);
-    res
-      .status(400)
-      .json({ error: 'Пользователь с таким email существует!' });
+    res.status(400).json({ error: 'Пользователь с таким email существует!' });
   }
+};
 
+module.exports.checkSessions = async (req, res) => {
+  if (req.session.user) {
+    res.json({
+      type: 'user',
+      id: req.session.user.id,
+      name: req.session.user.username,
+      email: req.session.user.email,
+    });
+  } else if (req.session.admin) {
+    res.json({
+      type: 'admin',
+      id: req.session.admin.id,
+      username: req.session.admin.adminName,
+      email: req.session.admin.email,
+    });
+  } else if (req.session.cleaner) {
+    res.json({
+      type: 'cleaner',
+      id: req.session.cleaner.id,
+      username: req.session.cleaner.name,
+      email: req.session.cleaner.email,
+    });
+  } else {
+    res.json({ status: 405 });
+  }
 };

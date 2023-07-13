@@ -5,10 +5,12 @@ const authRouter = new Router();
 const {
   login,
   logout,
-  register
+  register,
+  checkSessions,
 } = require('../controllers/auth.controller');
 
 module.exports = authRouter
   .post('/register', register)
   .post('/login', login)
-  .get('/logout', logout);
+  .get('/logout', logout)
+  .get('/', checkSessions);
