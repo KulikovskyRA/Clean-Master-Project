@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   TeamOutlined,
   SafetyOutlined,
@@ -16,11 +17,11 @@ const Paralax = () => {
       <div id="parallax-world-of-ugg">
         <section>
           <div className="parallax-one">
-            <div className="main-title">Clean Master </div>
+            <div className="main-title">CLEAN MASTER </div>
             <div className="sec-title">УБОРКА КВАРТИР В ТАШКЕНТЕ</div>
             <br />
             <div className="btn-box">
-              <button className="btn-go">Заказать Уборку</button>
+              <button className="btn-go">ЗАКАЗАТЬ УБОРКУ</button>
             </div>
           </div>
         </section>
@@ -28,10 +29,10 @@ const Paralax = () => {
         <section>
           <div className="block">
             <p className="text">
-              <span className="first-character sc">I</span>{' '}
+              <span className="first-character ">I</span>{' '}
               <div className="text">ПОЧЕМУ СТОИТ ДОВЕРИТЬ УБОРКУ НАМ?</div>
             </p>
-            <p className="line-break margin-top-10"></p>
+
             <p className="margin-top-10">
               <div className="box-top">
                 <div className="top-item">
@@ -39,7 +40,7 @@ const Paralax = () => {
                     <TeamOutlined
                       style={{
                         fontSize: '38px',
-                        color: 'rgb(228, 196, 56)',
+                        color: 'rgb(30, 61, 119)',
                       }}
                     />
                   </p>
@@ -53,7 +54,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <SafetyOutlined
-                      style={{ fontSize: '42px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '42px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
@@ -65,7 +66,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <DollarOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
@@ -78,7 +79,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <LikeOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
@@ -88,7 +89,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <UsergroupAddOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">ДОВЕРИЕ</div>
@@ -102,7 +103,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <SmileOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">НАДЁЖНОСТЬ</div>
@@ -114,7 +115,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <HeartOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
@@ -126,7 +127,7 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <GiftOutlined
-                      style={{ fontSize: '38px', color: 'rgb(228, 196, 56)' }}
+                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
                     />
                   </p>
                   <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
@@ -150,18 +151,20 @@ const Paralax = () => {
           <div className="block">
             <p>
               <span className="first-character ny">I</span>{' '}
-              <div className="text">Что входит в уборку?</div>
+              <div className="text">ЧТО ВХОДИТ В УБОРКУ?</div>
             </p>
           </div>
 
           <div className="photo-box">
             <div className="oneCard">
+              <div className="block-block"></div>
               <img className="photo-use" src="/public/1.jpeg" alt="" />
               <div className="text1">Влажная уборка поверхностей</div>
             </div>
 
             <div className="oneCard">
               <img className="photo-use" src="/public/2.jpeg" alt="" />
+
               <div className="text1">Чистка ковра и мебели</div>
             </div>
 
@@ -172,6 +175,7 @@ const Paralax = () => {
 
             <div className="oneCard">
               <img className="photo-use" src="/public/4.jpeg" alt="" />
+              <div className="block-block2"></div>
               <div className="text1">Дезинфекция сантехники и зеркал</div>
             </div>
           </div>
@@ -180,7 +184,7 @@ const Paralax = () => {
         <div className="block">
           <p>
             <span className="first-character ny">I</span>
-            <div className="text">Сколько стоит уборка?</div>
+            <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
 
             <ul className="list">
               <li className="text2">
@@ -200,12 +204,12 @@ const Paralax = () => {
             <br />
             <div className="text">Дополнительные услуги:</div>
             <ul>
-              <li className="text1">Мытье окон: +25 000 UZS за одно окно</li>
-              <li className="text1">Уборка балкона +30 000 UZS</li>
-              <li className="text1">Помыть внутри холодильника +15 000 UZS</li>
-              <li className="text1">Помыть духовку +15 000 UZS</li>
-              <li className="text1">Помыть микроволновку +10 000 UZS</li>
-              <li className="text1">Глажка: 40 000 UZS за час</li>
+              <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
+              <li className="text3">Уборка балкона +30 000 UZS</li>
+              <li className="text3">Помыть внутри холодильника +15 000 UZS</li>
+              <li className="text3">Помыть духовку +15 000 UZS</li>
+              <li className="text3">Помыть микроволновку +10 000 UZS</li>
+              <li className="text3">Глажка 40 000 UZS за час</li>
             </ul>
           </p>
         </div>
@@ -214,7 +218,7 @@ const Paralax = () => {
           <div className="block">
             <p className="text">
               <span className="first-character sc">I</span>{' '}
-              <div className="text">Наши Клинеры</div>
+              <div className="text">НАШИ КЛИНЕРЫ</div>
             </p>
 
             <p className="margin-top-10">
@@ -271,10 +275,13 @@ const Paralax = () => {
           <p className="margin-top-10">
             <div className="first-box">
               <p className="link-title">Clean Master</p>
-              <a className="link-footer" href="#">
-                ссылка
-              </a>
-              <a className="link-footer" href="#">
+              <Link className="footer-link" to="/cleaner">
+                Cleaner
+              </Link>
+              <Link className="footer-link" to="/admin">
+                Admin
+              </Link>
+              <a className="footer-footer" href="#">
                 ссылка
               </a>
               <a className="link-footer" href="#">

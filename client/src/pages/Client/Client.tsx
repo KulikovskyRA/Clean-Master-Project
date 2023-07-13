@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Space, List, Modal } from 'antd';
-import UserOrdersTabs from "../../components/UserOrdersTabs/UserOrdersTabs";
+import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 
 interface IUserData {
   name: string;
@@ -12,7 +12,7 @@ interface IUserData {
 const userData: IUserData = {
   name: 'Валентина',
   phone: '+7 000 000 00 00',
-  email: 'email@example.com'
+  email: 'email@example.com',
 };
 
 const Client: React.FC = () => {
@@ -22,8 +22,7 @@ const Client: React.FC = () => {
     `E-mail: ${userData.email}`,
   ];
 
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -40,26 +39,32 @@ const Client: React.FC = () => {
   return (
     <>
       <h2>Личный кабинет</h2>
-      <div>
+      <div className="user-main">
         <div>
-          <Space direction="horizontal" size={16}>
+          <Space className="user-profile" direction="horizontal" size={16}>
             <Space wrap size={16}>
-              <Avatar size={64} icon={<UserOutlined/>}/>
+              <Avatar size={64} icon={<UserOutlined />} />
             </Space>
             <Space>
               <List
+                className="info-user"
                 size="small"
                 dataSource={listData}
                 renderItem={(item) => <List.Item>{item}</List.Item>}
               />
-
             </Space>
           </Space>
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <Button block onClick={showModal}>
+          <Space>
+            <Button id="btn-profile" block onClick={showModal}>
               Редактировать профиль
             </Button>
-            <Modal title="Редактирование профиля" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal
+              id="modal-user"
+              title="Редактирование профиля"
+              open={isModalOpen}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
               <p>Some contents...</p>
               <p>Some contents...</p>
               <p>Some contents...</p>
@@ -67,14 +72,15 @@ const Client: React.FC = () => {
           </Space>
         </div>
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Button block type="primary">
-            Заказать уборку
-          </Button>
+          <div className="btn-box">
+            <Button id="order-user" block type="primary">
+              Заказать уборку
+            </Button>
+          </div>
         </Space>
       </div>
 
-      <UserOrdersTabs/>
-
+      <UserOrdersTabs />
     </>
   );
 };
