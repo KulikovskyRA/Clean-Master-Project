@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Checkbox, Form, Input, Typography, Select } from 'antd';
 const { Title } = Typography;
+const { Option } = Select;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { authReducer } from '../../redux/authSlice';
 
-const AdminLogin = () => {
+const CleanerLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,38 +29,23 @@ const AdminLogin = () => {
     }, 3000);
   };
 
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select style={{ width: 70 }}>
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    </Form.Item>
+  );
+
   const onFinish = async (values: any): Promise<void> => {
-    // console.log(values);
-    const res = await fetch(import.meta.env.VITE_URL + 'admin/login', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(values),
-    });
-
-    if (res.ok) {
-      const result = await res.json();
-      // console.log(result);
-      dispatch(
-        authReducer({
-          type: 'admin',
-          name: result.adminName,
-          id: result.id,
-          email: result.email,
-        })
-      );
-
-      navigate('/admin');
-    } else if (res.status === 403) {
-      onFinishStatus(true, 'Неверный email/пароль');
-    } else {
-      onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
-    }
+    const phone = values.prefix + values.phonelast;
+    console.log(phone);
   };
 
   return (
     <>
-      <Title>Авторизация администратора</Title>
+      <Title>Авторизация клинета</Title>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -73,18 +59,19 @@ const AdminLogin = () => {
         {!err.status && <Form.Item validateStatus="error" help={err.message} />}
 
         <Form.Item
-          name="email"
+          name="phonelast"
           rules={[
             {
-              type: 'email',
               required: true,
-              message: 'Некорректно введена электронная почта!',
+              message:
+                'Напиши свою звонилку нормально, если не хочешь потерять работу! ',
             },
           ]}
         >
           <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Введите электронную почту"
+            placeholder="Введите номер телефона"
+            addonBefore={prefixSelector}
+            style={{ width: '100%' }}
           />
         </Form.Item>
 
@@ -108,4 +95,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default CleanerLogin;

@@ -40,25 +40,25 @@ const UserRegistration: React.FC = () => {
         body: JSON.stringify(values),
       });
       const result = await response.json();
-
+      console.log(result);
       if (response.ok) {
-        const result = await res.json();
         dispatch(
           authReducer({
             type: 'user',
-            name: result.userName,
-            id: result.id,
-            email: result.email,
+            name: result.user.userName,
+            id: result.user.id,
+            email: result.user.email,
           })
         );
         navigate('/client');
-      } else {
-        authReducer({
-          type: '',
-          name: '',
-          id: 0,
-          email: '',
-        });
+      } 
+      // else {
+      //   authReducer({
+      //     type: '',
+      //     name: '',
+      //     id: 0,
+      //     email: '',
+      //   });
 
         setTimeout(() => {
           setMessage('');
