@@ -35,16 +35,17 @@ function App() {
               email: result.email,
             })
           );
-        } else {
-          dispatch(
-            authReducer({
-              type: '',
-              name: '',
-              id: 0,
-              email: '',
-            })
-          );
         }
+        // else {
+        //   dispatch(
+        //     authReducer({
+        //       type: '',
+        //       name: '',
+        //       id: 0,
+        //       email: '',
+        //     })
+        //   );
+        // }
       })();
     } catch (error) {
       console.log(error);

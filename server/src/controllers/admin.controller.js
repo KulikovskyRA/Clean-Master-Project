@@ -11,7 +11,12 @@ module.exports.adminLogin = async (req, res) => {
       const hashPass = await bcrypt.compare(password, check.password);
 
       if (hashPass) {
-        req.session.admin = check;
+        const admin = {
+          id: check.id,
+          email: check.email,
+          adminName: check.adminName,
+        };
+        req.session.admin = admin;
         res.status(200).json({
           id: check.id,
           email: check.email,

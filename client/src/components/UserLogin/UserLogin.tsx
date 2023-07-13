@@ -33,9 +33,9 @@ const UserLogin = () => {
         dispatch(
           authReducer({
             type: 'user',
-            name: result.userName,
-            id: result.id,
-            email: result.email,
+            name: result.user.userName,
+            id: result.user.id,
+            email: result.user.email,
           })
         );
         navigate('/client');
