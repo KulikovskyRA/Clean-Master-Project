@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Card, Space } from "antd";
+import { Avatar, Card, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 const orderData = {
@@ -11,27 +11,53 @@ const orderData = {
 };
 
 const cleanerData = {
-  name: 'Айнура'
+  name: 'Айнура',
 };
 
 const UserOrderComplitedRow: React.FC = () => {
   return (
-    <Card style={{ width: '100%' }}>
+    <Card
+      style={{
+        fontSize: '18px',
+        marginBottom: '50px',
+        width: '600px',
+        background: 'none',
+        border: '1px black solid',
+        marginLeft: '250px',
+      }}
+    >
       <Space direction="horizontal">
         <div>
-          {orderData.dateStart.toLocaleString('ru', { day: 'numeric', month: 'long' })}<br/>
+          {orderData.dateStart.toLocaleString('ru', {
+            day: 'numeric',
+            month: 'long',
+          })}
+          <br />
           {orderData.dateStart.toLocaleString('ru', {
             hour: 'numeric',
-            minute: 'numeric'
+            minute: 'numeric',
           })}
         </div>
         <div>
-          {`${orderData.city}, ${orderData.address}, кв. ${orderData.apartment}`}<br/>
+          {`${orderData.city}, ${orderData.address}, кв. ${orderData.apartment}`}
+          <br />
           Заказ: #{orderData.id}
         </div>
         <Space direction="vertical" wrap size={16}>
-          <Avatar size={64} icon={<UserOutlined/>}/>
-          <p>{cleanerData.name}</p>
+          <Avatar
+            style={{ marginLeft: '50px' }}
+            size={100}
+            icon={<UserOutlined />}
+          />
+          <p
+            style={{
+              marginLeft: '70px',
+              marginTop: '-20px',
+              fontWeight: 'bold',
+            }}
+          >
+            {cleanerData.name}
+          </p>
         </Space>
       </Space>
     </Card>

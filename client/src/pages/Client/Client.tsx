@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Avatar, Button, Space, List, Modal } from 'antd';
 import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 
@@ -17,7 +17,7 @@ const userData: IUserData = {
 
 const Client: React.FC = () => {
   const listData = [
-    `Здравствуйте, ${userData.name}!`,
+    `Имя: ${userData.name}`,
     `Контактный номер: ${userData.phone}`,
     `E-mail: ${userData.email}`,
   ];
@@ -37,27 +37,53 @@ const Client: React.FC = () => {
   };
 
   return (
-    <>
-      <h2>Личный кабинет</h2>
-      <div className="user-main">
+    <div>
+      <h2 style={{ marginLeft: '30px', color: 'rgb(2, 2, 134)' }}>
+        CLEAN MASTER
+      </h2>
+      <div>
         <div>
-          <Space className="user-profile" direction="horizontal" size={16}>
+          <h2 style={{ textAlign: 'center' }}>ЛИЧНЫЙ КАБИНЕТ</h2>
+          <Space
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'start',
+              marginLeft: '250px',
+              width: '800px',
+              margin: '0px auto',
+            }}
+            direction="horizontal"
+            size={16}
+          >
             <Space wrap size={16}>
-              <Avatar size={64} icon={<UserOutlined />} />
+              <Avatar size={100} icon={<UserOutlined />} />
             </Space>
+            <Button
+              style={{
+                marginLeft: '20px',
+                marginTop: '-15px',
+                background: 'none',
+                border: 'none',
+                boxShadow: 'none',
+                display: 'flex',
+              }}
+              block
+              onClick={showModal}
+            >
+              <FormOutlined style={{ fontSize: '24px' }} />
+            </Button>
             <Space>
               <List
-                className="info-user"
                 size="small"
                 dataSource={listData}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                renderItem={(item) => (
+                  <List.Item style={{ fontSize: '18px' }}>{item}</List.Item>
+                )}
               />
             </Space>
           </Space>
           <Space>
-            <Button id="btn-profile" block onClick={showModal}>
-              Редактировать профиль
-            </Button>
             <Modal
               id="modal-user"
               title="Редактирование профиля"
@@ -73,15 +99,27 @@ const Client: React.FC = () => {
         </div>
         <Space direction="vertical" style={{ width: '100%' }}>
           <div className="btn-box">
-            <Button id="order-user" block type="primary">
-              Заказать уборку
+            <Button
+              style={{
+                width: '200px',
+                margin: '0px auto',
+                background: 'rgba(240, 203, 37, 0.699)',
+                color: 'black',
+                fontWeight: 'bold',
+                fontFamily: "'Oswald', sans-serif",
+              }}
+              id="order-user"
+              block
+              type="primary"
+            >
+              ЗАКАЗАТЬ УБОРКУ
             </Button>
           </div>
         </Space>
       </div>
 
       <UserOrdersTabs />
-    </>
+    </div>
   );
 };
 
