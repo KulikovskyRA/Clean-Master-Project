@@ -5,16 +5,10 @@ const Navbar = () => {
 
     <div className="nav">
       <Link className="nav-link" to="/">
-        Home
+        Home Care
       </Link>
       <Link className="nav-link" to="/client">
-        Client
-      </Link>
-      <Link className="nav-link" to="/admin">
-        Admin
-      </Link>
-      <Link className="nav-link" to="/cleaner">
-        Cleaner
+        Личный кабинет
       </Link>
     </div>
 
