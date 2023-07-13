@@ -54,6 +54,7 @@ module.exports.register = async (req, res) => {
     const userSessionData = {
       id: result.id,
       userName: result.userName,
+      email: result.email,
     };
     req.session.user = userSessionData;
     res.status(200).json({ user: userSessionData }).end();
@@ -64,6 +65,7 @@ module.exports.register = async (req, res) => {
   }
 };
 
+// Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
   if (req.session.user) {
     res.json({
