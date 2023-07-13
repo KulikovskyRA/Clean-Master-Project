@@ -14,10 +14,10 @@ module.exports.login = async (req, res) => {
     if (!isPasswordValid) {
       res.status(400).json({ error: 'Неправильный логин или пароль' });
     } else {
-      const sessionUser = { email, name: userData.name, id: userData.id };
+      const sessionUser = { email, name: userData.userName, id: userData.id };
       req.session.user = sessionUser;
       console.log('Залогинелся---->', userData);
-      res.status(200).json({ exsistUser: sessionUser });
+      res.status(200).json({ user: sessionUser });
     }
   } catch (err) {
     console.log('Ошибка login --->', err);

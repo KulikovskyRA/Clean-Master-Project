@@ -27,7 +27,7 @@ const prefixSelector = (
 );
 
 const UserRegistration: React.FC = () => {
-  const [message, setMessage] = useState<messageType>('');
+  const [ message, setMessage ] = useState<messageType>('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const UserRegistration: React.FC = () => {
           })
         );
         navigate('/client');
-      } 
+      }
       // else {
       //   authReducer({
       //     type: '',
@@ -60,11 +60,10 @@ const UserRegistration: React.FC = () => {
       //     email: '',
       //   });
 
-        setTimeout(() => {
-          setMessage('');
-        }, 3000);
-        setMessage(result.error);
-      }
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+      setMessage(result.error);
     } catch (error) {
       console.log(error);
     }
@@ -86,9 +85,9 @@ const UserRegistration: React.FC = () => {
       <Form.Item
         label="Как Вас зовут?"
         name="userName"
-        rules={[{ required: true, message: 'Пожалуйста, введите Ваше имя!' }]}
+        rules={[ { required: true, message: 'Пожалуйста, введите Ваше имя!' } ]}
       >
-        <Input />
+        <Input/>
       </Form.Item>
 
       <Form.Item
@@ -102,23 +101,23 @@ const UserRegistration: React.FC = () => {
           },
         ]}
       >
-        <Input />
+        <Input/>
       </Form.Item>
 
       <Form.Item
         label="Телефон"
         name="phone"
-        rules={[{ required: true, message: 'Please input your phone number!' }]}
+        rules={[ { required: true, message: 'Please input your phone number!' } ]}
       >
-        <InputNumber addonBefore={prefixSelector} style={{ width: '100%' }} />
+        <InputNumber addonBefore={prefixSelector} style={{ width: '100%' }}/>
       </Form.Item>
 
       <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[ { required: true, message: 'Please input your password!' } ]}
       >
-        <Input.Password />
+        <Input.Password/>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
