@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
-import { IRegisterInputs } from "../../types/typesForms";
+import { IRegisterInputs, messageType } from "../../types/typesForms";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const { Option } = Select;
 
@@ -23,10 +24,12 @@ const prefixSelector = (
 
 const UserRegistration: React.FC = () => {
 
+  const [ message, setMessage ] = useState<messageType>('');
+
   const navigate = useNavigate();
 
 
-  const onFinish = async (values: IRegisterInputs): Promise<void> => {
+  const onFinish = async (values: IRegisterInputs): Promise<object> => {
     try {
       const response = await fetch(`${VITE_URL}auth/register`, {
         method: 'POST',
@@ -34,12 +37,16 @@ const UserRegistration: React.FC = () => {
         credentials: 'include',
         body: JSON.stringify(values),
       });
+      const result = await response.json();
+
       if (response.ok) {
         navigate('/client');
       } else {
-        
+        setTimeout(() => {
+          setMessage('');
+        }, 3000);
+        setMessage(result.error);
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +65,7 @@ const UserRegistration: React.FC = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      <h1 className="text-red-600">{message}</h1>
       <Form.Item
         label="Как Вас зовут?"
         name="userName"

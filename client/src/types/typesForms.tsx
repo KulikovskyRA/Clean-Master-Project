@@ -12,3 +12,5 @@ export interface IRegisterInputs extends ILoginInputs {
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
+
+export type messageType = string;
