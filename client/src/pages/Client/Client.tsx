@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Space, List, Modal } from 'antd';
 import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
+import UserEditForm from "../../components/UserEditForm/UserEditForm";
 
 interface IUserData {
   name: string;
@@ -22,7 +23,7 @@ const Client: React.FC = () => {
     `E-mail: ${userData.email}`,
   ];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -43,7 +44,7 @@ const Client: React.FC = () => {
         <div>
           <Space className="user-profile" direction="horizontal" size={16}>
             <Space wrap size={16}>
-              <Avatar size={64} icon={<UserOutlined />} />
+              <Avatar size={64} icon={<UserOutlined/>}/>
             </Space>
             <Space>
               <List
@@ -65,9 +66,7 @@ const Client: React.FC = () => {
               onOk={handleOk}
               onCancel={handleCancel}
             >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+              <UserEditForm user={userData}/>
             </Modal>
           </Space>
         </div>
@@ -80,7 +79,7 @@ const Client: React.FC = () => {
         </Space>
       </div>
 
-      <UserOrdersTabs />
+      <UserOrdersTabs/>
     </>
   );
 };
