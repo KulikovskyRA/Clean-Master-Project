@@ -9,6 +9,14 @@ export interface IRegisterInputs extends ILoginInputs {
   phone: number;
 }
 
+export interface IEditObject {
+  name: string;
+  phone: string;
+  email: string;
+}
+
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
+
+export type messageType = string;

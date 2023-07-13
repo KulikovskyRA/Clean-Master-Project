@@ -2,8 +2,27 @@ const bcrypt = require('bcrypt');
 const { User } = require('../../db/models');
 
 module.exports.login = async (req, res) => {
+  const { email, password } = req.body;
   try {
-  } catch (error) {}
+    const userData = await User.findOne({ where: { email }, raw: true });
+    if (!userData) {
+      return res
+        .status(403)
+        .json({ error: 'Неправильный логин или пароль' });
+    }
+    const isPasswordValid = await bcrypt.compare(password, userData.password);
+    if (!isPasswordValid) {
+      res.status(400).json({ error: 'Неправильный логин или пароль' });
+    } else {
+      const sessionUser = { email, name: userData.userName, id: userData.id };
+      req.session.user = sessionUser;
+      console.log('Залогинелся---->', userData);
+      res.status(200).json({ user: sessionUser });
+    }
+  } catch (err) {
+    console.log('Ошибка login --->', err);
+    res.status(400).json({ error: 'error' });
+  }
 };
 
 module.exports.logout = async (req, res) => {
@@ -35,15 +54,18 @@ module.exports.register = async (req, res) => {
     const userSessionData = {
       id: result.id,
       userName: result.userName,
+      email: result.email,
     };
     req.session.user = userSessionData;
     res.status(200).json({ user: userSessionData }).end();
   } catch (error) {
     console.log('ERROR====>', error);
     res.status(400).json({ error: 'Пользователь с таким email существует!' });
+    res.end();
   }
 };
 
+// Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
   if (req.session.user) {
     res.json({
