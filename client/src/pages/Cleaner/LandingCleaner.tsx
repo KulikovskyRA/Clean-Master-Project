@@ -44,7 +44,7 @@ export default function LandingCleaner() {
           </div>
           <div className={styles.lightGrayDiv}>
           <Title>
-           Просто откройте личный кабинет<br /> и управляйте своим расписанием и доходами
+           Просто откройте личный кабинет<br /> и управляйте своим расписанием<br /> и доходами
             </Title>
         </div>
           <div
