@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Space, List, Modal } from 'antd';
 import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
-import UserEditForm from "../../components/UserEditForm/UserEditForm";
-import { useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 
 interface IUserData {
   name: string;
@@ -19,16 +16,14 @@ const userData: IUserData = {
 };
 
 const Client: React.FC = () => {
-
-
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const user = useSelector((state: RootState) => state.authSlice);
-
   const listData = [
-    `Здравствуйте, ${user.name}!`,
-    `Контактный номер: ${user.phone}`,
-    `E-mail: ${user.email}`,
+    `Здравствуйте, ${userData.name}!`,
+    `Контактный номер: ${userData.phone}`,
+    `E-mail: ${userData.email}`,
   ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -48,7 +43,7 @@ const Client: React.FC = () => {
         <div>
           <Space className="user-profile" direction="horizontal" size={16}>
             <Space wrap size={16}>
-              <Avatar size={64} icon={<UserOutlined/>}/>
+              <Avatar size={64} icon={<UserOutlined />} />
             </Space>
             <Space>
               <List
@@ -70,7 +65,9 @@ const Client: React.FC = () => {
               onOk={handleOk}
               onCancel={handleCancel}
             >
-              <UserEditForm/>
+              <p>Some contents...</p>
+              <p>Some contents...</p>
+              <p>Some contents...</p>
             </Modal>
           </Space>
         </div>
@@ -83,7 +80,7 @@ const Client: React.FC = () => {
         </Space>
       </div>
 
-      <UserOrdersTabs/>
+      <UserOrdersTabs />
     </>
   );
 };

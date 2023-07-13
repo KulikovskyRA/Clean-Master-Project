@@ -12,7 +12,7 @@ module.exports.login = async (req, res) => {
     if (!isPasswordValid) {
       res.status(400).json({ error: 'Неправильный логин или пароль' });
     } else {
-      const sessionUser = { email, name: userData.userName, id: userData.id };
+      const sessionUser = { email, name: userData.userName, id: userData.id, phone: userData.phoneNumber };
       req.session.user = sessionUser;
       console.log('Залогинелся---->', userData);
       res.status(200).json({ user: sessionUser });
@@ -53,6 +53,7 @@ module.exports.register = async (req, res) => {
       id: result.id,
       userName: result.userName,
       email: result.email,
+      phone: result.phoneNumber
     };
     req.session.user = userSessionData;
     res.status(200).json({ user: userSessionData }).end();
