@@ -36,6 +36,7 @@ const UserLogin = () => {
             name: result.user.name,
             id: result.user.id,
             email: result.user.email,
+            phone: result.user.phone,
           })
         );
         navigate('/client');
