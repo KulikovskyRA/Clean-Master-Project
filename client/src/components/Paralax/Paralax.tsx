@@ -158,23 +158,23 @@ const Paralax = () => {
           <div className="photo-box">
             <div className="oneCard">
               <div className="block-block"></div>
-              <img className="photo-use" src="/public/1.jpeg" alt="" />
+              <img className="photo-use" src="/1.jpeg" alt="" />
               <div className="text1">Влажная уборка поверхностей</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/2.jpeg" alt="" />
+              <img className="photo-use" src="/2.jpeg" alt="" />
 
               <div className="text1">Чистка ковра и мебели</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/3.jpeg" alt="" />
+              <img className="photo-use" src="/3.jpeg" alt="" />
               <div className="text1">Уборка кухни</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/4.jpeg" alt="" />
+              <img className="photo-use" src="/4.jpeg" alt="" />
               <div className="block-block2"></div>
               <div className="text1">Дезинфекция сантехники и зеркал</div>
             </div>
@@ -225,42 +225,42 @@ const Paralax = () => {
               <div className="box-top">
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/l.jpg" alt="" />
+                    <img className="photo" src="/l.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Лера</p>
                 </div>
 
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/a.jpg" alt="" />
+                    <img className="photo" src="/a.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Артем</p>
                 </div>
 
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/v.jpg" alt="" />
+                    <img className="photo" src="/v.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Влад</p>
                 </div>
 
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/r.jpg" alt="" />
+                    <img className="photo" src="/r.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Рома</p>
                 </div>
 
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/s.jpg" alt="" />
+                    <img className="photo" src="/s.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Сергей</p>
                 </div>
 
                 <div className="top-item">
                   <p className="img-item">
-                    <img className="photo" src="/public/an.jpg" alt="" />
+                    <img className="photo" src="/an.jpg" alt="" />
                   </p>
                   <p className="top-item-text">Антон</p>
                 </div>
