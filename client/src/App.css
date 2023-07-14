@@ -1,6 +1,57 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
 
+/*  */
+.slider-container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+
+  margin: 0px auto;
+  margin-top: -100px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: clip-path 0.1s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.slider {
+  top: 50%;
+  left: 50%;
+  height: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: url('https://foni.club/uploads/posts/2022-02/1645798780_6-foni-club-p-besshovnaya-tekstura-gubki-8.jpg');
+  background-size: cover;
+
+  border-radius: 37%;
+  cursor: pointer;
+  z-index: 1;
+}
+/*  */
+
+.top-item.animate {
+  opacity: 1;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -420,17 +471,14 @@ body {
   border-top-right-radius: 8px;
 }
 .photo-use {
-  border-radius: 14px;
+  border-radius: 1px;
   max-width: 250px;
-  box-shadow: 2px 2px 2px rgb(8, 8, 8);
 }
 .text1 {
   font-family: 'Oswald', sans-serif;
-
   display: flex;
-  margin-top: 210px;
+  margin-top: 220px;
   font-size: 18px;
-  font-weight: bold;
   margin-left: -200px;
 }
 .text3 {

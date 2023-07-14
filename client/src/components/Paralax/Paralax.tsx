@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Element, scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import {
@@ -13,6 +13,34 @@ import {
 } from '@ant-design/icons';
 
 const Paralax = () => {
+  useEffect(() => {
+    const handleSliderMove = (event) => {
+      const container = document.getElementById('sliderContainer');
+      const containerWidth = container.offsetWidth;
+      const xPos = event.clientX - container.getBoundingClientRect().left;
+      const percentage = (xPos / containerWidth) * 100;
+      setSliderPosition(percentage);
+    };
+
+    const handleSliderRelease = () => {
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+
+    const handleSliderClick = (event) => {
+      window.addEventListener('mousemove', handleSliderMove);
+      window.addEventListener('mouseup', handleSliderRelease);
+    };
+
+    window.addEventListener('mousedown', handleSliderClick);
+
+    return () => {
+      window.removeEventListener('mousedown', handleSliderClick);
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+  }, []);
+
   const scrollToBlock = () => {
     scroller.scrollTo('block', {
       duration: 800,
@@ -20,6 +48,35 @@ const Paralax = () => {
       smooth: 'easeInOutQuart',
     });
   };
+
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  useEffect(() => {
+    const handleSliderMove = (event) => {
+      const container = document.getElementById('sliderContainer');
+      const containerWidth = container.offsetWidth;
+      const xPos = event.clientX - container.getBoundingClientRect().left;
+      const percentage = (xPos / containerWidth) * 100;
+      setSliderPosition(percentage);
+    };
+
+    const handleSliderRelease = () => {
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+
+    const handleSliderClick = (event) => {
+      window.addEventListener('mousemove', handleSliderMove);
+      window.addEventListener('mouseup', handleSliderRelease);
+    };
+
+    const sliderContainer = document.getElementById('sliderContainer');
+    sliderContainer.addEventListener('mousedown', handleSliderClick);
+
+    return () => {
+      sliderContainer.removeEventListener('mousedown', handleSliderClick);
+    };
+  }, []);
   return (
     <>
       <div id="parallax-world-of-ugg">
@@ -179,7 +236,7 @@ const Paralax = () => {
         </section>
 
         <section>
-          <div className="block">
+          <div id="cleaning-block" className="block">
             <p>
               <span className="first-character ny">I</span>{' '}
               <div className="text">ЧТО ВХОДИТ В УБОРКУ?</div>
@@ -211,6 +268,34 @@ const Paralax = () => {
             </div>
           </div>
         </section>
+        {/*  */}
+
+        <div className="slider-container" id="sliderContainer">
+          <img
+            src="./nenorm.jpg"
+            className="image"
+            id="imageBefore"
+            alt="Before"
+            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+          />
+          <div className="slider">
+            <div
+              className="slider-handle"
+              id="sliderHandle"
+              style={{ left: `${sliderPosition}%` }}
+            ></div>
+          </div>
+          <img
+            src="./norm.jpg"
+            className="image"
+            id="imageAfter"
+            alt="After"
+            style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
+          />
+        </div>
+
+        {/*  */}
+
         <Element name="block" className="block">
           <div className="block">
             <p>
@@ -233,6 +318,7 @@ const Paralax = () => {
               </ul>
               <br />
               <br />
+
               <div className="text">Дополнительные услуги:</div>
               <ul>
                 <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
