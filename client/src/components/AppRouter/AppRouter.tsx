@@ -11,6 +11,7 @@ import AdminLogin from '../AdminLogin/AdminLogin';
 import UserLogin from '../UserLogin/UserLogin';
 import UserRegistration from '../UserRegistration/UserRegistration';
 import CleanerLogin from '../CleanerLogin/CleanerLogin';
+import CleanerRegister from '../CleanerRegister/CleanerRegister';
 
 const AppRouter = () => {
   return (
@@ -27,6 +28,7 @@ const AppRouter = () => {
         <Route path="/login" Component={UserLogin} />
 
         <Route path="/cleanlogin" Component={CleanerLogin} />
+        <Route path="/cleanregister" Component={CleanerRegister} />
       </Routes>
     </>
   );
