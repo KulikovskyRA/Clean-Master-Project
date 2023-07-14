@@ -15,6 +15,7 @@ export default function LandingCleaner() {
         theme={{
           token: {
             colorPrimary: "black",
+            fontSize: 18,
           },
         }}
       >
@@ -39,7 +40,7 @@ export default function LandingCleaner() {
           <Row>
             <div className={styles.yellowDiv}>
               <Title>
-                С вас - качественный сервис, <br /> с нас - стабильный поток
+                Мы настроены на долгосрочное <br /> сотрудничество и гарантируем <br />стабильный поток
                 клиентов
               </Title>
               <Button type="primary" size="large" icon={<FormOutlined />}>
@@ -56,7 +57,7 @@ export default function LandingCleaner() {
             </div>
             <div className={styles.lightGrayDiv}>
               <Title>
-                Просто откройте личный кабинет
+                Просто войдите в личный кабинет
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
