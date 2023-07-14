@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import UserOrderPlannedList from '../UserOrderPlannedList/UserOrderPlannedList';
 import UserOrderComplitedList from '../UserOrderComplitedList/UserOrderComplitedList';
+import { ColorFactory } from 'antd/es/color-picker/color';
 
 const UserOrdersTabs = () => {
   const tabsItems: TabsProps['items'] = [
@@ -18,7 +19,14 @@ const UserOrdersTabs = () => {
     },
   ];
 
-  return <Tabs defaultActiveKey="1" centered items={tabsItems} />;
+  return (
+    <Tabs
+      style={{ color: 'black' }}
+      defaultActiveKey="1"
+      centered
+      items={tabsItems}
+    />
+  );
 };
 
 export default UserOrdersTabs;

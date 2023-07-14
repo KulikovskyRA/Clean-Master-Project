@@ -1,10 +1,8 @@
 import * as React from 'react';
-import UserOrderComplitedRow from "../UserOrderComplitedRow/UserOrderComplitedRow";
+import UserOrderComplitedRow from '../UserOrderComplitedRow/UserOrderComplitedRow';
 
 const UserOrderComplitedList = () => {
-  return (
-    <UserOrderComplitedRow/>
-  );
+  return <UserOrderComplitedRow />;
 };
 
 export default UserOrderComplitedList;

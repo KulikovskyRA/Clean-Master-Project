@@ -1,10 +1,8 @@
 import * as React from 'react';
-import UserOrderPlannedCard from "../UserOrderPlannedCard/UserOrderPlannedCard";
+import UserOrderPlannedCard from '../UserOrderPlannedCard/UserOrderPlannedCard';
 
 const UserOrderPlannedList = () => {
-  return (
-    <UserOrderPlannedCard/>
-  );
+  return <UserOrderPlannedCard />;
 };
 
 export default UserOrderPlannedList;
