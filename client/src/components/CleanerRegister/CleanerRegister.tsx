@@ -34,9 +34,9 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-    // console.log(pet);
+    // console.log(values);
     let pets;
-    if (pet === 'indefined' || pet.length === 0) {
+    if (pet === 'indefined' ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
