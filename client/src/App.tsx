@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
+import { authReducer, checkAuthReducer } from './redux/authSlice';
 
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -7,7 +11,42 @@ import AppRouter from './components/AppRouter/AppRouter';
 import Paralax from './components/Paralax/Paralax';
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      (async function (): Promise<void> {
+        const response: Response = await fetch(
+          import.meta.env.VITE_URL + 'auth',
+          {
+            credentials: 'include',
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          // console.log(result);
+
+          if (!result.user && window.location.pathname === '/client') {
+            navigate('/login');
+          }
+
+          if (!result.admin && window.location.pathname === '/admin') {
+            navigate('/adminlogin');
+          }
+
+          if (!result.cleaner && window.location.pathname === '/cleaner') {
+            navigate('/cleanlogin');
+          }
+
+          dispatch(checkAuthReducer(result));
+        }
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div
@@ -19,12 +58,8 @@ function App() {
         height: '100%',
       }}
     >
-      {' '}
-      {/* <Layout> */}
       <Navbar />
       <AppRouter />
-      {/* <Paralax /> */}
-      {/* </Layout> */}
     </div>
   );
 }

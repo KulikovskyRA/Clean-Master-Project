@@ -254,7 +254,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(../public/1.jpeg);
+  background-image: url(/1.jpeg);
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -268,7 +268,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(../public/2.jpeg);
+  background-image: url(/2.jpeg);
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -282,7 +282,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(../public/3.jpeg);
+  background-image: url(/3.jpeg);
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -296,7 +296,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(../public/4.jpeg);
+  background-image: url(/4.jpeg);
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -375,7 +375,7 @@ body {
 }
 
 .box2 {
-  background-image: url(../../client/public/1.jpeg);
+  background-image: url(/1.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
   width: 500px;

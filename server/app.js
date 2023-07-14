@@ -16,6 +16,8 @@ const corsOptions = {
 // Require routes
 const authRouter = require('./src/routers/auth.router');
 const adminRouter = require('./src/routers/admin.router');
+const cleanerRouter = require('./src/routers/cleaner.router');
+const userRouter = require('./src/routers/user.router');
 
 // Cookie
 const sessionConfig = {
@@ -25,7 +27,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 9999999,
+    maxAge: 999999999,
     httpOnly: true,
   },
 };
@@ -39,10 +41,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // Routes
-app.use('/api/auth/', authRouter);
+
+app.use('/api/auth', authRouter);
+
 app.use('/api/admin/', adminRouter);
+
+app.use('/api/cleaner/', cleanerRouter);
+
+app.use('/api/user/', userRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
-  console.log('➜  Local:   ', `http://localhost:${PORT}/`);
+  console.log('➜ ', `http://localhost:${PORT}/`);
 });

@@ -246,23 +246,23 @@ const Paralax = () => {
           <div className="photo-box">
             <div className="oneCard">
               <div className="block-block"></div>
-              <img className="photo-use" src="/public/1.jpeg" alt="" />
+              <img className="photo-use" src="/1.jpeg" alt="" />
               <div className="text1">Влажная уборка поверхностей</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/2.jpeg" alt="" />
+              <img className="photo-use" src="/2.jpeg" alt="" />
 
               <div className="text1">Чистка ковра и мебели</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/3.jpeg" alt="" />
+              <img className="photo-use" src="/3.jpeg" alt="" />
               <div className="text1">Уборка кухни</div>
             </div>
 
             <div className="oneCard">
-              <img className="photo-use" src="/public/4.jpeg" alt="" />
+              <img className="photo-use" src="/4.jpeg" alt="" />
               <div className="block-block2"></div>
               <div className="text1">Дезинфекция сантехники и зеркал</div>
             </div>
@@ -295,6 +295,7 @@ const Paralax = () => {
         </div>
 
         {/*  */}
+
 
         <Element name="block" className="block">
           <div className="block">
@@ -330,6 +331,7 @@ const Paralax = () => {
                 <li className="text3">Помыть микроволновку +10 000 UZS</li>
                 <li className="text3">Глажка 40 000 UZS за час</li>
               </ul>
+
             </p>
           </div>
         </Element>
