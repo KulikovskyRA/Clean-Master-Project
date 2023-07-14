@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const handleLogout = () => {
-    fetch('/logout', {
+    fetch(import.meta.env.VITE_URL + 'auth/logout', {
       method: 'GET',
     })
       .then(res => {
