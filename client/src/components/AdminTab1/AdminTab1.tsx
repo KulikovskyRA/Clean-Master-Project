@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 
-import { Button, Card, Col, Row } from 'antd';
+import { Button, Card, Col, Row, Modal } from 'antd';
 
 const AdminTab1 = () => {
   const navigate = useNavigate();
@@ -50,8 +50,31 @@ const AdminTab1 = () => {
     }
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
       {orders.map((order) => (
         <Card
           key={`order${order.id}`}
@@ -89,12 +112,14 @@ const AdminTab1 = () => {
               {order.Cleaner ? (
                 <>
                   <p>{`Клинер: ${order.Cleaner.name}`}</p>
-                  <Button type="dashed">Изменить</Button>
+                  <Button type="dashed" onClick={showModal}>
+                    Изменить
+                  </Button>
                 </>
               ) : (
                 <>
                   <p>Клинер не выбран</p>
-                  <Button>Назначить</Button>
+                  <Button onClick={showModal}>Назначить</Button>
                 </>
               )}
               <Row justify="center">
