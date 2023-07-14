@@ -1,6 +1,57 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
 
+/*  */
+.slider-container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+
+  margin: 0px auto;
+  margin-top: -100px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: clip-path 0.1s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.slider {
+  top: 50%;
+  left: 50%;
+  height: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: url('https://foni.club/uploads/posts/2022-02/1645798780_6-foni-club-p-besshovnaya-tekstura-gubki-8.jpg');
+  background-size: cover;
+
+  border-radius: 37%;
+  cursor: pointer;
+  z-index: 1;
+}
+/*  */
+
+.top-item.animate {
+  opacity: 1;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -17,8 +68,8 @@ body {
 }
 .sec-title {
   text-align: center;
-  font-size: 24px;
-  color: rgb(240, 203, 37);
+  font-size: 28px;
+  color: rgb(255, 255, 255);
   font-family: 'Oswald', sans-serif;
   margin-top: 73px;
 }
@@ -37,11 +88,9 @@ body {
   opacity: 0.8;
   height: 180px;
 }
-.main-title:hover {
-  color: rgb(240, 203, 37);
-}
 
 .margin-top-10 {
+  width: 100%;
   padding-top: 10px;
 }
 .margin-bot-10 {
@@ -116,21 +165,27 @@ body {
 .box-top {
   display: flex;
   flex-wrap: wrap;
+
+  width: 100%;
 }
+
 .top-item {
   border-radius: 8px;
-  background: rgb(240, 203, 37);
-  box-shadow: 2px 2px 2px black;
-  border: 2px rgb(179, 201, 241) solid;
-  width: 200px;
+
+  border: 2px rgba(240, 203, 37, 0.699) solid;
+  width: 180px;
   height: 200px;
-  margin: 20px;
+  margin: 5px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   display: flex;
   padding: 5px;
   text-align: center;
+  filter: grayscale();
+}
+.top-item:hover {
+  filter: grayscale(0);
 }
 
 .top-item-text {
@@ -171,7 +226,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  background-image: url(https://links-stroy.ru/wp-content/uploads/2017/05/%D0%94%D0%B8%D0%B2%D0%B0%D0%BD-%D0%B2-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%D0%B5-%D1%81%D0%BF%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9-%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B-16.jpg);
+  background-image: url('./components/Paralax/bg3.jpeg');
   background-attachment: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -267,6 +322,7 @@ body {
   display: flex;
   width: 100%;
 }
+
 .btn-go {
   background-color: rgba(240, 203, 37, 0.699);
   height: 50px;
@@ -415,17 +471,14 @@ body {
   border-top-right-radius: 8px;
 }
 .photo-use {
-  border-radius: 14px;
+  border-radius: 1px;
   max-width: 250px;
-  box-shadow: 2px 2px 2px rgb(8, 8, 8);
 }
 .text1 {
   font-family: 'Oswald', sans-serif;
-
   display: flex;
-  margin-top: 210px;
+  margin-top: 220px;
   font-size: 18px;
-  font-weight: bold;
   margin-left: -200px;
 }
 .text3 {
@@ -435,50 +488,25 @@ body {
   font-weight: bold;
 }
 
+/*  */
+
 /* Личный кабинет */
-.user-profile {
-  margin-left: 40px;
-}
-#btn-profile {
-  width: 200px;
-  font-weight: bold;
-  background-color: rgb(240, 203, 37);
+.main-title {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: fadeInDown 0.5s ease-in-out 0.5s forwards;
 }
 
-.user-main {
-  display: flex;
-  flex-direction: column;
-  margin: 0px auto;
-  width: 80%;
-
-  font-size: 24px;
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-#order-user {
-  text-align: center;
-  background-color: rgb(240, 203, 37);
-  width: 200px;
-}
-.btn-box {
-  display: flex;
-  justify-content: center;
-}
-.ant-list-item {
-  font-family: 'Oswald', sans-serif;
-  font-size: 24px;
-}
-.ant-tabs-tab-btn {
-  color: rgb(5, 5, 5);
-}
-.ant-tabs {
-  font-family: 'Oswald', sans-serif;
-}
-.ant-tabs-ink-bar {
-  border: 1px rgb(240, 203, 37) solid;
-}
-.ant-space-item {
-  font-family: 'Oswald', sans-serif;
-}
-
 @media screen and (max-width: 959px) and (min-width: 768px) {
   #parallax-world-of-ugg .block {
     padding: 40px;

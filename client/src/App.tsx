@@ -24,9 +24,11 @@ function App() {
           }
         );
 
+
         if (response.ok) {
           const result = await response.json();
-          // console.log(result);
+          dispatch(checkAuthReducer(result));
+          console.log(result);
 
           if (!result.user && window.location.pathname === '/client') {
             navigate('/login');
@@ -40,7 +42,7 @@ function App() {
             navigate('/cleanlogin');
           }
 
-          dispatch(checkAuthReducer(result));
+
         }
       })();
     } catch (error) {
@@ -58,8 +60,8 @@ function App() {
         height: '100%',
       }}
     >
-      <Navbar />
-      <AppRouter />
+      <Navbar/>
+      <AppRouter/>
     </div>
   );
 }

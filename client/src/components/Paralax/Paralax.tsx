@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Element, scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import {
   TeamOutlined,
@@ -12,6 +13,70 @@ import {
 } from '@ant-design/icons';
 
 const Paralax = () => {
+  useEffect(() => {
+    const handleSliderMove = (event) => {
+      const container = document.getElementById('sliderContainer');
+      const containerWidth = container.offsetWidth;
+      const xPos = event.clientX - container.getBoundingClientRect().left;
+      const percentage = (xPos / containerWidth) * 100;
+      setSliderPosition(percentage);
+    };
+
+    const handleSliderRelease = () => {
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+
+    const handleSliderClick = (event) => {
+      window.addEventListener('mousemove', handleSliderMove);
+      window.addEventListener('mouseup', handleSliderRelease);
+    };
+
+    window.addEventListener('mousedown', handleSliderClick);
+
+    return () => {
+      window.removeEventListener('mousedown', handleSliderClick);
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+  }, []);
+
+  const scrollToBlock = () => {
+    scroller.scrollTo('block', {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart',
+    });
+  };
+
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  useEffect(() => {
+    const handleSliderMove = (event) => {
+      const container = document.getElementById('sliderContainer');
+      const containerWidth = container.offsetWidth;
+      const xPos = event.clientX - container.getBoundingClientRect().left;
+      const percentage = (xPos / containerWidth) * 100;
+      setSliderPosition(percentage);
+    };
+
+    const handleSliderRelease = () => {
+      window.removeEventListener('mousemove', handleSliderMove);
+      window.removeEventListener('mouseup', handleSliderRelease);
+    };
+
+    const handleSliderClick = (event) => {
+      window.addEventListener('mousemove', handleSliderMove);
+      window.addEventListener('mouseup', handleSliderRelease);
+    };
+
+    const sliderContainer = document.getElementById('sliderContainer');
+    sliderContainer.addEventListener('mousedown', handleSliderClick);
+
+    return () => {
+      sliderContainer.removeEventListener('mousedown', handleSliderClick);
+    };
+  }, []);
   return (
     <>
       <div id="parallax-world-of-ugg">
@@ -21,12 +86,14 @@ const Paralax = () => {
             <div className="sec-title">УБОРКА КВАРТИР В ТАШКЕНТЕ</div>
             <br />
             <div className="btn-box">
-              <button className="btn-go">ЗАКАЗАТЬ УБОРКУ</button>
+              <button className="btn-go" onClick={scrollToBlock}>
+                ЗАКАЗАТЬ УБОРКУ
+              </button>
             </div>
           </div>
         </section>
 
-        <section>
+        <section className="section">
           <div className="block">
             <p className="text">
               <span className="first-character ">I</span>{' '}
@@ -40,7 +107,7 @@ const Paralax = () => {
                     <TeamOutlined
                       style={{
                         fontSize: '38px',
-                        color: 'rgb(30, 61, 119)',
+                        color: 'rgba(240, 203, 37, 0.699)',
                       }}
                     />
                   </p>
@@ -54,7 +121,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <SafetyOutlined
-                      style={{ fontSize: '42px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '42px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
@@ -66,7 +136,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <DollarOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
@@ -79,7 +152,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <LikeOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
@@ -89,7 +165,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <UsergroupAddOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">ДОВЕРИЕ</div>
@@ -103,7 +182,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <SmileOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">НАДЁЖНОСТЬ</div>
@@ -115,7 +197,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <HeartOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
@@ -127,7 +212,10 @@ const Paralax = () => {
                 <div className="top-item">
                   <p className="img-item">
                     <GiftOutlined
-                      style={{ fontSize: '38px', color: 'rgb(30, 61, 119)' }}
+                      style={{
+                        fontSize: '38px',
+                        color: 'rgba(240, 203, 37, 0.699)',
+                      }}
                     />
                   </p>
                   <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
@@ -148,7 +236,7 @@ const Paralax = () => {
         </section>
 
         <section>
-          <div className="block">
+          <div id="cleaning-block" className="block">
             <p>
               <span className="first-character ny">I</span>{' '}
               <div className="text">ЧТО ВХОДИТ В УБОРКУ?</div>
@@ -180,94 +268,73 @@ const Paralax = () => {
             </div>
           </div>
         </section>
+        {/*  */}
 
-        <div className="block">
-          <p>
-            <span className="first-character ny">I</span>
-            <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
-
-            <ul className="list">
-              <li className="text2">
-                <div className="room">1 комната:</div>
-                <div className="price-room"> от 249 000 UZS</div>
-              </li>
-              <li className="text2">
-                <div className="room">2 комнаты:</div>
-                <div className="price-room"> от 299 000 UZS</div>
-              </li>
-              <li className="text2">
-                <div className="room">3 комнаты:</div>
-                <div className="price-room">от 349 000 UZS</div>
-              </li>
-            </ul>
-            <br />
-            <br />
-            <div className="text">Дополнительные услуги:</div>
-            <ul>
-              <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
-              <li className="text3">Уборка балкона +30 000 UZS</li>
-              <li className="text3">Помыть внутри холодильника +15 000 UZS</li>
-              <li className="text3">Помыть духовку +15 000 UZS</li>
-              <li className="text3">Помыть микроволновку +10 000 UZS</li>
-              <li className="text3">Глажка 40 000 UZS за час</li>
-            </ul>
-          </p>
+        <div className="slider-container" id="sliderContainer">
+          <img
+            src="./nenorm.jpg"
+            className="image"
+            id="imageBefore"
+            alt="Before"
+            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+          />
+          <div className="slider">
+            <div
+              className="slider-handle"
+              id="sliderHandle"
+              style={{ left: `${sliderPosition}%` }}
+            ></div>
+          </div>
+          <img
+            src="./norm.jpg"
+            className="image"
+            id="imageAfter"
+            alt="After"
+            style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
+          />
         </div>
 
-        <section>
+        {/*  */}
+
+
+        <Element name="block" className="block">
           <div className="block">
-            <p className="text">
-              <span className="first-character sc">I</span>{' '}
-              <div className="text">НАШИ КЛИНЕРЫ</div>
-            </p>
+            <p>
+              <span className="first-character ny">I</span>
+              <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
 
-            <p className="margin-top-10">
-              <div className="box-top">
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/l.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Лера</p>
-                </div>
+              <ul className="list">
+                <li className="text2">
+                  <div className="room">1 комната:</div>
+                  <div className="price-room"> от 249 000 UZS</div>
+                </li>
+                <li className="text2">
+                  <div className="room">2 комнаты:</div>
+                  <div className="price-room"> от 299 000 UZS</div>
+                </li>
+                <li className="text2">
+                  <div className="room">3 комнаты:</div>
+                  <div className="price-room">от 349 000 UZS</div>
+                </li>
+              </ul>
+              <br />
+              <br />
 
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/a.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Артем</p>
-                </div>
+              <div className="text">Дополнительные услуги:</div>
+              <ul>
+                <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
+                <li className="text3">Уборка балкона +30 000 UZS</li>
+                <li className="text3">
+                  Помыть внутри холодильника +15 000 UZS
+                </li>
+                <li className="text3">Помыть духовку +15 000 UZS</li>
+                <li className="text3">Помыть микроволновку +10 000 UZS</li>
+                <li className="text3">Глажка 40 000 UZS за час</li>
+              </ul>
 
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/v.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Влад</p>
-                </div>
-
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/r.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Рома</p>
-                </div>
-
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/s.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Сергей</p>
-                </div>
-
-                <div className="top-item">
-                  <p className="img-item">
-                    <img className="photo" src="/an.jpg" alt="" />
-                  </p>
-                  <p className="top-item-text">Антон</p>
-                </div>
-              </div>
             </p>
           </div>
-        </section>
+        </Element>
 
         <section className="footer">
           <p className="line-break "></p>
