@@ -31,7 +31,7 @@ export default function LandingCleaner() {
               </Button>
             </div>
           </div>
-          <div style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}>
+          <div style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}>
             <Divider>
               <h1>Мы предлагаем</h1>
             </Divider>
@@ -48,7 +48,7 @@ export default function LandingCleaner() {
               </Button>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}
+              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
             >
               <Divider>
                 <h1>Как стать клинером в CLEAN MASTER</h1>
@@ -63,7 +63,7 @@ export default function LandingCleaner() {
               </Title>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}
+              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
             >
               <Divider>
                 <h1>Ответы на популярные вопросы</h1>
