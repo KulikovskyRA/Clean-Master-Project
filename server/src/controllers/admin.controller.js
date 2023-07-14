@@ -5,11 +5,6 @@ const { Admin } = require('../../db/models');
 module.exports.adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  // //!Cначала очищаем сессию чтобы не путались авторизации юзера, админа и клинера
-  // req.session.destroy(() => {
-  //   res.clearCookie('CleanMasterCookie');
-  // });
-
   try {
     const check = await Admin.findOne({ where: { email }, raw: true });
     if (check) {

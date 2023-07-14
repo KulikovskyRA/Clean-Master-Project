@@ -12,11 +12,16 @@ module.exports.login = async (req, res) => {
     if (!isPasswordValid) {
       res.status(400).json({ error: 'Неправильный логин или пароль' });
     } else {
-      const sessionUser = { email, name: userData.userName, id: userData.id, phoneNumber: userData.phoneNumber };
+      const sessionUser = {
+        email,
+        name: userData.userName,
+        id: userData.id,
+        phoneNumber: userData.phoneNumber,
+      };
 
       req.session.user = sessionUser;
-      console.log('Залогинелся---->', userData);
-      console.log(req.session);
+      // console.log('Залогинелся---->', userData);
+      // console.log(req.session);
       res.status(200).json({ user: sessionUser });
     }
   } catch (err) {
@@ -68,13 +73,13 @@ module.exports.register = async (req, res) => {
 
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
-  console.log('REQSESSIONUSER', req.session);
+  // console.log('REQSESSIONUSER', req.session);
   res.json({
     user: req.session.user,
     admin: req.session.admin,
     cleaner: req.session.cleaner,
   });
-  
+
   // if (req.session.user) {
   //   res.json({
   //     type: 'user',

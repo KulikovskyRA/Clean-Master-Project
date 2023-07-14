@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Form, Input, Modal } from 'antd';
-import { useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
-import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState';
+import { useState } from 'react';
 
 const { VITE_URL }: string = import.meta.env;
 
@@ -27,8 +27,7 @@ const UserEditForm = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -53,9 +52,9 @@ const UserEditForm = () => {
         style={{ maxWidth: 600 }}
         //initialValues={{ remember: true }}
         initialValues={{
-          ["userName"]: name,
-          ["email"]: email,
-          ["phoneNumber"]: phone
+          ['userName']: name,
+          ['email']: email,
+          ['phoneNumber']: phone,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -64,28 +63,33 @@ const UserEditForm = () => {
         <Form.Item
           label="Имя"
           name="userName"
-          rules={[ { required: true, message: 'Please input your username!' } ]}
+          rules={[{ required: true, message: 'Please input your username!' }]}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Телефон"
           name="phoneNumber"
-          rules={[ { required: true, message: 'Please input your phone!' } ]}
+          rules={[{ required: true, message: 'Please input your phone!' }]}
         >
-          <Input value={phone}/>
+          <Input value={phone} />
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
           value={email}
-          rules={[ { type: 'email', required: true, message: 'Please input your email!' } ]}
+          rules={[
+            {
+              type: 'email',
+              required: true,
+              message: 'Please input your email!',
+            },
+          ]}
         >
-          <Input/>
+          <Input />
         </Form.Item>
-
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">

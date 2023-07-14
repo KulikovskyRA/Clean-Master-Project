@@ -1,66 +1,58 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 
-const dbOrders = [
-  {
-    id: 1,
-    address: 'xyz',
-    ordertime: new Date('2023-07-08 10:51:49.612 +0300'),
-    user: 'Anna',
-    cleaner: 'Alexa',
-    price: 228,
-    rooms: 3,
-    bathroooms: 2,
-    done: false,
-    score: 0,
-  },
-  {
-    id: 2,
-    address: 'wfdwefwf',
-    ordertime: new Date('2023-05-02 10:51:49.612 +0300'),
-    user: 'Biba',
-    cleaner: null,
-    price: 555,
-    rooms: 1,
-    bathroooms: 4,
-    done: true,
-    score: 3,
-  },
-  {
-    id: 3,
-    address: 'xfregergegz',
-    ordertime: new Date('2023-01-08 10:51:49.612 +0300'),
-    user: 'Pasha',
-    cleaner: 'Хьюберт Блейн',
-    price: 1055,
-    rooms: 4,
-    bathroooms: 1,
-    done: true,
-    score: 2.3,
-  },
-  {
-    id: 4,
-    address: '44',
-    ordertime: new Date('2023-05-02 10:51:49.612 +0300'),
-    user: 'Biba',
-    cleaner: 'Boba',
-    price: 555,
-    rooms: 1,
-    bathroooms: 4,
-    done: true,
-    score: 3,
-  },
-];
-
-import { Button, Space, Descriptions, Card, Col, Row } from 'antd';
-
-import { Divider } from 'antd';
+import { Button, Card, Col, Row } from 'antd';
 
 const AdminTab1 = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      (async function (): Promise<void> {
+        const response: Response = await fetch(
+          import.meta.env.VITE_URL + 'order',
+          {
+            credentials: 'include',
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          // console.log(result);
+          setOrders(result);
+        }
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const deleteOrder = async (orderId) => {
+    // console.log(orderId);
+    const res: Response = await fetch(
+      import.meta.env.VITE_URL + `order/${orderId}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      }
+    );
+
+    if (res.ok) {
+      setOrders((prev) => prev.filter((el) => el.id !== orderId));
+    }
+  };
+
   return (
     <>
-      {dbOrders.map((order) => (
+      {orders.map((order) => (
         <Card
           key={`order${order.id}`}
           style={{
@@ -72,23 +64,31 @@ const AdminTab1 = () => {
         >
           <Row gutter={16}>
             <Col span={5}>
-              <p>{`Заказчик: ${order.user}`}</p>
-              <p>{moment(order.ordertime).format('HH:mm:ss')}</p>
-              <p>{moment(order.ordertime).format('DD.MM.YYYY')}</p>
+              <p>{`Заказчик: ${order.User.userName}`}</p>
+              <p>{moment(order.cleaningTime).format('HH:mm:ss')}</p>
+              <p>{moment(order.cleaningTime).format('DD.MM.YYYY')}</p>
             </Col>
-            <Col span={15}>
+
+            <Col span={order.Cleaner ? 11 : 15}>
               <p>{`Адрес: ${order.address}`}</p>
               <p>Доп.услуги:</p>
             </Col>
+
+            {order.done ? (
+              <Col span={4}>
+                <p>Заказ выполнен!</p>
+                <p>{`Рейтинг: ${order.rating}`}</p>
+              </Col>
+            ) : null}
 
             <Col
               style={{
                 textAlign: 'center',
               }}
             >
-              {order.cleaner ? (
+              {order.Cleaner ? (
                 <>
-                  <p>{`Клинер: ${order.cleaner}`}</p>
+                  <p>{`Клинер: ${order.Cleaner.name}`}</p>
                   <Button type="dashed">Изменить</Button>
                 </>
               ) : (
@@ -99,6 +99,7 @@ const AdminTab1 = () => {
               )}
               <Row justify="center">
                 <Button
+                  onClick={() => deleteOrder(order.id)}
                   danger
                   style={{
                     margin: '5px',
