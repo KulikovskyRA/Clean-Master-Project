@@ -27,18 +27,21 @@ function App() {
         if (response.ok) {
           const result = await response.json();
           // console.log(result);
+
+          if (!result.user && window.location.pathname === '/client') {
+            navigate('/login');
+          }
+
+          if (!result.admin && window.location.pathname === '/admin') {
+            navigate('/adminlogin');
+          }
+
+          if (!result.cleaner && window.location.pathname === '/cleaner') {
+            navigate('/cleanerlogin');
+          }
+
           dispatch(checkAuthReducer(result));
         }
-        // else {
-        //   dispatch(
-        //     authReducer({
-        //       type: '',
-        //       name: '',
-        //       id: 0,
-        //       email: '',
-        //     })
-        //   );
-        // }
       })();
     } catch (error) {
       console.log(error);
