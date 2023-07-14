@@ -11,33 +11,33 @@
 //   HeartOutlined,
 //   GiftOutlined,
 // } from '@ant-design/icons';
+// import video from '../../../public/vid2.webm';
 
 // const Paralax = () => {
 //   useEffect(() => {
-//     const handleSliderMove = (event) => {
-//       const container = document.getElementById('sliderContainer');
-//       const containerWidth = container.offsetWidth;
-//       const xPos = event.clientX - container.getBoundingClientRect().left;
-//       const percentage = (xPos / containerWidth) * 100;
-//       setSliderPosition(percentage);
+//     const handleScroll = () => {
+//       const items = document.querySelectorAll('.top-item');
+//       const windowHeight = window.innerHeight;
+
+//       items.forEach((item, index) => {
+//         const itemPosition = item.getBoundingClientRect().top;
+//         if (itemPosition < windowHeight * 0.75) {
+//           item.style.opacity = 1;
+//           item.style.transform = 'translateY(0)';
+//           item.style.transitionDelay = `${index * 0.2}s`;
+//         } else {
+//           item.style.opacity = 0;
+//           item.style.transform = 'translateY(30px)';
+//           item.style.transitionDelay = '0s';
+//         }
+//       });
 //     };
 
-//     const handleSliderRelease = () => {
-//       window.removeEventListener('mousemove', handleSliderMove);
-//       window.removeEventListener('mouseup', handleSliderRelease);
-//     };
-
-//     const handleSliderClick = (event) => {
-//       window.addEventListener('mousemove', handleSliderMove);
-//       window.addEventListener('mouseup', handleSliderRelease);
-//     };
-
-//     window.addEventListener('mousedown', handleSliderClick);
+//     window.addEventListener('scroll', handleScroll);
+//     handleScroll();
 
 //     return () => {
-//       window.removeEventListener('mousedown', handleSliderClick);
-//       window.removeEventListener('mousemove', handleSliderMove);
-//       window.removeEventListener('mouseup', handleSliderRelease);
+//       window.removeEventListener('scroll', handleScroll);
 //     };
 //   }, []);
 
@@ -75,8 +75,35 @@
 
 //     return () => {
 //       sliderContainer.removeEventListener('mousedown', handleSliderClick);
+//       window.removeEventListener('mousemove', handleSliderMove);
+//       window.removeEventListener('mouseup', handleSliderRelease);
 //     };
 //   }, []);
+
+//   // ыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыы
+//   const [isPlanRoomVisible, setIsPlanRoomVisible] = useState(false);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       const planRoom = document.querySelector('.plan-room-img');
+//       const planRoomPosition = planRoom.getBoundingClientRect().top;
+//       const windowHeight = window.innerHeight;
+
+//       if (planRoomPosition < windowHeight * 0.2) {
+//         setIsPlanRoomVisible(true);
+//       } else {
+//         setIsPlanRoomVisible(false);
+//       }
+//     };
+
+//     window.addEventListener('scroll', handleScroll);
+//     handleScroll();
+
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//     };
+//   }, []);
+
 //   return (
 //     <>
 //       <div id="parallax-world-of-ugg">
@@ -92,149 +119,6 @@
 //             </div>
 //           </div>
 //         </section>
-
-//         <section className="section">
-//           <div className="block">
-//             <p className="text">
-//               <span className="first-character ">I</span>{' '}
-//               <div className="text">ПОЧЕМУ СТОИТ ДОВЕРИТЬ УБОРКУ НАМ?</div>
-//             </p>
-
-//             <p className="margin-top-10">
-//               <div className="box-top">
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <TeamOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">ОПЫТНЫЕ КЛИНЕРЫ</div>
-//                   <br />
-//                   <div>
-//                     Все наши сотрудники <br /> прошли обучение и соблюдают
-//                     стандарты уборки
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <SafetyOutlined
-//                       style={{
-//                         fontSize: '42px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
-//                   <br />
-//                   <div>
-//                     Клинер исправит недочёты, если вам не понравится результат
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <DollarOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
-//                   <br />
-//                   <div>
-//                     Стоимость уборки зависит <br /> от количества комнат <br />и
-//                     наличия доп. услуг
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <LikeOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
-//                   <br />
-//                   <div>Вы платите за услугу только после завершения уборки</div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <UsergroupAddOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">ДОВЕРИЕ</div>
-//                   <br />
-
-//                   <div>
-//                     Клинер может взять ключи <br /> и сделать уборку без вашего
-//                     присутсвия
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <SmileOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">НАДЁЖНОСТЬ</div>
-//                   <br />
-//                   <div>
-//                     Компенсируем ущерб, <br /> если что-то пойдет не так
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <HeartOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
-//                   <br />
-//                   <div>
-//                     Гипоаллергенны <br /> и не вредят питомцам
-//                   </div>
-//                 </div>
-//                 <div className="top-item">
-//                   <p className="img-item">
-//                     <GiftOutlined
-//                       style={{
-//                         fontSize: '38px',
-//                         color: 'rgba(240, 203, 37, 0.699)',
-//                       }}
-//                     />
-//                   </p>
-//                   <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
-//                   <br />
-//                   <div>Для постоянных клиентов скидки</div>
-//                 </div>
-//               </div>
-//             </p>
-//           </div>
-//         </section>
-
-//         <section>
-//           <div className="parallax-two">
-//             <h2>
-//               ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, <br /> А УБОРКУ ДОВЕРЬТЕ НАМ
-//             </h2>
-//           </div>
-//         </section>
-
 //         <section>
 //           <div id="cleaning-block" className="block">
 //             <p>
@@ -246,92 +130,301 @@
 //           <div className="photo-box">
 //             <div className="oneCard">
 //               <div className="block-block"></div>
-//               <img className="photo-use" src="/public/1.jpeg" alt="" />
+//               <img className="photo-use" src="/1.jpeg" alt="" />
 //               <div className="text1">Влажная уборка поверхностей</div>
 //             </div>
 
 //             <div className="oneCard">
-//               <img className="photo-use" src="/public/2.jpeg" alt="" />
+//               <img className="photo-use" src="/2.jpeg" alt="" />
 
 //               <div className="text1">Чистка ковра и мебели</div>
 //             </div>
 
 //             <div className="oneCard">
-//               <img className="photo-use" src="/public/3.jpeg" alt="" />
+//               <img className="photo-use" src="/3.jpeg" alt="" />
 //               <div className="text1">Уборка кухни</div>
 //             </div>
 
 //             <div className="oneCard">
-//               <img className="photo-use" src="/public/4.jpeg" alt="" />
+//               <img className="photo-use" src="/4.jpeg" alt="" />
 //               <div className="block-block2"></div>
 //               <div className="text1">Дезинфекция сантехники и зеркал</div>
 //             </div>
-//           </div>
-//         </section>
-//         {/*  */}
-//         <div className="slider-container" id="sliderContainer">
-//           <img
-//             src="./nenorm.jpg"
-//             className="image"
-//             id="imageBefore"
-//             alt="Before"
-//             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-//           />
-//           <div className="slider">
-//             <div
-//               className="slider-handle"
-//               id="sliderHandle"
-//               style={{ left: `${sliderPosition}%` }}
-//             ></div>
-//           </div>
-//           <img
-//             src="./norm.jpg"
-//             className="image"
-//             id="imageAfter"
-//             alt="After"
-//             style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
-//           />
-//         </div>
-
-//         {/*  */}
-
-//         <Element name="block" className="block">
-//           <div className="block">
 //             <p>
-//               <span className="first-character ny">I</span>
-//               <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
-
-//               <ul className="list">
-//                 <li className="text2">
-//                   <div className="room">1 комната:</div>
-//                   <div className="price-room"> от 249 000 UZS</div>
-//                 </li>
-//                 <li className="text2">
-//                   <div className="room">2 комнаты:</div>
-//                   <div className="price-room"> от 299 000 UZS</div>
-//                 </li>
-//                 <li className="text2">
-//                   <div className="room">3 комнаты:</div>
-//                   <div className="price-room">от 349 000 UZS</div>
-//                 </li>
-//               </ul>
-//               <br />
-//               <br />
-
-//               <div className="text">Дополнительные услуги:</div>
-//               <ul>
-//                 <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
-//                 <li className="text3">Уборка балкона +30 000 UZS</li>
-//                 <li className="text3">
-//                   Помыть внутри холодильника +15 000 UZS
-//                 </li>
-//                 <li className="text3">Помыть духовку +15 000 UZS</li>
-//                 <li className="text3">Помыть микроволновку +10 000 UZS</li>
-//                 <li className="text3">Глажка 40 000 UZS за час</li>
-//               </ul>
+//               <span className="first-character ny"></span>{' '}
+//               <div className="text">РЕЗУЛЬТАТ ДО И ПОСЛЕ</div>
 //             </p>
 //           </div>
-//         </Element>
+
+//           <div className="slider-container" id="sliderContainer">
+//             <img
+//               src="./nenorm.jpg"
+//               className="image"
+//               id="imageBefore"
+//               alt="Before"
+//               style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+//             />
+//             <div className="slider">
+//               <div
+//                 className="slider-handle"
+//                 id="sliderHandle"
+//                 style={{ left: `${sliderPosition}%` }}
+//               >
+//                 <div className="title-slider">CLEAN MASTER</div>
+//               </div>
+//             </div>
+//             <img
+//               src="./norm.jpg"
+//               className="image"
+//               id="imageAfter"
+//               alt="After"
+//               style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
+//             />
+//           </div>
+//         </section>
+
+//         {/*  */}
+
+//         <div className="border"></div>
+
+//         <div className="border"></div>
+//         <div className="video-container">
+//           <video
+//             autoPlay
+//             loop
+//             muted
+//             style={{
+//               position: 'absolute',
+//               top: '50%',
+//               left: '50%',
+//               transform: 'translate(-50%, -50%)',
+//               minWidth: '100%',
+//               minHeight: '100%',
+//               width: 'auto',
+//               height: 'auto',
+//               zIndex: '-1',
+//               border: '1px red solid',
+//             }}
+//           >
+//             <source src={video} type="video/mp4" />
+//           </video>
+//           <section className="section">
+//             <div className="block">
+//               <p className="text">
+//                 <span className="first-character " style={{ color: 'white' }}>
+//                   I
+//                 </span>{' '}
+//                 <div className="text" style={{ color: 'white' }}>
+//                   ПОЧЕМУ СТОИТ ДОВЕРИТЬ УБОРКУ НАМ?
+//                 </div>
+//               </p>
+
+//               <p className="margin-top-10">
+//                 <div className="box-top">
+//                   <Element name="item1">
+//                     <div className="top-item animate">
+//                       <p className="img-item">
+//                         <TeamOutlined
+//                           style={{
+//                             fontSize: '38px',
+//                             color: 'black',
+//                           }}
+//                         />
+//                       </p>
+//                       <div className="top-item-text">ОПЫТНЫЕ КЛИНЕРЫ</div>
+//                       <br />
+//                       <div style={{ fontSize: '16px' }}>
+//                         Все наши сотрудники <br /> прошли обучение и соблюдают
+//                         стандарты уборки
+//                       </div>
+//                     </div>
+//                   </Element>
+//                   <Element name="item2">
+//                     <div className="top-item">
+//                       <p className="img-item">
+//                         <SafetyOutlined
+//                           style={{
+//                             fontSize: '42px',
+//                             color: 'black',
+//                           }}
+//                         />
+//                       </p>
+//                       <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
+//                       <br />
+//                       <div style={{ fontSize: '16px' }}>
+//                         Клинер исправит недочёты, если вам не понравится
+//                         результат
+//                       </div>
+//                     </div>
+//                   </Element>
+//                   <div className="top-item ">
+//                     <p className="img-item">
+//                       <DollarOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
+//                     <br />
+//                     <div style={{ fontSize: '16px' }}>
+//                       Стоимость уборки зависит <br /> от количества комнат{' '}
+//                       <br />и количества услуг
+//                     </div>
+//                   </div>
+//                   <div className="top-item ">
+//                     <p className="img-item">
+//                       <LikeOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
+//                     <br />
+//                     <div style={{ fontSize: '16px' }}>
+//                       Вы платите за услугу только после завершения уборки
+//                     </div>
+//                   </div>
+//                   <div className="top-item">
+//                     <p className="img-item">
+//                       <UsergroupAddOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">ДОВЕРИЕ</div>
+//                     <br />
+
+//                     <div style={{ fontSize: '16px' }}>
+//                       Клинер может взять ключи <br /> и сделать уборку без
+//                       вашего присутствия
+//                     </div>
+//                   </div>
+//                   <div className="top-item">
+//                     <p className="img-item">
+//                       <SmileOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">НАДЁЖНОСТЬ</div>
+//                     <br />
+//                     <div style={{ fontSize: '16px' }}>
+//                       Компенсируем ущерб, <br /> если что-то пойдет не так
+//                     </div>
+//                   </div>
+//                   <div className="top-item">
+//                     <p className="img-item">
+//                       <HeartOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
+//                     <br />
+//                     <div style={{ fontSize: '16px' }}>
+//                       Гипоаллергенны <br /> и не вредят питомцам
+//                     </div>
+//                   </div>
+//                   <div className="top-item">
+//                     <p className="img-item">
+//                       <GiftOutlined
+//                         style={{
+//                           fontSize: '38px',
+//                           color: 'black',
+//                         }}
+//                       />
+//                     </p>
+//                     <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
+//                     <br />
+//                     <div style={{ fontSize: '16px' }}>
+//                       Для постоянных клиентов скидки
+//                     </div>
+//                   </div>
+//                 </div>
+//               </p>
+//             </div>
+//           </section>
+//         </div>
+//         <div className="border"></div>
+
+//         <section style={{ background: 'none' }}>
+//           <Element name="block" className="block">
+//             <div className="block">
+//               <div
+//                 className={`plan-room-img ${isPlanRoomVisible ? 'show' : ''}`}
+//                 style={{
+//                   backgroundImage:
+//                     "url('https://www.pngkit.com/png/full/17-178368_view-more-ouf-ourprojects-construction-house-drawing-png.png')",
+//                 }}
+//               ></div>
+//               <p>
+//                 <span className="first-character ny">I</span>
+//                 <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
+
+//                 <ul className="list">
+//                   <li className="text2">
+//                     <div className="room">1 комната</div>
+//                     <div className="price-room"> от 249 000 UZS</div>
+//                   </li>
+//                   <li className="text2">
+//                     <div className="room">2 комнаты</div>
+//                     <div className="price-room"> от 299 000 UZS</div>
+//                   </li>
+//                   <li className="text2">
+//                     <div className="room">3 комнаты</div>
+//                     <div className="price-room">от 349 000 UZS</div>
+//                   </li>
+//                   <li className="text2">
+//                     <div className="room">4+ комнаты</div>
+//                     <div className="price-room">от 399 000 UZS</div>
+//                   </li>
+//                 </ul>
+//                 <br />
+//                 <br />
+
+//                 <ul style={{ marginTop: '-50px' }}>
+//                   <div
+//                     className="text"
+//                     style={{
+//                       marginLeft: '-15px',
+//                       fontWeight: 600,
+//                       fontSize: '28px',
+//                     }}
+//                   >
+//                     Дополнительные услуги:
+//                   </div>
+//                   <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
+//                   <li className="text3">Уборка балкона +30 000 UZS</li>
+//                   <li className="text3">
+//                     Помыть внутри холодильника +15 000 UZS
+//                   </li>
+//                   <li className="text3">Помыть духовку +15 000 UZS</li>
+//                   <li className="text3">Помыть микроволновку +10 000 UZS</li>
+//                   <li className="text3">Глажка 40 000 UZS за час</li>
+//                 </ul>
+//               </p>
+//               <div className="plan-room-img2"></div>
+//             </div>
+//           </Element>
+//           <div className="border"></div>
+//           <div className="parallax-two">
+//             <h2>
+//               ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, <br /> А УБОРКУ ДОВЕРЬТЕ НАМ
+//             </h2>
+//           </div>
+//         </section>
+
+//         {/* ФУТЕР */}
 
 //         <section className="footer">
 //           <p className="line-break "></p>
