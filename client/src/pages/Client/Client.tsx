@@ -26,16 +26,9 @@ const Client: React.FC = () => {
     `E-mail: ${userData.email}`,
   ];
 
-
-
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const user = useSelector((state: RootState) => state.authSlice);
 
-  const listData = [
-    `Здравствуйте, ${user.name}!`,
-    `Контактный номер: ${user.phone}`,
-    `E-mail: ${user.email}`,
-  ];
   const showModal = () => {
     setIsModalOpen(true);
   };
