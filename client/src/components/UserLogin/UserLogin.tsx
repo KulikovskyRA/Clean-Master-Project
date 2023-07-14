@@ -17,7 +17,7 @@ const UserLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [ message, setMessage ] = useState('');
+  const [message, setMessage] = useState('');
 
   const onFinish = async (values: any) => {
     try {
@@ -28,7 +28,7 @@ const UserLogin = () => {
         body: JSON.stringify(values),
       });
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       if (response.ok) {
         dispatch(
           authReducer({
@@ -80,15 +80,15 @@ const UserLogin = () => {
           },
         ]}
       >
-        <Input/>
+        <Input />
       </Form.Item>
 
       <Form.Item
         label="Password"
         name="password"
-        rules={[ { required: true, message: 'Please input your password!' } ]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password/>
+        <Input.Password />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

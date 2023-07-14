@@ -4,15 +4,16 @@ const Navbar = () => {
   const handleLogout = () => {
     fetch(import.meta.env.VITE_URL + 'auth/logout', {
       method: 'GET',
+      credentials: 'include',
     })
-      .then(res => {
+      .then((res) => {
         window.location.href = '/';
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Logout error:', error);
       });
   };
-  
+
   return (
     <div className="nav">
       <Link className="nav-link" to="/">
