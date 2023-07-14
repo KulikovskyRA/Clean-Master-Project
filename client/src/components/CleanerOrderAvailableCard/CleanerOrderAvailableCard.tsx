@@ -20,11 +20,7 @@ const userData = {
 
 const CleanerOrderAvailableCard: React.FC = () => {
   return (
-    <Card style={{ width: '100%' }}>
-      <Space direction="horizontal" size={16}>
-        <Space direction="vertical">
-        <p>Номер заказа: {orderData.id}</p>
-          <p>{orderData.date.toLocaleString('ru', { day: 'numeric', month: 'long', weekday: 'long' })}</p>
+    <Card title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString('ru', { day: 'numeric', month: 'long', weekday: 'long' })})`}  bordered={false} style={{ width: "100%" }}>
           <p>Время уборки: {orderData.starTime.toLocaleString('ru', {
             hour: 'numeric',
             minute: 'numeric'
@@ -32,13 +28,9 @@ const CleanerOrderAvailableCard: React.FC = () => {
           <p>{`${orderData.city}, ${orderData.address}`}</p>
           <p>Дополнительные услуги: {orderData.additionalService}</p>
           <p>Вы заработаете: {Math.floor(orderData.totalPrice*0.2)} UZS</p>
-          <Space direction="horizontal">
-            <Button size="large">
+            <Button type="primary" size="medium">
               Выполнить уборку
             </Button>
-          </Space>
-        </Space>
-      </Space>
     </Card>
   );
 };
