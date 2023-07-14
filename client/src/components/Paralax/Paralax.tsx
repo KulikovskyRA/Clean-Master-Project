@@ -296,7 +296,6 @@ const Paralax = () => {
 
         {/*  */}
 
-
         <Element name="block" className="block">
           <div className="block">
             <p>
@@ -331,7 +330,6 @@ const Paralax = () => {
                 <li className="text3">Помыть микроволновку +10 000 UZS</li>
                 <li className="text3">Глажка 40 000 UZS за час</li>
               </ul>
-
             </p>
           </div>
         </Element>
