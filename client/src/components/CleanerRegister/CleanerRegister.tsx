@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { authReducer } from '../../redux/authSlice';
 
-const CleanerLogin = () => {
+const CleanerRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,17 +20,10 @@ const CleanerLogin = () => {
       err,
       message: errorInfo,
     }));
-
-    // setTimeout(() => {
-    //   setErr((prev) => ({
-    //     err: false,
-    //     message: '',
-    //   }));
-    // }, 3000);
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" noStyle rules={[{ required: true }]}>
+    <Form.Item name="prefix" rules={[{ required: true }]} noStyle>
       <Select style={{ width: 70 }}>
         <Option value="86">+86</Option>
         <Option value="87">+87</Option>
@@ -39,31 +32,48 @@ const CleanerLogin = () => {
   );
 
   const onFinish = async (values: any): Promise<void> => {
-    const phoneNumber = values.prefix + values.phone;
+    const { name, surname, patrname, prefix, phone, nation, password, pet } =
+      values;
+    // console.log(pet);
+    let pets;
+    if (pet === 'indefined' || pet.length === 0) {
+      pets = false;
+    } else {
+      pets = true;
+    }
+    // console.log(pets);
 
-    const res = await fetch(import.meta.env.VITE_URL + 'cleaner/login', {
+    const inputs = {
+      name,
+      surname,
+      patrname,
+      phoneNumber: prefix + phone,
+      nation,
+      password,
+      pets,
+    };
+
+    const res = await fetch(import.meta.env.VITE_URL + 'cleaner/register', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ password: values.password, phoneNumber }),
+      body: JSON.stringify(inputs),
     });
 
     if (res.ok) {
       const result = await res.json();
+      //   console.log(result);
 
-      dispatch(
-        authReducer({
-          type: 'cleaner',
-          name: result.name,
-          id: result.id,
-          email: '',
-          phoneNumber: result.phoneNumber,
-        })
-      );
-
+      authReducer({
+        type: 'cleaner',
+        name: result.cleaner.name,
+        id: result.cleaner.id,
+        email: '',
+        phoneNumber: result.cleaner.phoneNumber,
+      });
       navigate('/cleaner');
     } else if (res.status === 403) {
-      onFinishStatus(true, 'Неверный email/пароль');
+      onFinishStatus(true, 'Клинер с таким номером уже существует');
     } else {
       onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
     }
@@ -71,7 +81,7 @@ const CleanerLogin = () => {
 
   return (
     <>
-      <Title>Авторизация клинера</Title>
+      <Title>Регистрация клинера</Title>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -102,6 +112,34 @@ const CleanerLogin = () => {
         </Form.Item>
 
         <Form.Item
+          name="name"
+          rules={[{ required: true, message: 'Введите имя!' }]}
+        >
+          <Input placeholder="Введите имя!" />
+        </Form.Item>
+
+        <Form.Item
+          name="surname"
+          rules={[{ required: true, message: 'Введите фамилию!' }]}
+        >
+          <Input placeholder="Введите фамилию!" />
+        </Form.Item>
+
+        <Form.Item
+          name="patrname"
+          rules={[{ required: true, message: 'Введите отчество!' }]}
+        >
+          <Input placeholder="Введите отчество!" />
+        </Form.Item>
+
+        <Form.Item
+          name="nation"
+          rules={[{ required: true, message: 'Какое у Вас гражданство?' }]}
+        >
+          <Input placeholder="Какое у Вас гражданство?" />
+        </Form.Item>
+
+        <Form.Item
           name="password"
           rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
         >
@@ -109,6 +147,13 @@ const CleanerLogin = () => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             placeholder="Введите пароль"
           />
+        </Form.Item>
+        <Form.Item name="pet">
+          <Checkbox.Group>
+            <Checkbox value="true" style={{ lineHeight: '32px' }}>
+              Готова работать с питомцами
+            </Checkbox>
+          </Checkbox.Group>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -121,4 +166,4 @@ const CleanerLogin = () => {
   );
 };
 
-export default CleanerLogin;
+export default CleanerRegister;
