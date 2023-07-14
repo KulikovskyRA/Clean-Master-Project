@@ -104,4 +104,6 @@ dist
 .tern-port
 
 .idea
-/server/sessions
+/server/sessions/
+
+sessions/
