@@ -37,7 +37,7 @@ function App() {
           }
 
           if (!result.cleaner && window.location.pathname === '/cleaner') {
-            navigate('/cleanerlogin');
+            navigate('/cleanlogin');
           }
 
           dispatch(checkAuthReducer(result));
