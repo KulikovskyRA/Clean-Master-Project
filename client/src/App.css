@@ -1,6 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+/*  */
+.video-container {
+  position: relative;
+  overflow: hidden;
+}
 
+.video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+}
 /*  */
 .slider-container {
   position: relative;
@@ -37,24 +52,37 @@
   top: 300px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  background: url('https://foni.club/uploads/posts/2022-02/1645798780_6-foni-club-p-besshovnaya-tekstura-gubki-8.jpg');
+  width: 100px;
+  height: 100px;
+  background: url('https://tilingstore.com/wp-content/uploads/2022/01/GFG331.png');
   background-size: cover;
-
-  border-radius: 37%;
   cursor: pointer;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+.title-slider {
+  margin-top: -25px;
+  margin-left: -30px;
+  display: flex;
+  justify-content: start;
+  color: rgb(240, 222, 60);
+  font-size: 24px;
+  height: 50px;
+  width: 200px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 /*  */
-
-.top-item.animate {
-  opacity: 1;
-}
 
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 #main {
   width: 100%;
@@ -68,17 +96,18 @@ body {
 }
 .sec-title {
   text-align: center;
-  font-size: 28px;
+  font-size: 32px;
+
   color: rgb(255, 255, 255);
   font-family: 'Oswald', sans-serif;
-  margin-top: 73px;
+  margin-top: 100px;
 }
 .main-title {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Oswald', sans-serif;
-  font-size: 70px;
+  font-size: 80px;
   letter-spacing: 10px;
   text-align: center;
   color: white;
@@ -86,7 +115,7 @@ body {
   text-transform: uppercase;
   z-index: 10;
   opacity: 0.8;
-  height: 180px;
+  height: 200px;
 }
 
 .margin-top-10 {
@@ -168,30 +197,43 @@ body {
 
   width: 100%;
 }
-
+.border {
+  margin-top: 10px;
+  height: 10px;
+  background-color: black;
+}
+.img-item {
+  position: relative;
+  margin-bottom: 5px;
+}
 .top-item {
+  background-color: rgba(253, 253, 253, 0.938);
+  color: rgb(8, 8, 8);
   border-radius: 8px;
-
-  border: 2px rgba(240, 203, 37, 0.699) solid;
+  border: 1px rgb(143, 143, 143) solid;
   width: 180px;
-  height: 200px;
+  height: 210px;
   margin: 5px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   display: flex;
   padding: 5px;
   text-align: center;
   filter: grayscale();
-}
-.top-item:hover {
-  filter: grayscale(0);
+  opacity: 0.1;
+  transform: translateY(30px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .top-item-text {
-  display: flex;
-  justify-content: center;
+  margin-top: 5px;
+  text-align: center;
   font-weight: bold;
+  margin-bottom: 5px;
+}
+.top-item.animate {
+  opacity: 1;
 }
 
 #parallax-world-of-ugg .title h1 {
@@ -200,7 +242,7 @@ body {
 }
 
 #parallax-world-of-ugg .block {
-  background: white;
+  background: none;
   padding: 60px;
   width: 820px;
   margin: 0 auto;
@@ -324,18 +366,20 @@ body {
 }
 
 .btn-go {
-  background-color: rgba(240, 203, 37, 0.699);
+  background-color: rgba(255, 255, 255, 0.699);
   height: 50px;
   border-radius: 14px;
-  width: 200px;
+  width: 250px;
   margin: 0px auto;
-  color: rgb(255, 255, 255);
+  color: rgb(8, 8, 8);
   font-size: 24px;
   border: none;
   font-family: 'Oswald', sans-serif;
+  font-weight: bold;
 }
 .btn-go:hover {
-  color: rgb(0, 0, 0);
+  color: rgb(253, 253, 253);
+  background-color: rgba(0, 0, 0, 0.884);
 }
 .footer {
   background-color: rgba(36, 36, 36, 0.911);
@@ -364,7 +408,7 @@ body {
   align-items: center;
   font-size: 32px;
   font-weight: bold;
-  color: rgb(5, 5, 59);
+  color: rgb(0, 0, 0);
 }
 
 .photo {
@@ -396,24 +440,34 @@ body {
 }
 
 .text2 {
-  background: rgb(240, 203, 37);
+  background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
-  width: 300px;
+  justify-content: center;
+  width: 180px;
+  height: 80px;
   text-align: center;
   margin-right: 20px;
-  border: 2px rgb(30, 61, 119) solid;
+  border: 2px rgb(0, 0, 0) solid;
   border-radius: 8px;
+  margin-top: 30px;
 }
 .list {
   display: flex;
+  flex-wrap: wrap;
+
+  width: 500px;
 }
 .room {
   font-size: 18px;
+  font-weight: 600;
+  color: black;
 }
 .price-room {
-  font-size: 24px;
-  font-weight: bold;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
 }
 .nav {
   display: flex;
@@ -458,7 +512,7 @@ body {
   height: 200px;
   z-index: -10;
   display: flex;
-  background: rgb(240, 203, 37);
+  background: rgb(0, 0, 0);
   border-top-left-radius: 8px;
 }
 .block-block2 {
@@ -467,7 +521,7 @@ body {
   height: 200px;
   z-index: -10;
   display: flex;
-  background: rgb(15, 20, 82);
+  background: rgb(100, 100, 100);
   border-top-right-radius: 8px;
 }
 .photo-use {
@@ -483,9 +537,10 @@ body {
 }
 .text3 {
   font-family: 'Oswald', sans-serif;
-  list-style: square;
+  list-style: circle;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
+  margin-top: 5px;
 }
 
 /*  */
@@ -494,7 +549,47 @@ body {
 .main-title {
   opacity: 0;
   transform: translateY(-50px);
-  animation: fadeInDown 0.5s ease-in-out 0.5s forwards;
+  animation: fadeInDown 1s ease-in-out 0.5s forwards;
+}
+
+.plan-room-img {
+  background-image: url('https://www.pngkit.com/png/full/17-178368_view-more-ouf-ourprojects-construction-house-drawing-png.png');
+  width: 700px;
+  height: 500px;
+  transform: rotate(-20deg);
+  margin-left: -80px;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  margin-top: -130px;
+  opacity: 0.8;
+  margin-left: -230px;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 3s ease;
+}
+
+.plan-room-img.show {
+  transform: translateX(0);
+}
+
+.plan-room-img2 {
+  background-image: url('room4.png');
+  width: 600px;
+  height: 600px;
+  transform: rotate(-0deg);
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  margin-right: 50px;
+  margin-top: -400px;
+  right: 0;
+  transform: translateX(100%);
+  transition: transform 2s ease;
+}
+
+.plan-room-img2.show {
+  transform: translateX(0);
 }
 
 @keyframes fadeInDown {
