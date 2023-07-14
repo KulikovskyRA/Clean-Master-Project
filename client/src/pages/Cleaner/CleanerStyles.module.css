@@ -1,0 +1,9 @@
+
+.cleanerAvatarDiv{
+display: flex;
+flex-direction: column;
+justify-content: baseline;
+align-items: center;
+width: 100vh;
+height: 200px;
+}

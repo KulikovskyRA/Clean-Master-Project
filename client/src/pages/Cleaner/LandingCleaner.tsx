@@ -15,6 +15,7 @@ export default function LandingCleaner() {
         theme={{
           token: {
             colorPrimary: "black",
+            fontSize: 18,
           },
         }}
       >
@@ -30,7 +31,7 @@ export default function LandingCleaner() {
               </Button>
             </div>
           </div>
-          <div style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}>
+          <div style={{ width: "70%", margin: "0 auto", marginBottom: "px", marginTop: "50px" }}>
             <Divider>
               <h1>Мы предлагаем</h1>
             </Divider>
@@ -39,7 +40,7 @@ export default function LandingCleaner() {
           <Row>
             <div className={styles.yellowDiv}>
               <Title>
-                С вас - качественный сервис, <br /> с нас - стабильный поток
+                Мы настроены на долгосрочное <br /> сотрудничество и гарантируем <br />стабильный поток
                 клиентов
               </Title>
               <Button type="primary" size="large" icon={<FormOutlined />}>
@@ -47,7 +48,7 @@ export default function LandingCleaner() {
               </Button>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}
+              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
             >
               <Divider>
                 <h1>Как стать клинером в CLEAN MASTER</h1>
@@ -56,13 +57,13 @@ export default function LandingCleaner() {
             </div>
             <div className={styles.lightGrayDiv}>
               <Title>
-                Просто откройте личный кабинет
+                Просто войдите в личный кабинет
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "20px" }}
+              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
             >
               <Divider>
                 <h1>Ответы на популярные вопросы</h1>

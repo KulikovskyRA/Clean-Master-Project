@@ -20,11 +20,7 @@ const userData = {
 
 const CleanerOrderPlannedCard = () => {
   return (
-    <Card style={{ width: '100%' }}>
-      <Space direction="horizontal" size={16}>
-        <Space direction="vertical">
-        <p>Номер заказа: {orderData.id}</p>
-          <p>{orderData.date.toLocaleString('ru', { day: 'numeric', month: 'long', weekday: 'long' })}</p>
+    <Card title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString('ru', { day: 'numeric', month: 'long', weekday: 'long' })})`}  bordered={false} style={{ width: "100%" }}>
           <p>Время уборки: {orderData.starTime.toLocaleString('ru', {
             hour: 'numeric',
             minute: 'numeric'
@@ -35,13 +31,9 @@ const CleanerOrderPlannedCard = () => {
           <p>Контактный номер: {userData.phone}</p>
           <p>Комментарий к заказу: {orderData.comment}</p>
           <p>Вы заработаете: {Math.floor(orderData.totalPrice*0.2)} UZS</p>
-          <Space direction="horizontal">
-            <Button size="large">
+            <Button type="primary" size="medium">
               Отказаться
             </Button>
-          </Space>
-        </Space>
-      </Space>
     </Card>
   );
 };
