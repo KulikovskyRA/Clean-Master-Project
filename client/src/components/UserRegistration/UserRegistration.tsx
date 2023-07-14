@@ -48,7 +48,7 @@ const UserRegistration: React.FC = () => {
             name: result.user.userName,
             id: result.user.id,
             email: result.user.email,
-            phone: result.user.phone,
+            phoneNumber: result.user.phoneNumber,
           })
         );
         navigate('/client');
