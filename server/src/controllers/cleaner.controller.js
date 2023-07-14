@@ -5,11 +5,6 @@ const { Cleaner } = require('../../db/models');
 module.exports.cleanerLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
 
-  // //!Cначала очищаем сессию чтобы не путались авторизации юзера, админа и клинера
-  // req.session.destroy(() => {
-  //   res.clearCookie('CleanMasterCookie');
-  // });
-
   try {
     const check = await Cleaner.findOne({ where: { phoneNumber }, raw: true });
     if (check) {
@@ -40,3 +35,69 @@ module.exports.cleanerLogin = async (req, res) => {
     res.status(404).json({ error });
   }
 };
+
+module.exports.cleanerRegister = async (req, res) => {
+  const { name, surname, patrname, phoneNumber, nation, password, pets } =
+    req.body;
+
+  // console.log(req.body);
+  try {
+    const isCleanerExist =
+      (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;
+
+    if (isCleanerExist) {
+      res.sendStatus(403);
+      return;
+    }
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const cleanerData = await Cleaner.create({
+      name,
+      surname,
+      patrname,
+      nation,
+      password: hashPassword,
+      phoneNumber,
+      pets,
+    });
+
+    const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
+
+    req.session.cleaner = cleaner;
+
+    res.json({ cleaner });
+  } catch (error) {
+    res.sendStatus(404);
+  }
+};
+
+// try {
+//   const isUserExist = (await User.findOne({ where: { username } })) !== null;
+//   if (isUserExist) {
+//     res.sendStatus(403);
+//     return;
+//   }
+//   const isEmailExist = (await User.findOne({ where: { email } })) !== null;
+//   if (isEmailExist) {
+//     res.sendStatus(403);
+//     return;
+//   }
+
+//   const hashPassword = await bcrypt.hash(password, 10);
+//   const userData = await User.create({
+//     username,
+//     email,
+//     password: hashPassword,
+//   });
+
+//   const user = userData.get({
+//     plain: true,
+//   });
+//   req.session.user = user;
+
+//   res.json({ id: user.id, username: user.username });
+// } catch (error) {
+//   res.sendStatus(404);
+// }
+// });

@@ -12,9 +12,16 @@ module.exports.login = async (req, res) => {
     if (!isPasswordValid) {
       res.status(400).json({ error: 'Неправильный логин или пароль' });
     } else {
-      const sessionUser = { email, name: userData.userName, id: userData.id, phone: userData.phoneNumber };
+      const sessionUser = {
+        email,
+        name: userData.userName,
+        id: userData.id,
+        phoneNumber: userData.phoneNumber,
+      };
+
       req.session.user = sessionUser;
-      console.log('Залогинелся---->', userData);
+      // console.log('Залогинелся---->', userData);
+      // console.log(req.session);
       res.status(200).json({ user: sessionUser });
     }
   } catch (err) {
@@ -53,7 +60,7 @@ module.exports.register = async (req, res) => {
       id: result.id,
       userName: result.userName,
       email: result.email,
-      phone: result.phoneNumber
+      phone: result.phoneNumber,
     };
     req.session.user = userSessionData;
     res.status(200).json({ user: userSessionData }).end();
@@ -66,6 +73,7 @@ module.exports.register = async (req, res) => {
 
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
+  // console.log('REQSESSIONUSER', req.session);
   res.json({
     user: req.session.user,
     admin: req.session.admin,

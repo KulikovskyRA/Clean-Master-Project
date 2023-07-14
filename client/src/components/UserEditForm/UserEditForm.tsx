@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Button, Form, Input } from 'antd';
-import { useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { Button, Form, Input, Modal } from 'antd';
+import { useSelector } from 'react-redux';
+import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState';
+import { useState } from 'react';
 
 const { VITE_URL }: string = import.meta.env;
 
@@ -26,54 +27,77 @@ const UserEditForm = () => {
     console.log('Failed:', errorInfo);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      //initialValues={{ remember: true }}
-      initialValues={{
-        ["userName"]: name,
-        ["email"]: email,
-        ["phoneNumber"]: phone
-      }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
+    <Modal
+      id="modal-user"
+      title="Редактирование профиля"
+      open={isModalOpen}
+      onOk={handleOk}
+      onCancel={handleCancel}
     >
-      <Form.Item
-        label="Имя"
-        name="userName"
-        rules={[ { required: true, message: 'Please input your username!' } ]}
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        //initialValues={{ remember: true }}
+        initialValues={{
+          ['userName']: name,
+          ['email']: email,
+          ['phoneNumber']: phone,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
       >
-        <Input/>
-      </Form.Item>
+        <Form.Item
+          label="Имя"
+          name="userName"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Телефон"
-        name="phoneNumber"
-        rules={[ { required: true, message: 'Please input your phone!' } ]}
-      >
-        <Input value={phone}/>
-      </Form.Item>
+        <Form.Item
+          label="Телефон"
+          name="phoneNumber"
+          rules={[{ required: true, message: 'Please input your phone!' }]}
+        >
+          <Input value={phone} />
+        </Form.Item>
 
-      <Form.Item
-        label="Email"
-        name="email"
-        value={email}
-        rules={[ { type: 'email', required: true, message: 'Please input your email!' } ]}
-      >
-        <Input/>
-      </Form.Item>
+        <Form.Item
+          label="Email"
+          name="email"
+          value={email}
+          rules={[
+            {
+              type: 'email',
+              required: true,
+              message: 'Please input your email!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Сохранить
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Сохранить
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 };
 

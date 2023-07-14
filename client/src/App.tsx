@@ -26,6 +26,7 @@ function App() {
 
         if (response.ok) {
           const result = await response.json();
+
           // console.log(result);
 
           if (!result.user && window.location.pathname === '/client') {
@@ -46,7 +47,7 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  });
 
   return (
     <div

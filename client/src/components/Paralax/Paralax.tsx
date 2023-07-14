@@ -207,6 +207,7 @@ const Paralax = () => {
 
         {/*  */}
 
+
         <div className="border"></div>
 
         <div className="border"></div>
@@ -448,6 +449,8 @@ const Paralax = () => {
             <h2>
               ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, <br /> А УБОРКУ ДОВЕРЬТЕ НАМ
             </h2>
+
+   
           </div>
         </section>
 
