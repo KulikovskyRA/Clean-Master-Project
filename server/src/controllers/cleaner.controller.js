@@ -72,32 +72,12 @@ module.exports.cleanerRegister = async (req, res) => {
   }
 };
 
-// try {
-//   const isUserExist = (await User.findOne({ where: { username } })) !== null;
-//   if (isUserExist) {
-//     res.sendStatus(403);
-//     return;
-//   }
-//   const isEmailExist = (await User.findOne({ where: { email } })) !== null;
-//   if (isEmailExist) {
-//     res.sendStatus(403);
-//     return;
-//   }
+module.exports.cleanersList = async (req, res) => {
+  const clList = await Cleaner.findAll({
+    raw: true,
+    attributes: ['id', 'name', 'phoneNumber', 'nation', 'pets'],
+  });
 
-//   const hashPassword = await bcrypt.hash(password, 10);
-//   const userData = await User.create({
-//     username,
-//     email,
-//     password: hashPassword,
-//   });
-
-//   const user = userData.get({
-//     plain: true,
-//   });
-//   req.session.user = user;
-
-//   res.json({ id: user.id, username: user.username });
-// } catch (error) {
-//   res.sendStatus(404);
-// }
-// });
+  // console.log(clList);
+  res.json(clList);
+};
