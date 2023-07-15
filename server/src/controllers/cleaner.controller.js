@@ -74,7 +74,15 @@ module.exports.cleanerRegister = async (req, res) => {
 
 module.exports.cleanersList = async (req, res) => {
   const clList = await Cleaner.findAll({
-    attributes: ['id', 'name', 'phoneNumber', 'nation', 'pets'],
+    attributes: [
+      'id',
+      'name',
+      'surname',
+      'patrname',
+      'phoneNumber',
+      'nation',
+      'pets',
+    ],
     include: { model: Order, attributes: ['rating'] },
   });
 

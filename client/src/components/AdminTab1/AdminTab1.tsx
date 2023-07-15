@@ -89,8 +89,6 @@ const AdminTab1 = () => {
       // console.log(orders);
       // console.log(result);
 
-      // ! ДОДЕЛАТЬ
-
       setOrders((prev) => {
         const newOrders = prev.map((ord) => {
           if (ord.id === orderEditId) {
