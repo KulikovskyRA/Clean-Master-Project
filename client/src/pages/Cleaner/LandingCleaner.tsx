@@ -63,7 +63,7 @@ export default function LandingCleaner() {
                 <br /> и доходами
               </Title>
               <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
-                В личный кабинет сорудника
+                Личный кабинет сорудника
               </Button>
             </div>
             <div
