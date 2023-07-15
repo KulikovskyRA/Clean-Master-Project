@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Typography, Select } from 'antd';
+import { Button, Checkbox, Form, Input, Typography, Select, Divider } from 'antd';
 const { Title } = Typography;
 const { Option } = Select;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -81,11 +81,13 @@ const CleanerRegister = () => {
 
   return (
     <>
-      <Title>Регистрация клинера</Title>
+      <Divider>
+                <h1>Заявка на сотрудничество</h1>
+              </Divider>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        wrapperCol={{ span: 36 }}
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -100,12 +102,12 @@ const CleanerRegister = () => {
             {
               required: true,
               message:
-                'Напиши свою звонилку нормально, если не хочешь потерять работу! ',
+                'Введите номер телефона!',
             },
           ]}
         >
           <Input
-            placeholder="Введите номер телефона"
+            placeholder="Ваш номер телефона"
             addonBefore={prefixSelector}
             style={{ width: '100%' }}
           />
@@ -115,28 +117,37 @@ const CleanerRegister = () => {
           name="name"
           rules={[{ required: true, message: 'Введите имя!' }]}
         >
-          <Input placeholder="Введите имя!" />
+          <Input placeholder="Ваше имя" />
         </Form.Item>
 
         <Form.Item
           name="surname"
           rules={[{ required: true, message: 'Введите фамилию!' }]}
         >
-          <Input placeholder="Введите фамилию!" />
+          <Input placeholder="Ваша фамилия" />
         </Form.Item>
 
         <Form.Item
           name="patrname"
           rules={[{ required: true, message: 'Введите отчество!' }]}
         >
-          <Input placeholder="Введите отчество!" />
+          <Input placeholder="Ваше отчество" />
         </Form.Item>
 
         <Form.Item
           name="nation"
-          rules={[{ required: true, message: 'Какое у Вас гражданство?' }]}
+          rules={[{ required: true, message: 'Введите гражданство!' }]}
         >
-          <Input placeholder="Какое у Вас гражданство?" />
+           <Select
+          placeholder="Ваше гражданство"
+          allowClear
+        >
+          <Option value="male">Узбекистан</Option>
+          <Option value="female">Казахстан</Option>
+          <Option value="other">Кыргызстан</Option>
+          <Option value="other">Таджикистан</Option>
+          <Option value="other">Российская Федерация</Option>
+        </Select>
         </Form.Item>
 
         <Form.Item
@@ -151,14 +162,13 @@ const CleanerRegister = () => {
         <Form.Item name="pet">
           <Checkbox.Group>
             <Checkbox value="true" style={{ lineHeight: '32px' }}>
-              Готова работать с питомцами
+              Могу работать в помещении с домашними животными
             </Checkbox>
           </Checkbox.Group>
         </Form.Item>
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" size="large" htmlType="submit">
+            Отправить заявку
           </Button>
         </Form.Item>
       </Form>
