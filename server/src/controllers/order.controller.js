@@ -8,11 +8,6 @@ const {
   User,
 } = require('../../db/models');
 
-// const clList = await Cleaner.findAll({
-//   raw: true,
-//   attributes: ['id', 'name', 'phoneNumber', 'nation', 'pets'],
-// });
-
 module.exports.orders = async (req, res) => {
   const allOrders = await Order.findAll({
     attributes: ['id', 'cleaningTime', 'address', 'done', 'rating'],

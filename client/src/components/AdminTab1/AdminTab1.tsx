@@ -86,8 +86,6 @@ const AdminTab1 = () => {
 
     if (res.ok) {
       const result = await res.json();
-      // console.log(orders);
-      // console.log(result);
 
       setOrders((prev) => {
         const newOrders = prev.map((ord) => {

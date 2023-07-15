@@ -3,18 +3,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { Button, Space, Descriptions, Card, Col, Row } from 'antd';
-
-const dbClients = [
-  {
-    id: 1,
-    email: 'client@gmail.com',
-    username: 'Lera',
-    phoneNumber: '89998887776',
-  },
-];
+import ClientCard from './ClientCard';
 
 const AdminTab4 = () => {
+  const [clients, setClients] = useState([]);
+
   useEffect(() => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -25,6 +18,12 @@ const AdminTab4 = () => {
             credentials: 'include',
           }
         );
+
+        if (response.ok) {
+          const result = await response.json();
+          // console.log(result);
+          setClients(result);
+        }
       })();
     } catch (error) {
       console.log(error);
@@ -32,41 +31,8 @@ const AdminTab4 = () => {
   }, []);
   return (
     <>
-      {dbClients.map((client) => (
-        <Card
-          key={`client${client.id}`}
-          size="small"
-          style={{
-            marginLeft: '10%',
-            textAlign: 'start',
-            marginRight: '10%',
-            marginBottom: '10px',
-          }}
-        >
-          <Row>
-            <Col span={2}>
-              <p>{`id: ${client.id}`}</p>
-            </Col>
-            <Col span={5}>
-              <p>{`Имя: ${client.usernameclient} `}</p>
-            </Col>
-
-            <Col span={3}>
-              <p>{`${client.phoneNumber}`}</p>
-            </Col>
-
-            <Col span={4}>
-              <p>{`E-mail: ${client.email}`}</p>
-            </Col>
-
-            <Col span={5}>
-              <p>Количество заказов:(берется из orders)</p>
-            </Col>
-            <Col>
-              <p>Дата последнего заказа</p>
-            </Col>
-          </Row>
-        </Card>
+      {clients.map((client) => (
+        <ClientCard key={`client${client.id}`} client={client} />
       ))}
     </>
   );

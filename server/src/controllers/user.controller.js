@@ -22,8 +22,12 @@ module.exports.edit = async (req, res) => {
 };
 
 module.exports.userListForAdmin = async (req, res) => {
-  const userList = User.findAll({
+  const userList = await User.findAll({
     attributes: ['id', 'userName', 'email', 'phoneNumber'],
     include: { model: Order, attributes: ['cleaningTime'] },
   });
+
+  // console.log(userList);
+
+  res.json(userList);
 };
