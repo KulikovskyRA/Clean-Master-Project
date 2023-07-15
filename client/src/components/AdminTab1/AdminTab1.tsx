@@ -124,6 +124,7 @@ const AdminTab1 = () => {
         onCancel={handleCancel}
       >
         <Select
+          style={{ width: 450 }}
           placeholder="Select a option and change input text above"
           onChange={handleCleanerId}
           allowClear
