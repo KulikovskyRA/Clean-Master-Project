@@ -27,7 +27,7 @@ export default function LandingCleaner() {
               Надёжный доход <br /> и удобное расписание
             </Title>
             <div>
-              <Button type="primary" size="large" icon={<FormOutlined />}>
+              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
                 Заполнить анкету
               </Button>
             </div>
@@ -44,7 +44,7 @@ export default function LandingCleaner() {
                 Мы настроены на долгосрочное <br /> сотрудничество и гарантируем <br />стабильный поток
                 клиентов
               </Title>
-              <Button type="primary" size="large" icon={<FormOutlined />}>
+              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
                 Заполнить анкету
               </Button>
             </div>
@@ -62,7 +62,7 @@ export default function LandingCleaner() {
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
                 В личный кабинет сорудника
               </Button>
             </div>
@@ -75,7 +75,7 @@ export default function LandingCleaner() {
               <Accordion />
             </div>
           </Row>
-          <div className={styles.cleanerRegistrationDiv}>
+          <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
           <CleanerRegister />
           </div>
           <div className={styles.grayDiv}>
