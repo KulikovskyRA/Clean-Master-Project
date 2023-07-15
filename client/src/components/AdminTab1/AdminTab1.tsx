@@ -89,10 +89,17 @@ const AdminTab1 = () => {
       // console.log(orders);
       // console.log(result);
 
-      const orderToChange = orders.findIndex((x) => x.id === orderEditId);
-      // console.log(orderToChange);
       // ! ДОДЕЛАТЬ
-      // const array = orders;
+
+      setOrders((prev) => {
+        const newOrders = prev.map((ord) => {
+          if (ord.id === orderEditId) {
+            return { ...ord, Cleaner: { name: result } };
+          }
+          return ord;
+        });
+        return newOrders;
+      });
     }
 
     setIsModalOpen(false);
