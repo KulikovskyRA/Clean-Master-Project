@@ -1,5 +1,5 @@
 .yellowDiv {
-  background-color: #F2E92A;
+  background-color: rgb(250, 250, 113);
   height: 400px;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@
 }
 
 .cleanerHeaderDiv {
-  background-image: url("https://media.angi.com/s3fs-public/professional-cleaning-service-1417833128.jpeg");
+  background-image: url("http://www.dustyrosecleaning.co.za/wp-content/uploads/2015/03/b1-slider.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
