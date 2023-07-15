@@ -19,7 +19,13 @@ module.exports.orders = async (req, res) => {
     include: [
       { model: Cleaner, attributes: ['name'] },
       { model: User, attributes: ['userName'] },
-      { model: OrderService, include: { model: Service } },
+      {
+        model: OrderService,
+        attributes: ['id', 'order_id', 'service_id', 'amount'],
+        include: {
+          model: Service,
+        },
+      },
     ],
   });
   res.json(allOrders);
