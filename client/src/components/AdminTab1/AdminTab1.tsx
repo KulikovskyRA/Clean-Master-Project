@@ -29,7 +29,7 @@ const AdminTab1 = () => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
+          // console.log(result);
           setOrders(result);
         }
 

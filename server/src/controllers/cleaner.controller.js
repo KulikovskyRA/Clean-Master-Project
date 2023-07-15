@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const { Cleaner } = require('../../db/models');
+const { Cleaner, Order } = require('../../db/models');
 
 module.exports.cleanerLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
@@ -74,10 +74,9 @@ module.exports.cleanerRegister = async (req, res) => {
 
 module.exports.cleanersList = async (req, res) => {
   const clList = await Cleaner.findAll({
-    raw: true,
     attributes: ['id', 'name', 'phoneNumber', 'nation', 'pets'],
+    include: { model: Order, attributes: ['rating'] },
   });
 
-  // console.log(clList);
   res.json(clList);
 };
