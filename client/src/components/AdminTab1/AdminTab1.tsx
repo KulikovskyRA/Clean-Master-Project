@@ -5,13 +5,16 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 
-import { Button, Card, Col, Row } from 'antd';
+import { Button, Card, Col, Row, Modal, Select } from 'antd';
+
+const { Option } = Select;
 
 const AdminTab1 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [orders, setOrders] = useState([]);
+  const [cleaners, setCleaners] = useState([]);
 
   useEffect(() => {
     try {
@@ -28,6 +31,19 @@ const AdminTab1 = () => {
           const result = await response.json();
           // console.log(result);
           setOrders(result);
+        }
+
+        const resCleanerList: Response = await fetch(
+          import.meta.env.VITE_URL + 'cleaner',
+          {
+            credentials: 'include',
+          }
+        );
+
+        if (resCleanerList.ok) {
+          const resultCL = await resCleanerList.json();
+          // console.log(resultCL);
+          setCleaners(resultCL);
         }
       })();
     } catch (error) {
@@ -50,8 +66,77 @@ const AdminTab1 = () => {
     }
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [orderEditId, setOrderEditId] = useState(0);
+  const [cleanerId, setCleanerId] = useState(0);
+  // const [cleanerName, setCleanerName] = useState('');
+
+  const showModal = (orderId) => {
+    setIsModalOpen(true);
+    setOrderEditId(orderId);
+  };
+
+  const handleOk = async () => {
+    const res: Response = await fetch(import.meta.env.VITE_URL + `order`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ orderEditId, cleanerId }),
+    });
+
+    if (res.ok) {
+      const result = await res.json();
+      // console.log(orders);
+      // console.log(result);
+
+      // ! ДОДЕЛАТЬ
+
+      setOrders((prev) => {
+        const newOrders = prev.map((ord) => {
+          if (ord.id === orderEditId) {
+            return { ...ord, Cleaner: { name: result } };
+          }
+          return ord;
+        });
+        return newOrders;
+      });
+    }
+
+    setIsModalOpen(false);
+    setOrderEditId(0);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setOrderEditId(0);
+  };
+
+  const handleCleanerId = (value) => {
+    setCleanerId(Number(value));
+  };
+
   return (
     <>
+      <Modal
+        title="Выберите клинера"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={handleCleanerId}
+          allowClear
+        >
+          {cleaners.map((cleaner) => (
+            <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
+              {`${cleaner.name}/${cleaner.nation}/Животные? - `}
+              {cleaner.pets ? 'Да' : 'Нет'}
+            </Option>
+          ))}
+        </Select>
+      </Modal>
+
       {orders.map((order) => (
         <Card
           key={`order${order.id}`}
@@ -89,12 +174,14 @@ const AdminTab1 = () => {
               {order.Cleaner ? (
                 <>
                   <p>{`Клинер: ${order.Cleaner.name}`}</p>
-                  <Button type="dashed">Изменить</Button>
+                  <Button type="dashed" onClick={() => showModal(order.id)}>
+                    Изменить
+                  </Button>
                 </>
               ) : (
                 <>
                   <p>Клинер не выбран</p>
-                  <Button>Назначить</Button>
+                  <Button onClick={() => showModal(order.id)}>Назначить</Button>
                 </>
               )}
               <Row justify="center">
