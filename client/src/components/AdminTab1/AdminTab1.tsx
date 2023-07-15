@@ -86,10 +86,6 @@ const AdminTab1 = () => {
 
     if (res.ok) {
       const result = await res.json();
-      // console.log(orders);
-      // console.log(result);
-
-      // ! ДОДЕЛАТЬ
 
       setOrders((prev) => {
         const newOrders = prev.map((ord) => {
@@ -157,7 +153,10 @@ const AdminTab1 = () => {
 
             <Col span={order.Cleaner ? 11 : 15}>
               <p>{`Адрес: ${order.address}`}</p>
-              <p>Доп.услуги:</p>
+              <p>Услуги:</p>
+              {order.OrderServices.map((OS) => (
+                <p key={`os${OS.id}`}>{`${OS.Service.title}: ${OS.amount}`}</p>
+              ))}
             </Col>
 
             {order.done ? (

@@ -8,18 +8,19 @@ const {
   User,
 } = require('../../db/models');
 
-// const clList = await Cleaner.findAll({
-//   raw: true,
-//   attributes: ['id', 'name', 'phoneNumber', 'nation', 'pets'],
-// });
-
 module.exports.orders = async (req, res) => {
   const allOrders = await Order.findAll({
     attributes: ['id', 'cleaningTime', 'address', 'done', 'rating'],
     include: [
       { model: Cleaner, attributes: ['name'] },
       { model: User, attributes: ['userName'] },
-      { model: OrderService, include: { model: Service } },
+      {
+        model: OrderService,
+        attributes: ['id', 'order_id', 'service_id', 'amount'],
+        include: {
+          model: Service,
+        },
+      },
     ],
   });
   res.json(allOrders);

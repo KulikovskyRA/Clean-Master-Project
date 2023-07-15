@@ -1,4 +1,4 @@
-const { User } = require('../../db/models');
+const { User, Order } = require('../../db/models');
 
 module.exports.edit = async (req, res) => {
   const { userName, phoneNumber, email } = req.body.values;
@@ -19,4 +19,15 @@ module.exports.edit = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+module.exports.userListForAdmin = async (req, res) => {
+  const userList = await User.findAll({
+    attributes: ['id', 'userName', 'email', 'phoneNumber'],
+    include: { model: Order, attributes: ['cleaningTime'] },
+  });
+
+  // console.log(userList);
+
+  res.json(userList);
 };
