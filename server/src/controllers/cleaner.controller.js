@@ -74,6 +74,7 @@ module.exports.cleanerRegister = async (req, res) => {
 
 module.exports.cleanersList = async (req, res) => {
   const clList = await Cleaner.findAll({
+    order: [['id', 'ASC']],
     attributes: [
       'id',
       'name',

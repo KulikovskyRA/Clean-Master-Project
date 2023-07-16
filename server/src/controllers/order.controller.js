@@ -10,6 +10,7 @@ const {
 
 module.exports.orders = async (req, res) => {
   const allOrders = await Order.findAll({
+    order: [['id', 'ASC']],
     attributes: ['id', 'cleaningTime', 'address', 'done', 'rating'],
     include: [
       { model: Cleaner, attributes: ['name'] },
@@ -47,7 +48,7 @@ module.exports.updateCleaner = async (req, res) => {
 };
 
 module.exports.adminTab2Info = async (req, res) => {
-  const allOrders = await Order.findAll({ raw: true });
+  const allOrders = await Order.findAll({ raw: true, order: [['id', 'ASC']] });
   const done = allOrders.filter((el) => el.done === true);
   // console.log(allOrders);
   // console.log(done);

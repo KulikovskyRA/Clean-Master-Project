@@ -4,6 +4,7 @@ module.exports.servicesAll = async (req, res) => {
   const allServices = await Service.findAll({
     raw: true,
     attributes: ['id', 'title', 'singlePrice', 'default', 'single'],
+    order: [['id', 'ASC']],
   });
   res.json(allServices);
 };
