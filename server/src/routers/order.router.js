@@ -8,9 +8,11 @@ const {
   orders,
   deleteOrder,
   updateCleaner,
+  adminTab2Info,
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
   .get('/', orders)
   .delete('/:id', deleteOrder)
-  .put('/', updateCleaner);
+  .put('/', updateCleaner)
+  .get('/tab2', adminTab2Info);

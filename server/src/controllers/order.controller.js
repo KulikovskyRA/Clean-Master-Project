@@ -36,7 +36,6 @@ module.exports.deleteOrder = async (req, res) => {
 };
 
 module.exports.updateCleaner = async (req, res) => {
-  // console.log(req.body);
   const { orderEditId, cleanerId } = req.body;
 
   const order = await Order.findByPk(orderEditId);
@@ -44,7 +43,26 @@ module.exports.updateCleaner = async (req, res) => {
   order.save();
 
   const cleaner = await Cleaner.findByPk(cleanerId);
-
   res.json(cleaner.name);
-  // res.sendStatus(200);
+};
+
+module.exports.adminTab2Info = async (req, res) => {
+  const allOrders = await Order.findAll({ raw: true });
+  const done = allOrders.filter((el) => el.done === true);
+  // console.log(allOrders);
+  // console.log(done);
+
+  const allNumber = allOrders.length;
+  const doneNumber = done.length;
+
+  let oborot = 0;
+
+  done.forEach((element) => {
+    oborot += element.price;
+  });
+
+  const cleanerSalary = Math.round(oborot * 0.2);
+  const money = oborot - cleanerSalary;
+
+  res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
 };

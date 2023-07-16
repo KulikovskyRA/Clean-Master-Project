@@ -8,10 +8,10 @@ const ClientCard = ({ client }) => {
 
   useEffect(() => {
     const array = structuredClone(client.Orders);
-    // console.log(array);
+
     if (array.length) {
       array.sort((a, b) => new Date(b.cleaningTime) - new Date(a.cleaningTime));
-      //   console.log(array[0]);
+
       setLastOrderDate(moment(array[0]).format('DD.MM.YYYY'));
     }
   }, []);

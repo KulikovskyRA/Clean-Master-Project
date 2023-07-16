@@ -19,6 +19,7 @@ const adminRouter = require('./src/routers/admin.router');
 const cleanerRouter = require('./src/routers/cleaner.router');
 const userRouter = require('./src/routers/user.router');
 const orderRouter = require('./src/routers/order.router');
+const serviceRouter = require('./src/routers/service.router');
 
 // Cookie
 const sessionConfig = {
@@ -52,6 +53,8 @@ app.use('/api/cleaner/', cleanerRouter);
 app.use('/api/user/', userRouter);
 
 app.use('/api/order/', orderRouter);
+
+app.use('/api/service/', serviceRouter);
 
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
