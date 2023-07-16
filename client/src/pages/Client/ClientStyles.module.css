@@ -1,0 +1,30 @@
+.orderBtnDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+.grayDiv {
+  background-color:  rgb(46, 49, 47);
+  color: white;
+  height: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 300px;
+  margin-top: 80px;
+}
+
+.userInfoDiv{
+  background-image: url("https://blog.common.com/blog/wp-content/uploads/2020/02/SC1854_CommonMelrose_071.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-radius: 15px;
+  height: 300px;
+  padding: 10px;
+}

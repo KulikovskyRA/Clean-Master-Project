@@ -1,5 +1,11 @@
+import * as React from "react";
 import { useState } from "react";
-import { UserOutlined, FormOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { authReducer } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
+import styles from "./ClientStyles.module.css";
+
 import {
   Button,
   Space,
@@ -11,13 +17,9 @@ import {
   Divider,
 } from "antd";
 import UserOrdersTabs from "../../components/UserOrdersTabs/UserOrdersTabs";
-import { useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
-import * as React from "react";
-import { authReducer } from "../../redux/authSlice";
-import { useDispatch } from "react-redux";
+import { FormOutlined } from "@ant-design/icons";
 
-const { VITE_URL }: string = import.meta.env;
+const { VITE_URL } = import.meta.env;
 
 interface IUserData {
   name: string;
@@ -26,9 +28,9 @@ interface IUserData {
 }
 
 const userData: IUserData = {
-  name: "Валентина",
-  phone: "+7 000 000 00 00",
-  email: "email@example.com",
+  name: "Акакий",
+  phone: "+998 94 720 2212",
+  email: "puk@example.com",
 };
 
 const Client: React.FC = () => {
@@ -37,9 +39,9 @@ const Client: React.FC = () => {
   const user = useSelector((state: RootState) => state.authSlice.user);
 
   const listData = [
-    `Имя: ${user.name}`,
-    `Контактный номер: ${user.phoneNumber}`,
-    `E-mail: ${user.email}`,
+    `${userData.name}`,
+    ` ${userData.phone}`,
+    `${userData.email}`,
   ];
 
   const showModal = () => {
@@ -83,6 +85,7 @@ const Client: React.FC = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <ConfigProvider
       theme={{
@@ -104,34 +107,23 @@ const Client: React.FC = () => {
           <h1>Личный кабинет</h1>
         </Divider>
         <div>
-          <div>
-            <Button
-              style={{
-                marginLeft: "20px",
-                marginTop: "-15px",
-                background: "none",
-                border: "none",
-                boxShadow: "none",
-                display: "flex",
-              }}
-              block
-              onClick={showModal}
-            >
-              <FormOutlined style={{ fontSize: "24px" }} />
-            </Button>
+          <div className={styles.userInfoDiv}>
+            <List
+              size="large"
+              dataSource={listData}
+              renderItem={(item) => (
+                <List.Item style={{ fontSize: "18px" }}>{item}</List.Item>
+              )}
+            />
             <Space>
-              <List
-                size="small"
-                dataSource={listData}
-                renderItem={(item) => (
-                  <List.Item style={{ fontSize: "18px" }}>{item}</List.Item>
-                )}
-              />
+              <Button type="default" size="medium" icon={<FormOutlined />} onClick={showModal}>
+                Редактировать данные
+              </Button>
             </Space>
             <Space>
               <Modal
                 id="modal-user"
-                title="Редактирование профиля"
+                title="Редактирование данных профиля"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -142,11 +134,10 @@ const Client: React.FC = () => {
                   labelCol={{ span: 8 }}
                   wrapperCol={{ span: 16 }}
                   style={{ maxWidth: 600 }}
-                  //initialValues={{ remember: true }}
                   initialValues={{
-                    ["userName"]: user.name,
-                    ["email"]: user.email,
-                    ["phoneNumber"]: user.phoneNumber,
+                    ["userName"]: userData.name,
+                    ["email"]: userData.email,
+                    ["phoneNumber"]: userData.phone,
                   }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
@@ -174,7 +165,6 @@ const Client: React.FC = () => {
                   >
                     <Input />
                   </Form.Item>
-
                   <Form.Item
                     label="Email"
                     name="email"
@@ -188,7 +178,6 @@ const Client: React.FC = () => {
                   >
                     <Input />
                   </Form.Item>
-
                   <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
                       Сохранить
@@ -198,16 +187,15 @@ const Client: React.FC = () => {
               </Modal>
             </Space>
           </div>
-          <Space direction="vertical" style={{ width: "100%" }}>
-            <div className="btn-box">
-              <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
-                Заказать уборку
-              </Button>
-            </div>
-          </Space>
+          <div className={styles.orderBtnDiv}>
+            <Button type="primary" size="large">
+              Заказать уборку
+            </Button>
+          </div>
         </div>
         <UserOrdersTabs />
       </div>
+      <div className={styles.grayDiv}>ФУТЕР</div>
     </ConfigProvider>
   );
 };
