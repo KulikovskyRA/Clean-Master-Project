@@ -29,21 +29,23 @@ const Cleaner: React.FC = () => {
             <h1>Личный кабинет сотрудника</h1>
           </Divider>
           <div>
-            <Space wrap size={16}>
-              <div className={styles.cleanerAvatarDiv}>
-                <Avatar size={150} icon={<UserOutlined />} />
-                <Button type="default" size="small">
-                  Загрузить фото
-                </Button>
-              </div>
-            </Space>
-            <Space>
+            <div className={styles.cleanerAvatarDiv}>
+              <Avatar size={150} icon={<UserOutlined />} />
+              <Button type="default" size="small">
+                Загрузить фото
+              </Button>
+            </div>
+            <div className={styles.cleanerInfoDiv}>
               <CleanerInfo />
-            </Space>
+            </div>
           </div>
           <CleanerOrdersTabs />
         </div>
+      <div className={styles.grayDiv}>
+            ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
+          </div>
       </ConfigProvider>
+
     </>
   );
 };

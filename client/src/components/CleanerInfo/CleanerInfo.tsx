@@ -38,7 +38,8 @@ export default function CleanerInfo() {
       <Descriptions
         layout="vertical"
         bordered="true"
-        column={7}
+        style={{ width: '150vh' }}
+        column={6}
         contentStyle={{ fontWeight: "bold" }}
       >
         <Descriptions.Item label="Ф.И.О">
@@ -55,7 +56,7 @@ export default function CleanerInfo() {
         <Descriptions.Item label="Запланировано уборок">
           {cleanerData.ordersPlanned}
         </Descriptions.Item>
-        <Descriptions.Item label="Доход">
+        <Descriptions.Item label="Доход за всё время">
           {cleanerData.income} UZS
         </Descriptions.Item>
       </Descriptions>
