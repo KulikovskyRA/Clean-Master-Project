@@ -12,7 +12,9 @@ import {
   Col,
   Row,
 } from 'antd';
-const { Title } = Typography;
+const { Title, Text } = Typography;
+
+import { EditOutlined } from '@ant-design/icons';
 
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -77,7 +79,15 @@ const AdminTab2 = () => {
         <Title level={4}>{`Чистая прибыль: ${data.money}`}</Title>
       </Card>
       <Card>
-        <Title level={5}>Услуги:</Title>
+        <Title level={2}>Услуги:</Title>
+        <Title level={4}>Базовые:</Title>
+
+        {defaults.map((def) => (
+          <Row>
+            <Text>{`${def.title}: ${def.singlePrice} UZS     `}</Text>
+            <EditOutlined />;
+          </Row>
+        ))}
       </Card>
     </Row>
   );
