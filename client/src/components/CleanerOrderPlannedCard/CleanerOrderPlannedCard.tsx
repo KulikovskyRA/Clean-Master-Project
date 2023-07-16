@@ -28,10 +28,10 @@ const CleanerOrderPlannedCard = () => {
       })})`}
       bordered={false}
       style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "cornsilk"}}
+      headStyle={{ backgroundColor: "OldLace" }}
     >
       <p>
-        Время уборки:{" "}
+        <b>Время уборки:</b>{" "}
         {orderData.starTime.toLocaleString("ru", {
           hour: "numeric",
           minute: "numeric",
@@ -42,15 +42,33 @@ const CleanerOrderPlannedCard = () => {
           minute: "numeric",
         })}
       </p>
-      <p>{`${orderData.city}, ${orderData.address}`}</p>
-      <p>Дополнительные услуги: {orderData.additionalService}</p>
-      <p>Хозяин квартиры: {userData.userName}</p>
-      <p>Контактный номер: {userData.phone}</p>
-      <p>Комментарий к заказу: {orderData.comment}</p>
-      <p>Вы заработаете: {Math.floor(orderData.totalPrice * 0.2)} UZS</p>
-      <Button type="primary" size="medium">
-        Отказаться
-      </Button>
+      <p>
+        <b>Адрес:</b>
+        {`${orderData.city}, ${orderData.address}`}
+      </p>
+      <p>
+        <b>Дополнительные услуги:</b> {orderData.additionalService}
+      </p>
+      <p>
+        <b>Хозяин квартиры:</b> {userData.userName}
+      </p>
+      <p>
+        <b>Контактный номер:</b> {userData.phone}
+      </p>
+      <p>
+        <b>Комментарий к заказу:</b> {orderData.comment}
+      </p>
+      <p>
+        <b>Вы заработаете:</b> {Math.floor(orderData.totalPrice * 0.2)} UZS
+      </p>
+      <Space>
+        <Button type="primary" size="medium">
+          Выполнена
+        </Button>
+        <Button type="default" size="medium">
+          Отказаться
+        </Button>
+      </Space>
     </Card>
   );
 };

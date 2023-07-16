@@ -32,7 +32,7 @@ const cleanerData: ICleanerData = {
 export default function CleanerInfo() {
   return (
     <>
-      <Divider orientation="left" orientationMargin="0">
+      <Divider orientation="center" orientationMargin="0">
         <h4>Карточка сотрудника</h4>
       </Divider>
       <Descriptions

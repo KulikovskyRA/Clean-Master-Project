@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Space, Button, ConfigProvider, Divider } from "antd";
+import { Avatar, Button, ConfigProvider, Divider, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import CleanerOrdersTabs from "../../components/CleanerOrdersTabs/CleanerOrdersTabs";
 
@@ -31,9 +31,12 @@ const Cleaner: React.FC = () => {
           <div>
             <div className={styles.cleanerAvatarDiv}>
               <Avatar size={150} icon={<UserOutlined />} />
-              <Button type="default" size="small">
-                Загрузить фото
-              </Button>
+              <Space>
+                {" "}
+                <Button type="default" size="small">
+                  Загрузить фото
+                </Button>
+              </Space>
             </div>
             <div className={styles.cleanerInfoDiv}>
               <CleanerInfo />
@@ -41,11 +44,10 @@ const Cleaner: React.FC = () => {
           </div>
           <CleanerOrdersTabs />
         </div>
-      <div className={styles.grayDiv}>
-            ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
-          </div>
+        <div className={styles.grayDiv}>
+          ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
+        </div>
       </ConfigProvider>
-
     </>
   );
 };
