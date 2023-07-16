@@ -19,12 +19,17 @@
 }
 
 .userInfoDiv{
-  background-image: url("https://blog.common.com/blog/wp-content/uploads/2020/02/SC1854_CommonMelrose_071.jpg");
+  background-image: url("./userProfileBanner.png");
   background-repeat: no-repeat;
-  background-position: center;
   background-size: cover;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color:khaki;
   border-radius: 15px;
   height: 300px;
   padding: 10px;
+  margin-bottom: 50px;
 }
