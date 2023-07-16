@@ -2,20 +2,25 @@ import * as React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import UserOrderPlannedList from '../UserOrderPlannedList/UserOrderPlannedList';
-import UserOrderComplitedList from '../UserOrderComplitedList/UserOrderComplitedList';
-import { ColorFactory } from 'antd/es/color-picker/color';
+import UserOrderCompletedList from '../UserOrderCompletedList/UserOrderCompletedList';
+import UserInfo from '../UserInfo/UserInfo';
 
 const UserOrdersTabs = () => {
   const tabsItems: TabsProps['items'] = [
     {
       key: '1',
-      label: `Ближайшие`,
+      label: `Запланированные уборки`,
       children: <UserOrderPlannedList />,
     },
     {
       key: '2',
-      label: `Выполненные`,
-      children: <UserOrderComplitedList />,
+      label: `История заказов`,
+      children: <UserOrderCompletedList />,
+    },
+    {
+      key: '3',
+      label: `Данные профиля`,
+      children: <UserInfo />,
     },
   ];
 

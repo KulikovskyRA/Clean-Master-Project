@@ -5,6 +5,7 @@ import styles from "./LandingCleanerStyles.module.css";
 import WeOffer from "../../components/LandingCleaner/WeOffer";
 import BecomeACleaner from "../../components/LandingCleaner/BecomeACleaner";
 import { FormOutlined } from "@ant-design/icons";
+import CleanerRegister from "../../components/CleanerRegister/CleanerRegister";
 
 const { Title } = Typography;
 
@@ -26,7 +27,7 @@ export default function LandingCleaner() {
               Надёжный доход <br /> и удобное расписание
             </Title>
             <div>
-              <Button type="primary" size="large" icon={<FormOutlined />}>
+              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
                 Заполнить анкету
               </Button>
             </div>
@@ -43,7 +44,7 @@ export default function LandingCleaner() {
                 Мы настроены на долгосрочное <br /> сотрудничество и гарантируем <br />стабильный поток
                 клиентов
               </Title>
-              <Button type="primary" size="large" icon={<FormOutlined />}>
+              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
                 Заполнить анкету
               </Button>
             </div>
@@ -61,6 +62,9 @@ export default function LandingCleaner() {
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
+              <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
+                Личный кабинет сорудника
+              </Button>
             </div>
             <div
               style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
@@ -71,8 +75,8 @@ export default function LandingCleaner() {
               <Accordion />
             </div>
           </Row>
-          <div className={styles.yellowDiv}>
-            РОМА, ЗДЕСЬ ФОРМА РЕГИСТРАЦИИ КЛИНЕРА :)
+          <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
+          <CleanerRegister />
           </div>
           <div className={styles.grayDiv}>
             ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
