@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Button, Card, Space } from "antd";
+import * as React from 'react';
+import { Avatar, Button, Card, Space } from 'antd';
 
 const orderData = {
   id: 456,
@@ -10,18 +10,18 @@ const orderData = {
   address: "ул. Ракат 17, кв. 5, 2 этаж",
   comment: "Пожалуйста не используйте хлорку",
   additionalService: ["помыть окно"],
-  totalPrice: 1761,
+  totalPrice: 249000,
 };
 
 const endTime = new Date(orderData.startTime.getTime() + 3 * 60 * 60 * 1000);
 
-const userData = {
-  userName: "Пётр",
-  phone: "+998 95 678 2345",
+const cleanerData = {
+  name: 'Айнура',
 };
 
-const CleanerOrderPlannedCard = () => {
+const UserOrderCompletedCard: React.FC = () => {
   return (
+    
     <Card
       title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString("ru", {
         day: "numeric",
@@ -29,7 +29,7 @@ const CleanerOrderPlannedCard = () => {
         weekday: "long",
       })})`}
       style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "OldLace" }}
+      headStyle={{ backgroundColor: "lightGray" }}
     >
       <p>
         <b>Время уборки:</b>{" "}
@@ -51,27 +51,32 @@ const CleanerOrderPlannedCard = () => {
         <b>Дополнительные услуги:</b> {orderData.additionalService}
       </p>
       <p>
-        <b>Хозяин квартиры:</b> {userData.userName}
-      </p>
-      <p>
-        <b>Контактный номер:</b> {userData.phone}
-      </p>
-      <p>
         <b>Комментарий к заказу:</b> {orderData.comment}
       </p>
       <p>
-        <b>Вы заработаете:</b> {Math.floor(orderData.totalPrice * 0.2)} UZS
+        <b>Стоимость уборки:</b> {orderData.totalPrice} UZS
       </p>
+
+      {/* <Avatar
+        style={{
+          marginLeft: "50px",
+          marginTop: "-200px",
+          marginRight: "30px",
+        }}
+        size={100}
+        icon={<UserOutlined />}
+      />
+      <p style={{ marginLeft: "45px", marginTop: "-80px" }}>Ищем клинера</p> */}
       <Space>
         <Button type="primary" size="medium">
-          Выполнена
+          Повторить уборку
         </Button>
         <Button type="default" size="medium">
-          Отказаться
+          Оценить
         </Button>
       </Space>
     </Card>
   );
 };
 
-export default CleanerOrderPlannedCard;
+export default UserOrderCompletedCard;

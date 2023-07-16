@@ -1,13 +1,21 @@
-import { useState } from 'react';
-import { UserOutlined, FormOutlined } from '@ant-design/icons';
-import { Avatar, Button, Space, List, Modal, Form, Input } from 'antd';
-import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
-import UserEditForm from "../../components/UserEditForm/UserEditForm";
+import { useState } from "react";
+import { UserOutlined, FormOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Space,
+  List,
+  Modal,
+  Form,
+  Input,
+  ConfigProvider,
+  Divider,
+} from "antd";
+import UserOrdersTabs from "../../components/UserOrdersTabs/UserOrdersTabs";
 import { useSelector } from "react-redux";
 import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 import * as React from "react";
 import { authReducer } from "../../redux/authSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 const { VITE_URL }: string = import.meta.env;
 
@@ -18,15 +26,14 @@ interface IUserData {
 }
 
 const userData: IUserData = {
-  name: 'Валентина',
-  phone: '+7 000 000 00 00',
-  email: 'email@example.com',
+  name: "Валентина",
+  phone: "+7 000 000 00 00",
+  email: "email@example.com",
 };
 
 const Client: React.FC = () => {
-
   const dispatch = useDispatch();
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state: RootState) => state.authSlice.user);
 
   const listData = [
@@ -50,16 +57,16 @@ const Client: React.FC = () => {
   const onFinish = async (values: any) => {
     try {
       const response = await fetch(`${VITE_URL}user/edit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ values, id: user.id }),
       });
       const result = await response.json();
       if (response.ok) {
         dispatch(
           authReducer({
-            type: 'user',
+            type: "user",
             name: result.user.name,
             id: result.user.id,
             email: result.user.email,
@@ -74,141 +81,134 @@ const Client: React.FC = () => {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   return (
-    <div>
-      <h2 style={{ marginLeft: '30px', color: 'rgb(2, 2, 134)' }}>
-        CLEAN MASTER
-      </h2>
-      <div>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "black",
+          fontSize: 15,
+        },
+      }}
+    >
+      <div
+        style={{
+          width: "80%",
+          margin: "0 auto",
+          marginBottom: "50px",
+          marginTop: "50px",
+        }}
+      >
+        <Divider>
+          <h1>Личный кабинет</h1>
+        </Divider>
         <div>
-          <h2 style={{ textAlign: 'center' }}>ЛИЧНЫЙ КАБИНЕТ</h2>
-          <Space
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-              marginLeft: '250px',
-              width: '800px',
-              margin: '0px auto',
-            }}
-            direction="horizontal"
-            size={16}
-          >
-            <Space wrap size={16}>
-
-              <Avatar size={64} icon={<UserOutlined/>}/>
-
-            </Space>
+          <div>
             <Button
               style={{
-                marginLeft: '20px',
-                marginTop: '-15px',
-                background: 'none',
-                border: 'none',
-                boxShadow: 'none',
-                display: 'flex',
+                marginLeft: "20px",
+                marginTop: "-15px",
+                background: "none",
+                border: "none",
+                boxShadow: "none",
+                display: "flex",
               }}
               block
               onClick={showModal}
             >
-              <FormOutlined style={{ fontSize: '24px' }}/>
+              <FormOutlined style={{ fontSize: "24px" }} />
             </Button>
             <Space>
               <List
                 size="small"
                 dataSource={listData}
                 renderItem={(item) => (
-                  <List.Item style={{ fontSize: '18px' }}>{item}</List.Item>
+                  <List.Item style={{ fontSize: "18px" }}>{item}</List.Item>
                 )}
               />
             </Space>
-          </Space>
-          <Space>
-            <Modal
-              id="modal-user"
-              title="Редактирование профиля"
-              open={isModalOpen}
-              onOk={handleOk}
-              onCancel={handleCancel}
-              footer={null}
-            >
-              <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
-                //initialValues={{ remember: true }}
-                initialValues={{
-                  ["userName"]: user.name,
-                  ["email"]: user.email,
-                  ["phoneNumber"]: user.phoneNumber
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
+            <Space>
+              <Modal
+                id="modal-user"
+                title="Редактирование профиля"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={null}
               >
-                <Form.Item
-                  label="Имя"
-                  name="userName"
-                  rules={[ { required: true, message: 'Please input your username!' } ]}
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  style={{ maxWidth: 600 }}
+                  //initialValues={{ remember: true }}
+                  initialValues={{
+                    ["userName"]: user.name,
+                    ["email"]: user.email,
+                    ["phoneNumber"]: user.phoneNumber,
+                  }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  autoComplete="off"
                 >
-                  <Input/>
-                </Form.Item>
+                  <Form.Item
+                    label="Имя"
+                    name="userName"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your username!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
 
-                <Form.Item
-                  label="Телефон"
-                  name="phoneNumber"
-                  rules={[ { required: true, message: 'Please input your phone!' } ]}
-                >
-                  <Input/>
-                </Form.Item>
+                  <Form.Item
+                    label="Телефон"
+                    name="phoneNumber"
+                    rules={[
+                      { required: true, message: "Please input your phone!" },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
 
-                <Form.Item
-                  label="Email"
-                  name="email"
-                  rules={[ { type: 'email', required: true, message: 'Please input your email!' } ]}
-                >
-                  <Input/>
-                </Form.Item>
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                      {
+                        type: "email",
+                        required: true,
+                        message: "Please input your email!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
 
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                  <Button type="primary" htmlType="submit">
-                    Сохранить
-                  </Button>
-                </Form.Item>
-              </Form>
-            </Modal>
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                      Сохранить
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
+            </Space>
+          </div>
+          <Space direction="vertical" style={{ width: "100%" }}>
+            <div className="btn-box">
+              <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
+                Заказать уборку
+              </Button>
+            </div>
           </Space>
         </div>
-        <Space direction="vertical" style={{ width: '100%' }}>
-          <div className="btn-box">
-            <Button
-              style={{
-                width: '200px',
-                margin: '0px auto',
-                background: 'rgba(240, 203, 37, 0.699)',
-                color: 'black',
-                fontWeight: 'bold',
-                fontFamily: "'Oswald', sans-serif",
-              }}
-              id="order-user"
-              block
-              type="primary"
-            >
-              ЗАКАЗАТЬ УБОРКУ
-            </Button>
-          </div>
-        </Space>
+        <UserOrdersTabs />
       </div>
-
-
-      <UserOrdersTabs/>
-    </div>
-
-
+    </ConfigProvider>
   );
 };
 
