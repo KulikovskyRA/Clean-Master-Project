@@ -69,7 +69,6 @@ const AdminTab1 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderEditId, setOrderEditId] = useState(0);
   const [cleanerId, setCleanerId] = useState(0);
-  // const [cleanerName, setCleanerName] = useState('');
 
   const showModal = (orderId) => {
     setIsModalOpen(true);
