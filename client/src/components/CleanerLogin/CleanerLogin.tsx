@@ -32,8 +32,10 @@ const CleanerLogin = () => {
   const prefixSelector = (
     <Form.Item name="prefix" noStyle rules={[{ required: true }]}>
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="+998">+998</Option>
+        <Option value="+996">+996</Option>
+        <Option value="+992">+992</Option>
+        <Option value="+7">+7</Option>
       </Select>
     </Form.Item>
   );
