@@ -11,7 +11,7 @@ const {
 module.exports.orders = async (req, res) => {
   const allOrders = await Order.findAll({
     order: [['id', 'ASC']],
-    attributes: ['id', 'cleaningTime', 'address', 'done', 'rating'],
+    attributes: ['id', 'cleaningTime', 'address', 'done', 'rating', 'price'],
     include: [
       { model: Cleaner, attributes: ['name'] },
       { model: User, attributes: ['userName'] },
@@ -45,6 +45,19 @@ module.exports.updateCleaner = async (req, res) => {
 
   const cleaner = await Cleaner.findByPk(cleanerId);
   res.json(cleaner.name);
+};
+
+//
+
+module.exports.updatePrice = async (req, res) => {
+  const { orderEditId, price } = req.body;
+  console.log(req.body);
+
+  const order = await Order.findByPk(orderEditId);
+  order.price = Number(price.replace(/\D[^\.]/g, ''));
+  order.save();
+
+  res.sendStatus(200);
 };
 
 module.exports.adminTab2Info = async (req, res) => {

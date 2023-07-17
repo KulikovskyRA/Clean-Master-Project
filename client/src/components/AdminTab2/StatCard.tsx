@@ -1,5 +1,5 @@
-import { Typography, Card } from 'antd';
-const { Title } = Typography;
+import { Typography, Card, Row } from 'antd';
+const { Title, Text } = Typography;
 import { useState, useEffect } from 'react';
 
 const StatCard = () => {
@@ -25,14 +25,29 @@ const StatCard = () => {
     }
   }, []);
   return (
-    <Card>
-      <Title level={5}>{`Общее количество заказов: ${data.allNumber}`}</Title>
-      <Title
-        level={5}
-      >{`Количество выполненных заказов: ${data.doneNumber}`}</Title>
-      <Title level={5}>{`Оборот: ${data.oborot}`}</Title>
-      <Title level={5}>{`Выплаты клинерам: ${data.cleanerSalary}`}</Title>
-      <Title level={4}>{`Чистая прибыль: ${data.money}`}</Title>
+    <Card
+      title="Данные по заказам:"
+      style={{
+        marginLeft: '30%',
+        marginRight: '30%',
+      }}
+    >
+      <Row>
+        <Text>{`Общее количество заказов: ${data.allNumber}`}</Text>
+      </Row>
+      <Row>
+        <Text>{`Количество выполненных заказов: ${data.doneNumber}`}</Text>
+      </Row>
+
+      <Row>
+        <Text>{`Оборот: ${data.oborot}`}</Text>
+      </Row>
+      <Row>
+        <Text>{`Выплаты клинерам: ${data.cleanerSalary}`}</Text>
+      </Row>
+      <Row>
+        <Text>{`Чистая прибыль: ${data.money}`}</Text>
+      </Row>
     </Card>
   );
 };
