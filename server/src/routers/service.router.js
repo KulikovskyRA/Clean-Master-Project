@@ -6,9 +6,11 @@ const {
   servicesAll,
   serviceEdit,
   serviceDelete,
+  serviceNew,
 } = require('../controllers/service.controller');
 
 module.exports = serviceRouter
   .get('/all', servicesAll)
   .put('/:id', serviceEdit)
-  .delete('/:id', serviceDelete);
+  .delete('/:id', serviceDelete)
+  .post('/new', serviceNew);

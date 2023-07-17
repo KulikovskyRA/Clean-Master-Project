@@ -39,3 +39,25 @@ module.exports.serviceDelete = async (req, res) => {
   Service.destroy({ where: { id: req.params.id } });
   res.sendStatus(200);
 };
+
+module.exports.serviceNew = async (req, res) => {
+  const { title, price, singleImp } = req.body;
+  const single = singleImp ?? false;
+
+  const newService = await Service.create({
+    title,
+    singlePrice: Number(price.replace(/\D[^\.]/g, '')),
+    single,
+    default: false,
+  });
+
+  const toSend = {
+    id: newService.id,
+    title: newService.title,
+    singlePrice: newService.singlePrice,
+    default: newService.default,
+    single: newService.single,
+  };
+
+  res.status(200).json(toSend);
+};

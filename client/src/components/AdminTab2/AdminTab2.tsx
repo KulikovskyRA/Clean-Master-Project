@@ -5,13 +5,11 @@ import {
   Modal,
   Input,
   Checkbox,
-  Switch,
   Button,
   Form,
 } from 'antd';
 const { Title, Text } = Typography;
 import StatCard from './StatCard';
-// import ServiceRox from './ServiceRox';
 
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
@@ -67,7 +65,7 @@ const AdminTab2 = () => {
     );
     if (res.ok) {
       const resultService = await res.json();
-      console.log(resultService);
+      // console.log(resultService);
       if (service.default) {
         setDefaults((prev) => {
           const newDefs = prev.map((d) => {
@@ -121,8 +119,28 @@ const AdminTab2 = () => {
 
   //! Модалка создания
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  // const [inputsCreate, setInputsCreate] = useState({});
+
+  // const handleInputsCreate = (e: ChangeEvent<HTMLInputElement>): void => {
+  //   setInputsCreate((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  // };
+
+  const onFinish = async (values: any) => {
+    const responseNew: Response = await fetch(
+      import.meta.env.VITE_URL + 'service/new',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(values),
+      }
+    );
+    if (responseNew.ok) {
+      const resNew = await responseNew.json();
+      console.log(resNew);
+      setExtra((prev) => [...prev, resNew]);
+    }
+
     setIsModalСreateOpen(false);
   };
 
@@ -201,7 +219,7 @@ const AdminTab2 = () => {
       </Row>
 
       <Modal
-        title="Cоздать услугу"
+        title="Cоздать услугу:"
         open={isModalСreateOpen}
         onCancel={handleСreateCancel}
         footer={null}
@@ -219,17 +237,29 @@ const AdminTab2 = () => {
             name="title"
             rules={[{ required: true, message: 'Введите название услуги:' }]}
           >
-            <Input placeholder="Введите название услуги!" />
+            <Input
+              allowClear
+              // name="title"
+              placeholder="Введите название услуги!"
+              // value={inputsCreate.title}
+              // onChange={handleInputsCreate}
+            />
           </Form.Item>
 
           <Form.Item
             name="price"
             rules={[{ required: true, message: 'Введите цену!' }]}
           >
-            <Input placeholder="Введите цену:" />
+            <Input
+              allowClear
+              // name="price"
+              placeholder="Введите цену:"
+              // value={inputsCreate.price}
+              // onChange={handleInputsCreate}
+            />
           </Form.Item>
 
-          <Form.Item name="single" valuePropName="checked">
+          <Form.Item name="singleImp" valuePropName="checked">
             <Checkbox>Cделать единичной услугой:</Checkbox>
           </Form.Item>
 
