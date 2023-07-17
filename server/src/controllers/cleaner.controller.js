@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
 const { Cleaner, Order } = require('../../db/models');
@@ -13,7 +14,9 @@ module.exports.cleanerLogin = async (req, res) => {
       if (hashPass) {
         const cleaner = {
           id: check.id,
+          name: check.name,
           phoneNumber: check.phoneNumber,
+
         };
         req.session.cleaner = cleaner;
         res.status(200).json({
@@ -37,13 +40,13 @@ module.exports.cleanerLogin = async (req, res) => {
 };
 
 module.exports.cleanerRegister = async (req, res) => {
-  const { name, surname, patrname, phoneNumber, nation, password, pets } =
-    req.body;
+  const {
+    name, surname, patrname, phoneNumber, nation, password, pets,
+  } = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
   try {
-    const isCleanerExist =
-      (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;
+    const isCleanerExist = (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;
 
     if (isCleanerExist) {
       res.sendStatus(403);
@@ -62,7 +65,9 @@ module.exports.cleanerRegister = async (req, res) => {
       pets,
     });
 
-    const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
+    const cleaner = {
+      name, surname, patrname, nation, phoneNumber, pets,
+    };
 
     req.session.cleaner = cleaner;
 
@@ -88,4 +93,10 @@ module.exports.cleanersList = async (req, res) => {
   });
 
   res.json(clList);
+};
+
+module.exports.cleanerInfo = async (req, res) => {
+  const { id } = req.session.cleaner;
+  const getCleaner = await Cleaner.findByPk(id);
+  res.json(getCleaner);
 };

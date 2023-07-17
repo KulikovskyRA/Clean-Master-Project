@@ -1,5 +1,5 @@
 .yellowDiv {
-  background-color: rgb(247, 232, 98);
+  background-color: #fef800;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@
 }
 
 .cleanerHeaderDiv {
-  background-image: url("http://www.dustyrosecleaning.co.za/wp-content/uploads/2015/03/b1-slider.jpg");
+  background-image: url("./CLEANER_LANDING_BANNER.png");
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -46,18 +46,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  padding-left: 3%;
+  padding-left: 8%;
 }
 
 .cleanerHeaderDiv h1 {
   position: relative;
-  color: #fff;
+  color: #060606;
   z-index: 2;
 }
 
 .cleanerHeaderDiv h4 {
   position: relative;
-  color: #fff;
+  color: #000000;
   z-index: 2;
 }
 

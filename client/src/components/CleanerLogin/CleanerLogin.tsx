@@ -52,7 +52,6 @@ const CleanerLogin = () => {
 
     if (res.ok) {
       const result = await res.json();
-
       dispatch(
         authReducer({
           type: 'cleaner',

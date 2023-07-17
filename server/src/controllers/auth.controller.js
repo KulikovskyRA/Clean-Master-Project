@@ -74,6 +74,7 @@ module.exports.register = async (req, res) => {
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
   // console.log('REQSESSIONUSER', req.session);
+  console.log(req.session.cleaner);
   res.json({
     user: req.session.user,
     admin: req.session.admin,
