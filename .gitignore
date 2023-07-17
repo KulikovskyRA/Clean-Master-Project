@@ -105,5 +105,6 @@ dist
 
 .idea
 /server/sessions/
+/server/uploads/
 
 sessions/

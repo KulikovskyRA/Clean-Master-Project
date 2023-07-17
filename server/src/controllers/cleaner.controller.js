@@ -1,15 +1,15 @@
 const bcrypt = require('bcrypt');
 
-const { Cleaner, Order } = require('../../db/models');
+const { Cleaner, Order, User } = require('../../db/models');
 
 module.exports.cleanerLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
-
+  
   try {
     const check = await Cleaner.findOne({ where: { phoneNumber }, raw: true });
     if (check) {
       const hashPass = await bcrypt.compare(password, check.password);
-
+      
       if (hashPass) {
         const cleaner = {
           id: check.id,
@@ -23,6 +23,7 @@ module.exports.cleanerLogin = async (req, res) => {
           surname: check.surname,
           patrname: check.patrname,
           nation: check.nation,
+          img: check.img,
           auth: true,
         });
       } else {
@@ -39,19 +40,19 @@ module.exports.cleanerLogin = async (req, res) => {
 module.exports.cleanerRegister = async (req, res) => {
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
-
+  
   // console.log(req.body);
   try {
     const isCleanerExist =
       (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;
-
+    
     if (isCleanerExist) {
       res.sendStatus(403);
       return;
     }
-
+    
     const hashPassword = await bcrypt.hash(password, 10);
-
+    
     const cleanerData = await Cleaner.create({
       name,
       surname,
@@ -61,11 +62,11 @@ module.exports.cleanerRegister = async (req, res) => {
       phoneNumber,
       pets,
     });
-
+    
     const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
-
+    
     req.session.cleaner = cleaner;
-
+    
     res.json({ cleaner });
   } catch (error) {
     res.sendStatus(404);
@@ -86,6 +87,29 @@ module.exports.cleanersList = async (req, res) => {
     ],
     include: { model: Order, attributes: ['rating'] },
   });
-
+  
   res.json(clList);
 };
+
+module.exports.cleanerPhoto = async (req, res) => {
+  const img = req.file.filename;
+  const id = req.params.id;
+  
+  try {
+    const updatePhoto = await Cleaner.update(
+      { img },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    res.status(200);
+    // console.log(updateUser);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+  
+};
+
