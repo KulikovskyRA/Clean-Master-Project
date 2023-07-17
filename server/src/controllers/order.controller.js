@@ -50,8 +50,6 @@ module.exports.updateCleaner = async (req, res) => {
 module.exports.adminTab2Info = async (req, res) => {
   const allOrders = await Order.findAll({ raw: true, order: [['id', 'ASC']] });
   const done = allOrders.filter((el) => el.done === true);
-  // console.log(allOrders);
-  // console.log(done);
 
   const allNumber = allOrders.length;
   const doneNumber = done.length;

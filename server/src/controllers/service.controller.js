@@ -11,7 +11,6 @@ module.exports.servicesAll = async (req, res) => {
 
 module.exports.serviceEdit = async (req, res) => {
   const { title, price, single } = req.body;
-  // console.log(title, price, single);
 
   const service = await Service.findByPk(req.params.id);
   if (title && title !== '') {
@@ -23,7 +22,20 @@ module.exports.serviceEdit = async (req, res) => {
   if (typeof single !== 'undefined') {
     service.single = single;
   }
-
   service.save();
+
+  const toSend = {
+    id: service.id,
+    title: service.title,
+    singlePrice: service.singlePrice,
+    default: service.default,
+    single: service.single,
+  };
+
+  res.status(200).json(toSend);
+};
+
+module.exports.serviceDelete = async (req, res) => {
+  Service.destroy({ where: { id: req.params.id } });
   res.sendStatus(200);
 };

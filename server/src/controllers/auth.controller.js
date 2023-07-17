@@ -20,8 +20,6 @@ module.exports.login = async (req, res) => {
       };
 
       req.session.user = sessionUser;
-      // console.log('Залогинелся---->', userData);
-      // console.log(req.session);
       res.status(200).json({ user: sessionUser });
     }
   } catch (err) {
@@ -55,7 +53,7 @@ module.exports.register = async (req, res) => {
       isVerified: false,
     });
     const result = response.get({ plain: true });
-    console.log('RESULT', result);
+
     const userSessionData = {
       id: result.id,
       userName: result.userName,
@@ -73,7 +71,6 @@ module.exports.register = async (req, res) => {
 
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
-  // console.log('REQSESSIONUSER', req.session);
   res.json({
     user: req.session.user,
     admin: req.session.admin,

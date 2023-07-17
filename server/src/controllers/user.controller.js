@@ -15,7 +15,6 @@ module.exports.edit = async (req, res) => {
     const sessionUser = { email, name: userName, id: req.body.id, phoneNumber };
     req.session.user = sessionUser;
     res.status(200).json({ user: sessionUser });
-    // console.log(updateUser);
   } catch (error) {
     console.log(error);
   }
@@ -27,8 +26,5 @@ module.exports.userListForAdmin = async (req, res) => {
     order: [['id', 'ASC']],
     include: { model: Order, attributes: ['cleaningTime'] },
   });
-
-  // console.log(userList);
-
   res.json(userList);
 };

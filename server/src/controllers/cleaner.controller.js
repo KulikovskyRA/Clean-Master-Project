@@ -40,7 +40,6 @@ module.exports.cleanerRegister = async (req, res) => {
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
 
-  // console.log(req.body);
   try {
     const isCleanerExist =
       (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;

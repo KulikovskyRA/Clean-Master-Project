@@ -1,7 +1,4 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 
@@ -10,9 +7,6 @@ import { Button, Card, Col, Row, Modal, Select } from 'antd';
 const { Option } = Select;
 
 const AdminTab1 = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [orders, setOrders] = useState([]);
   const [cleaners, setCleaners] = useState([]);
 
@@ -29,7 +23,6 @@ const AdminTab1 = () => {
 
         if (response.ok) {
           const result = await response.json();
-          // console.log(result);
           setOrders(result);
         }
 
@@ -42,7 +35,6 @@ const AdminTab1 = () => {
 
         if (resCleanerList.ok) {
           const resultCL = await resCleanerList.json();
-          // console.log(resultCL);
           setCleaners(resultCL);
         }
       })();
@@ -52,7 +44,6 @@ const AdminTab1 = () => {
   }, []);
 
   const deleteOrder = async (orderId) => {
-    // console.log(orderId);
     const res: Response = await fetch(
       import.meta.env.VITE_URL + `order/${orderId}`,
       {
