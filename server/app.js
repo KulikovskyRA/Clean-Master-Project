@@ -56,6 +56,8 @@ app.use('/api/order/', orderRouter);
 
 app.use('/api/service/', serviceRouter);
 
+app.use('/uploads', express.static('./uploads'));
+
 app.listen(PORT, () => {
   console.log('Сервер крутится!');
   console.log('➜ ', `http://localhost:${PORT}/`);

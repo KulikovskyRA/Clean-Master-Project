@@ -35,6 +35,7 @@ const authSlice = createSlice({
         state.cleaner.id = action.payload.admin.id || '';
         state.cleaner.email = action.payload.admin.email || '';
         state.cleaner.phoneNumber = action.payload.admin.phoneNumber || '';
+        state.cleaner.img = action.payload.admin.img || '';
       }
     },
 
@@ -54,6 +55,7 @@ const authSlice = createSlice({
         state.cleaner.id = action.payload.id || '';
         state.cleaner.email = action.payload.email || '';
         state.cleaner.phoneNumber = action.payload.phoneNumber || '';
+        state.cleaner.img = action.payload.img || '';
       }
     },
   },
