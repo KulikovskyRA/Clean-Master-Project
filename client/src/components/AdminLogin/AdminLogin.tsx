@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 const { Title } = Typography;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -15,21 +15,14 @@ const AdminLogin = () => {
   const [err, setErr] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
-    setErr((prev) => ({
-      err,
-      message: errorInfo,
-    }));
+    setErr({ err, message: errorInfo });
 
     setTimeout(() => {
-      setErr((prev) => ({
-        err: false,
-        message: '',
-      }));
+      setErr({ err: false, message: '' });
     }, 3000);
   };
 
   const onFinish = async (values: any): Promise<void> => {
-    // console.log(values);
     const res = await fetch(import.meta.env.VITE_URL + 'admin/login', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -39,7 +32,6 @@ const AdminLogin = () => {
 
     if (res.ok) {
       const result = await res.json();
-      // console.log(result);
       dispatch(
         authReducer({
           type: 'admin',

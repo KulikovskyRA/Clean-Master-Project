@@ -16,7 +16,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     checkAuthReducer(state, action) {
-      // console.log(action.payload);
       if (action.payload.user) {
         state.user.name = action.payload.user.name || '';
         state.user.id = action.payload.user.id || '';
