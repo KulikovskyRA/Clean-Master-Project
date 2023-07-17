@@ -1,5 +1,13 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Typography, Select, Divider } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Typography,
+  Select,
+  Divider,
+} from 'antd';
 const { Title } = Typography;
 const { Option } = Select;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -84,8 +92,8 @@ const CleanerRegister = () => {
   return (
     <>
       <Divider>
-                <h1>Заявка на сотрудничество</h1>
-              </Divider>
+        <h1>Заявка на сотрудничество</h1>
+      </Divider>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -103,8 +111,7 @@ const CleanerRegister = () => {
           rules={[
             {
               required: true,
-              message:
-                'Введите номер телефона!',
+              message: 'Введите номер телефона!',
             },
           ]}
         >
@@ -140,16 +147,13 @@ const CleanerRegister = () => {
           name="nation"
           rules={[{ required: true, message: 'Введите гражданство!' }]}
         >
-           <Select
-          placeholder="Ваше гражданство"
-          allowClear
-        >
-          <Option value="male">Узбекистан</Option>
-          <Option value="female">Казахстан</Option>
-          <Option value="other">Кыргызстан</Option>
-          <Option value="other">Таджикистан</Option>
-          <Option value="other">Российская Федерация</Option>
-        </Select>
+          <Select placeholder="Ваше гражданство" allowClear>
+            <Option value="Узбекистан">Узбекистан</Option>
+            <Option value="Казахстан">Казахстан</Option>
+            <Option value="Кыргызстан">Кыргызстан</Option>
+            <Option value="Таджикистан">Таджикистан</Option>
+            <Option value="Российская Федерация">Российская Федерация</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
