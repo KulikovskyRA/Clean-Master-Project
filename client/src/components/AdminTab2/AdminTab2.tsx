@@ -155,19 +155,24 @@ const AdminTab2 = () => {
       <Card
         title="Услуги:"
         style={{
-          marginLeft: '30%',
+          marginLeft: '28%',
           marginTop: '10px',
-          marginRight: '30%',
+          marginRight: '28%',
         }}
       >
         <Row>
-          <Col span={8}>
-            <Title level={4}>Базовые:</Title>
+          <Col span={10}>
+            <Title level={4} style={{ marginTop: 0 }}>
+              Базовые:
+            </Title>
 
             {defaults.map((def) => (
               <Row key={`def${def.id}`}>
                 <Text>{`${def.title}: ${def.singlePrice} UZS     `}</Text>
-                <EditOutlined onClick={() => showModal(def)} />
+                <EditOutlined
+                  style={{ marginLeft: '3px' }}
+                  onClick={() => showModal(def)}
+                />
               </Row>
             ))}
             <Space
@@ -179,14 +184,22 @@ const AdminTab2 = () => {
             </Space>
           </Col>
           <Col>
-            <Title level={4}>Дополнительные:</Title>
+            <Title level={4} style={{ marginTop: 0 }}>
+              Дополнительные:
+            </Title>
             {extra.map((ex) => (
               <Row key={`ex${ex.id}`}>
                 <Text>{`${ex.title} ${ex.single ? '(единич)' : ''}: ${
                   ex.singlePrice
                 } UZS`}</Text>
-                <EditOutlined onClick={() => showModal(ex)} />
-                <DeleteOutlined onClick={() => handleDelete(ex.id)} />
+                <EditOutlined
+                  style={{ marginLeft: '3px' }}
+                  onClick={() => showModal(ex)}
+                />
+                <DeleteOutlined
+                  style={{ marginLeft: '3px' }}
+                  onClick={() => handleDelete(ex.id)}
+                />
               </Row>
             ))}
           </Col>
@@ -202,7 +215,7 @@ const AdminTab2 = () => {
         <Input
           name="price"
           onChange={handleChangePrice}
-          style={{ width: 450 }}
+          style={{ width: 450, marginBottom: 10 }}
           placeholder="Введите цену"
           value={inputValues.price}
         />

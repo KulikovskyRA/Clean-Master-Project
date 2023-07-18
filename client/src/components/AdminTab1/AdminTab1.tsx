@@ -226,7 +226,7 @@ const AdminTab1 = () => {
                 </>
               ) : (
                 <>
-                  <Text strong>{`Клинер не назначен`}</Text>
+                  <Text strong>{`Клинер не назначен!`}</Text>
                   {!order.done && (
                     <Button onClick={() => showModal(order.id)}>
                       Назначить
