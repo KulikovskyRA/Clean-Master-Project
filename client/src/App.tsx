@@ -15,7 +15,6 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       (async function (): Promise<void> {
         const response: Response = await fetch(
           import.meta.env.VITE_URL + 'auth',
@@ -26,8 +25,6 @@ function App() {
 
         if (response.ok) {
           const result = await response.json();
-
-          // console.log(result);
 
           if (!result.user && window.location.pathname === '/client') {
             navigate('/login');
@@ -59,7 +56,6 @@ function App() {
         height: '100%',
       }}
     >
-      <Navbar />
       <AppRouter />
     </div>
   );

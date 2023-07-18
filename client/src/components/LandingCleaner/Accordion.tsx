@@ -1,25 +1,24 @@
-import type { CollapseProps } from "antd";
-import { Collapse } from "antd";
-import React from "react";
+import type { CollapseProps } from 'antd';
+import { Collapse } from 'antd';
+import React from 'react';
 
-
-const items: CollapseProps["items"] = [
+const items: CollapseProps['items'] = [
   {
-    key: "1",
-    label: "Как находить заказы?",
+    key: '1',
+    label: 'Как находить заказы?',
     children: (
       <p>
         Зайдите в личный кабинет клинера, нажмите на вкладку «Доступные заявки».
         Вы увидите список доступных заказов. В каждом заказе есть информация о
         дате и времени уборки, а так же адрес, по которому нужно приехать, объем
         работы и сколько вы заработаете за выполнение уборки. Если вы готовы
-        выполнить заказ, нажмите кнопку "Выполнить уборку".{" "}
+        выполнить заказ, нажмите кнопку "Выполнить уборку".{' '}
       </p>
     ),
   },
   {
-    key: "2",
-    label: "Какие заказы бывают?",
+    key: '2',
+    label: 'Какие заказы бывают?',
     children: (
       <p>
         Заказ формируется из количества комнат и санузлов, например 2 комнаты и
@@ -31,8 +30,8 @@ const items: CollapseProps["items"] = [
     ),
   },
   {
-    key: "3",
-    label: "Что входит в уборку?",
+    key: '3',
+    label: 'Что входит в уборку?',
     children: (
       <p>
         Мы делаем влажную уборку. Моем полы, протираем от пыли все доступные
@@ -43,23 +42,20 @@ const items: CollapseProps["items"] = [
     ),
   },
   {
-    key: "4",
-    label: "Какой у меня будет доход?",
+    key: '4',
+    label: 'Какой у меня будет доход?',
     children: (
       <p>
         Доход напрямую зависит от количества заказов, которые вы готовы
-        выполнять. Выполнив 1 или 2 уборки, вы заработаете примерно <b>450 000 сумов</b> 
-         в день.
+        выполнять. Выполнив 1 или 2 уборки, вы заработаете примерно{' '}
+        <b>450 000 сумов </b>в день.
       </p>
     ),
   },
 ];
 
 const Accordion: React.FC = () => (
-  <Collapse 
-  defaultActiveKey={["1"]} 
-  ghost items={items}
-  size='large' />
+  <Collapse defaultActiveKey={['1']} ghost items={items} size="large" />
 );
 
 export default Accordion;

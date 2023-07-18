@@ -1,37 +1,33 @@
 import React from 'react';
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Typography,
-  Select,
-  Divider,
-} from 'antd';
-const { Title } = Typography;
+import { Button, Checkbox, Form, Input, Select, Divider, Row } from 'antd';
+
 const { Option } = Select;
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
+
+import { Link } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { authReducer } from '../../redux/authSlice';
 
 const CleanerRegister = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [err, setErr] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
-    setErr((prev) => ({
-      err,
-      message: errorInfo,
-    }));
+    setErr({ err, message: errorInfo });
+    setTimeout(() => {
+      setErr({ err: false, message: '' });
+    }, 3000);
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" rules={[{ required: true }]} noStyle>
+    <Form.Item
+      name="prefix"
+      rules={[{ required: true, message: 'Выберите префикс!' }]}
+      noStyle
+    >
       <Select style={{ width: 100 }}>
         <Option value="+998">+998</Option>
         <Option value="+996">+996</Option>
@@ -44,15 +40,12 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-    // console.log(values);
     let pets;
     if (pet === 'indefined' ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
     }
-    // console.log(pets);
-
     const inputs = {
       name,
       surname,
@@ -72,7 +65,6 @@ const CleanerRegister = () => {
 
     if (res.ok) {
       const result = await res.json();
-      //   console.log(result);
 
       authReducer({
         type: 'cleaner',
@@ -128,19 +120,17 @@ const CleanerRegister = () => {
         >
           <Input placeholder="Ваше имя" />
         </Form.Item>
-
-        <Form.Item
-          name="surname"
-          rules={[{ required: true, message: 'Введите фамилию!' }]}
-        >
-          <Input placeholder="Ваша фамилия" />
-        </Form.Item>
-
         <Form.Item
           name="patrname"
           rules={[{ required: true, message: 'Введите отчество!' }]}
         >
           <Input placeholder="Ваше отчество" />
+        </Form.Item>
+        <Form.Item
+          name="surname"
+          rules={[{ required: true, message: 'Введите фамилию!' }]}
+        >
+          <Input placeholder="Ваша фамилия" />
         </Form.Item>
 
         <Form.Item
@@ -172,11 +162,17 @@ const CleanerRegister = () => {
             </Checkbox>
           </Checkbox.Group>
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" size="large" htmlType="submit">
-            Отправить заявку
-          </Button>
-        </Form.Item>
+
+        <Row>
+          <Link style={{ marginTop: '6px' }} to="/cleanlogin">
+            Уже являетесь клинером?
+          </Link>
+          <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+            <Button type="primary" size="large" htmlType="submit">
+              Отправить заявку
+            </Button>
+          </Form.Item>
+        </Row>
       </Form>
     </>
   );

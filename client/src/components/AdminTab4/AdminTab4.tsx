@@ -1,7 +1,4 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import ClientCard from './ClientCard';
 
@@ -21,7 +18,6 @@ const AdminTab4 = () => {
 
         if (response.ok) {
           const result = await response.json();
-          // console.log(result);
           setClients(result);
         }
       })();

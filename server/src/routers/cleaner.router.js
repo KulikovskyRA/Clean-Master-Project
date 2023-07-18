@@ -19,11 +19,18 @@ const {
   cleanerLogin,
   cleanerRegister,
   cleanersList,
+  cleanerInfo,
   cleanerPhoto
+
 } = require('../controllers/cleaner.controller');
 
 module.exports = cleanerRouter
   .post('/login', cleanerLogin)
   .post('/register', cleanerRegister)
+
+  .get('/', cleanersList)
+  .get('/info', cleanerInfo)
+
   .post('/updatePhoto/:id', upload.single('image'), cleanerPhoto)
-  .get('/', cleanersList);
+
+

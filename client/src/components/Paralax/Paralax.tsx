@@ -12,6 +12,10 @@ import {
   GiftOutlined,
 } from '@ant-design/icons';
 import video from '../../../public/vid2.webm';
+import { Button, Space, ConfigProvider, Divider } from 'antd';
+import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
+import Navbar from '../../components/Navbar/Navbar';
+import { Typography } from 'antd';
 
 const Paralax = () => {
   useEffect(() => {
@@ -80,7 +84,6 @@ const Paralax = () => {
     };
   }, []);
 
-  // ыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыы
   const [isPlanRoomVisible, setIsPlanRoomVisible] = useState(false);
 
   useEffect(() => {
@@ -111,7 +114,7 @@ const Paralax = () => {
       const planRoom2Position = planRoom2.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
-      if (planRoom2Position < windowHeight * 0.5) {
+      if (planRoom2Position < windowHeight * 0.7) {
         setIsPlanRoom2Visible(true);
       } else {
         setIsPlanRoom2Visible(false);
@@ -128,6 +131,7 @@ const Paralax = () => {
 
   return (
     <>
+      <Navbar />
       <div id="parallax-world-of-ugg">
         <section>
           <div className="parallax-one">
@@ -136,12 +140,12 @@ const Paralax = () => {
             <br />
             <div className="btn-box">
               <button className="btn-go" onClick={scrollToBlock}>
-                ЗАКАЗАТЬ УБОРКУ
+                Заказать уборку
               </button>
             </div>
           </div>
         </section>
-        <section>
+        <section className="clining-contanier">
           <div id="cleaning-block" className="block">
             <p>
               <span className="first-character ny">I</span>{' '}
@@ -151,9 +155,8 @@ const Paralax = () => {
 
           <div className="photo-box">
             <div className="oneCard">
-              <div className="block-block"></div>
               <img className="photo-use" src="/1.jpeg" alt="" />
-              <div className="text1">Влажная уборка поверхностей</div>
+              <div className="text1">Влажная уборка </div>
             </div>
 
             <div className="oneCard">
@@ -169,15 +172,19 @@ const Paralax = () => {
 
             <div className="oneCard">
               <img className="photo-use" src="/4.jpeg" alt="" />
-              <div className="block-block2"></div>
-              <div className="text1">Дезинфекция сантехники и зеркал</div>
+              <div className="text1">
+                Дезинфекция <br /> сантехники и зеркал
+              </div>
             </div>
+          </div>
+          <div id="cleaning-block" className="block">
             <p>
-              <span className="first-character ny"></span>{' '}
+              <span className="first-character ny">I</span>{' '}
               <div className="text">РЕЗУЛЬТАТ ДО И ПОСЛЕ</div>
             </p>
           </div>
 
+          <br />
           <div className="slider-container" id="sliderContainer">
             <img
               src="./nenorm.jpg"
@@ -192,7 +199,25 @@ const Paralax = () => {
                 id="sliderHandle"
                 style={{ left: `${sliderPosition}%` }}
               >
-                <div className="title-slider">CLEAN MASTER</div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
+                  className="bi bi-arrows-expand"
+                  viewBox="0 0 16 16"
+                  style={{
+                    color: 'white',
+                    margin: '0px auto',
+
+                    transform: 'rotate(90deg)',
+                  }}
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8ZM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2ZM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10Z"
+                  />
+                </svg>
               </div>
             </div>
             <img
@@ -206,7 +231,6 @@ const Paralax = () => {
         </section>
 
         {/*  */}
-
 
         <div className="border"></div>
 
@@ -237,7 +261,7 @@ const Paralax = () => {
                 <span className="first-character " style={{ color: 'white' }}>
                   I
                 </span>{' '}
-                <div className="text" style={{ color: 'white' }}>
+                <div id="plus" className="text" style={{ color: 'white' }}>
                   ПОЧЕМУ СТОИТ ДОВЕРИТЬ УБОРКУ НАМ?
                 </div>
               </p>
@@ -256,7 +280,7 @@ const Paralax = () => {
                       </p>
                       <div className="top-item-text">ОПЫТНЫЕ КЛИНЕРЫ</div>
                       <br />
-                      <div style={{ fontSize: '16px' }}>
+                      <div className="pluses">
                         Все наши сотрудники <br /> прошли обучение и соблюдают
                         стандарты уборки
                       </div>
@@ -274,7 +298,7 @@ const Paralax = () => {
                       </p>
                       <div className="top-item-text">ГАРАНТИЯ КАЧЕСТВА</div>
                       <br />
-                      <div style={{ fontSize: '16px' }}>
+                      <div className="pluses">
                         Клинер исправит недочёты, если вам не понравится
                         результат
                       </div>
@@ -291,7 +315,7 @@ const Paralax = () => {
                     </p>
                     <div className="top-item-text">ЧЕСТНАЯ ЦЕНА</div>
                     <br />
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="pluses">
                       Стоимость уборки зависит <br /> от количества комнат{' '}
                       <br />и количества услуг
                     </div>
@@ -307,7 +331,7 @@ const Paralax = () => {
                     </p>
                     <div className="top-item-text">БЕЗ ПРЕДОПЛАТЫ</div>
                     <br />
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="pluses">
                       Вы платите за услугу только после завершения уборки
                     </div>
                   </div>
@@ -323,7 +347,7 @@ const Paralax = () => {
                     <div className="top-item-text">ДОВЕРИЕ</div>
                     <br />
 
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="pluses">
                       Клинер может взять ключи <br /> и сделать уборку без
                       вашего присутствия
                     </div>
@@ -339,7 +363,7 @@ const Paralax = () => {
                     </p>
                     <div className="top-item-text">НАДЁЖНОСТЬ</div>
                     <br />
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="pluses">
                       Компенсируем ущерб, <br /> если что-то пойдет не так
                     </div>
                   </div>
@@ -354,7 +378,7 @@ const Paralax = () => {
                     </p>
                     <div className="top-item-text">БЕЗОПАСНОСТЬ</div>
                     <br />
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="pluses">
                       Гипоаллергенны <br /> и не вредят питомцам
                     </div>
                   </div>
@@ -369,9 +393,7 @@ const Paralax = () => {
                     </p>
                     <div className="top-item-text">СИСТЕМА ЛОЯЛЬНОСТИ</div>
                     <br />
-                    <div style={{ fontSize: '16px' }}>
-                      Для постоянных клиентов скидки
-                    </div>
+                    <div className="pluses">Для постоянных клиентов скидки</div>
                   </div>
                 </div>
               </p>
@@ -382,7 +404,7 @@ const Paralax = () => {
 
         <section style={{ background: 'none' }}>
           <Element name="block" className="block">
-            <div className="block">
+            <div id="price" className="block">
               <div
                 className={`plan-room-img ${isPlanRoomVisible ? 'show' : ''}`}
                 style={{
@@ -449,33 +471,75 @@ const Paralax = () => {
             <h2>
               ЗАНИМАЙТЕСЬ ЛЮБИМЫМ ДЕЛОМ, <br /> А УБОРКУ ДОВЕРЬТЕ НАМ
             </h2>
-
-   
           </div>
         </section>
 
         {/* ФУТЕР */}
 
         <section className="footer">
-          <p className="line-break "></p>
-          <p className="margin-top-10"></p>
-          <p className="margin-top-10">
-            <div className="first-box">
-              <p className="link-title">Clean Master</p>
-              <Link className="footer-link" to="/cleaner">
-                Cleaner
-              </Link>
-              <Link className="footer-link" to="/admin">
-                Admin
-              </Link>
-              <a className="footer-footer" href="#">
-                ссылка
+          <div className="first-box">
+            <div className="link-title">Меню</div>
+            <a className="link-footer" href="/">
+              Главная
+            </a>
+            <a className="link-footer" href="#plus">
+              О компании
+            </a>
+
+            <Link className="link-footer" to="/jobs">
+              Вакансии
+            </Link>
+
+            <a className="link-footer" href="#price">
+              Цены
+            </a>
+            <a className="link-footer" href="*">
+              Договор
+            </a>
+            <a className="link-footer" href="*">
+              Политика конфиденциальности
+            </a>
+            <a className="link-footer" href="*">
+              Правила работы сайта
+            </a>
+          </div>
+
+          <div className="contact-box">
+            <div className="link-title">Контакты</div>
+            <a className="link-footer" href="tel:8 800-2222-945">
+              8 800-2222-945
+            </a>
+            <a className="link-footer" href="tel:8 (921) 928-72-58">
+              8 (921) 928-72-58
+            </a>
+            <a className="link-footer" href="mailto:info@clean-master.com">
+              info@clean-master.com
+            </a>
+
+            <div className="social">
+              <a href="https://vk.com/club134865736">
+                <img className="soc-png" src="./s2.png" alt="" />
               </a>
-              <a className="link-footer" href="#">
-                ссылка
+              <a href="https://www.instagram.com/cleanmastergt/">
+                <img className="soc-png" src="./s1.png" alt="" />
+              </a>
+              <a href="https://web.telegram.org/a/#-1751514282">
+                <img className="soc-png" src="./s4.png" alt="" />
+              </a>
+              <a className="link-footer" href="https://web.whatsapp.com/">
+                <img className="soc-png" src="./s5.png" alt="" />
               </a>
             </div>
-          </p>
+          </div>
+
+          <div className="three-box">
+            <div className="link-title">Способы оплаты</div>
+            <div className="pays-box">
+              <img className="pay1" src="./p1.png" alt="" />
+              <img className="pay" src="./p2.png" alt="" />
+              <img className="pay" src="./p3.png" alt="" />
+            </div>
+          </div>
         </section>
       </div>
     </>
