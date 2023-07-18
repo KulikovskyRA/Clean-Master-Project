@@ -1,11 +1,14 @@
-import React from "react";
-import { Avatar, Button, ConfigProvider, Divider, Space } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import CleanerOrdersTabs from "../../components/CleanerOrdersTabs/CleanerOrdersTabs";
+import React from 'react';
+import { Avatar, Button, ConfigProvider, Divider, Space } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import CleanerOrdersTabs from '../../components/CleanerOrdersTabs/CleanerOrdersTabs';
+import Navbar from '../../components/Navbar/Navbar';
+
 
 import styles from "./CleanerStyles.module.css";
 import CleanerInfo from "../../components/CleanerInfo/CleanerInfo";
 import CleanerPhoto from "../../components/CleanerPhoto/CleanerPhoto";
+
 
 const Cleaner: React.FC = () => {
   return (
@@ -13,17 +16,17 @@ const Cleaner: React.FC = () => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "black",
+            colorPrimary: 'black',
             fontSize: 15,
           },
         }}
       >
         <div
           style={{
-            width: "80%",
-            margin: "0 auto",
-            marginBottom: "50px",
-            marginTop: "50px",
+            width: '80%',
+            margin: '0 auto',
+            marginBottom: '50px',
+            marginTop: '50px',
           }}
         >
           <Divider>
@@ -31,6 +34,16 @@ const Cleaner: React.FC = () => {
           </Divider>
           <div>
             <div className={styles.cleanerAvatarDiv}>
+
+              <Avatar size={150} icon={<UserOutlined />} />
+              <Space>
+                {' '}
+                <Button type="default" size="small">
+                  Загрузить фото
+                </Button>
+              </Space>
+
+
               <CleanerPhoto/>
               {/*<Avatar size={150} icon={<UserOutlined/>}/>*/}
               {/*<Space>*/}
@@ -39,6 +52,7 @@ const Cleaner: React.FC = () => {
               {/*    Загрузить фото*/}
               {/*  </Button>*/}
               {/*</Space>*/}
+
             </div>
             <div className={styles.cleanerInfoDiv}>
               <CleanerInfo/>

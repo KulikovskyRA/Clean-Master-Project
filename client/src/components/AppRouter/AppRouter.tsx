@@ -12,12 +12,13 @@ import UserLogin from '../UserLogin/UserLogin';
 import UserRegistration from '../UserRegistration/UserRegistration';
 import CleanerLogin from '../CleanerLogin/CleanerLogin';
 import CleanerRegister from '../CleanerRegister/CleanerRegister';
+import Ups from '../../pages/Error/Error.tsx';
 
 const AppRouter = () => {
   return (
     <>
       <Routes>
-        <Route path="/" Component={Paralax} />
+        <Route exact path="/" Component={Paralax} />
         <Route path="/client" Component={Client} />
         <Route path="/cleaner" Component={Cleaner} />
         <Route path="/jobs" Component={LandingCleaner} />
@@ -29,6 +30,8 @@ const AppRouter = () => {
 
         <Route path="/cleanlogin" Component={CleanerLogin} />
         <Route path="/cleanregister" Component={CleanerRegister} />
+
+        <Route path="*" Component={Ups} />
       </Routes>
     </>
   );
