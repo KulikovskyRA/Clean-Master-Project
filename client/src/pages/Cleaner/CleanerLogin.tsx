@@ -65,7 +65,7 @@ const CleanerLogin = () => {
 
       navigate('/cleaner');
     } else if (res.status === 403) {
-      onFinishStatus(true, 'Неверный email/пароль');
+      onFinishStatus(true, 'Неверно указан номер телефона или пароль');
     } else {
       onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
     }
@@ -93,8 +93,7 @@ const CleanerLogin = () => {
             rules={[
               {
                 required: true,
-                message:
-                  'Напиши свою звонилку нормально, если не хочешь потерять работу! ',
+                message: 'Введите номер телефона! ',
               },
             ]}
           >
