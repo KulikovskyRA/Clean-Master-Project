@@ -7,7 +7,7 @@ import Admin from '../../pages/Admin/Admin';
 
 import Paralax from '../Paralax/Paralax';
 //! Авторизации и регистрации
-import AdminLogin from '../AdminLogin/AdminLogin';
+import AdminLogin from '../../pages/Admin/AdminLogin.tsx';
 import UserLogin from '../UserLogin/UserLogin';
 import UserRegistration from '../UserRegistration/UserRegistration';
 import CleanerLogin from '../../pages/Cleaner/CleanerLogin.tsx';

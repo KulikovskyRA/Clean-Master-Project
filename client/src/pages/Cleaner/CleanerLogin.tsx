@@ -93,7 +93,6 @@ const CleanerLogin = () => {
           token: {
             colorPrimary: 'black',
             fontSize: 18,
-
             colorLink: 'black',
             colorLinkActive: 'black',
             colorLinkHover: 'gray',
