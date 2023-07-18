@@ -10,8 +10,8 @@ import Paralax from '../Paralax/Paralax';
 import AdminLogin from '../AdminLogin/AdminLogin';
 import UserLogin from '../UserLogin/UserLogin';
 import UserRegistration from '../UserRegistration/UserRegistration';
-import CleanerLogin from '../CleanerLogin/CleanerLogin';
-import CleanerRegister from '../CleanerRegister/CleanerRegister';
+import CleanerLogin from '../../pages/Cleaner/CleanerLogin.tsx';
+// import CleanerRegister from '../CleanerRegister/CleanerRegister';
 import OrderForm from '../OrderForm/OrderForm';
 import Ups from '../../pages/Error/Error.tsx';
 

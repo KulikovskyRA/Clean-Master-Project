@@ -1,11 +1,12 @@
-import React from "react";
-import { Button, Divider, Row, Space, Typography, ConfigProvider } from "antd";
-import Accordion from "../../components/LandingCleaner/Accordion";
-import styles from "./LandingCleanerStyles.module.css";
-import WeOffer from "../../components/LandingCleaner/WeOffer";
-import BecomeACleaner from "../../components/LandingCleaner/BecomeACleaner";
-import { FormOutlined } from "@ant-design/icons";
-import CleanerRegister from "../../components/CleanerRegister/CleanerRegister";
+import React from 'react';
+import { Button, Divider, Row, Space, Typography, ConfigProvider } from 'antd';
+import Accordion from '../../components/LandingCleaner/Accordion';
+import styles from './LandingCleanerStyles.module.css';
+import WeOffer from '../../components/LandingCleaner/WeOffer';
+import BecomeACleaner from '../../components/LandingCleaner/BecomeACleaner';
+import { FormOutlined } from '@ant-design/icons';
+import CleanerRegister from '../../components/CleanerRegister/CleanerRegister';
+import { Routes, Route, Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -15,24 +16,37 @@ export default function LandingCleaner() {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "black",
+            colorPrimary: 'black',
             fontSize: 18,
           },
         }}
       >
-        <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <div className={styles.cleanerHeaderDiv}>
             <Title level={4}>ИЩЕМ СПЕЦИАЛИСТОВ ПО УБОРКЕ</Title>
             <Title>
               Надёжный доход <br /> и удобное расписание
             </Title>
             <div>
-              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
+              <Button
+                type="primary"
+                size="large"
+                icon={<FormOutlined />}
+                href="#cleanerRegForm"
+                target="_self"
+              >
                 Заполнить анкету
               </Button>
             </div>
           </div>
-          <div style={{ width: "70%", margin: "0 auto", marginBottom: "px", marginTop: "50px" }}>
+          <div
+            style={{
+              width: '70%',
+              margin: '0 auto',
+              marginBottom: 'px',
+              marginTop: '50px',
+            }}
+          >
             <Divider>
               <h1>Мы предлагаем</h1>
             </Divider>
@@ -41,18 +55,30 @@ export default function LandingCleaner() {
           <Row>
             <div className={styles.yellowDiv}>
               <Title>
-                Мы настроены на долгосрочное <br /> сотрудничество и гарантируем <br />стабильный поток
-                клиентов
+                Мы настроены на долгосрочное <br /> сотрудничество и гарантируем{' '}
+                <br />
+                стабильный поток клиентов
               </Title>
-              <Button type="primary" size="large" icon={<FormOutlined />} href="#cleanerRegForm" target="_self">
+              <Button
+                type="primary"
+                size="large"
+                icon={<FormOutlined />}
+                href="#cleanerRegForm"
+                target="_self"
+              >
                 Заполнить анкету
               </Button>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
+              style={{
+                width: '70%',
+                margin: '0 auto',
+                marginBottom: '50px',
+                marginTop: '50px',
+              }}
             >
               <Divider>
-                <h1>Как стать клинером в CLEAN MASTER</h1>
+                <h1>Как стать клинером в CLEAN MASTER?</h1>
               </Divider>
               <BecomeACleaner />
             </div>
@@ -62,12 +88,25 @@ export default function LandingCleaner() {
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
-              <Button type="primary" size="large" href="#cleanerRegForm" target="_self">
-                Личный кабинет сорудника
-              </Button>
+
+              <Link to="/cleanlogin">
+                <Button
+                  type="primary"
+                  size="large"
+                  // href="#cleanerRegForm"
+                  // target="_self"
+                >
+                  Личный кабинет сотрудника
+                </Button>
+              </Link>
             </div>
             <div
-              style={{ width: "70%", margin: "0 auto", marginBottom: "50px", marginTop: "50px" }}
+              style={{
+                width: '70%',
+                margin: '0 auto',
+                marginBottom: '50px',
+                marginTop: '50px',
+              }}
             >
               <Divider>
                 <h1>Ответы на популярные вопросы</h1>
@@ -76,7 +115,7 @@ export default function LandingCleaner() {
             </div>
           </Row>
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
-          <CleanerRegister />
+            <CleanerRegister />
           </div>
           <div className={styles.grayDiv}>
             ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)

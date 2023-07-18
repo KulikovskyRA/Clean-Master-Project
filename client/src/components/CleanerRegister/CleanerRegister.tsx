@@ -1,41 +1,30 @@
 import React from 'react';
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Typography,
-  Select,
-  Divider,
-  ConfigProvider,
-  Row,
-} from 'antd';
-const { Title } = Typography;
+import { Button, Checkbox, Form, Input, Select, Divider, Row } from 'antd';
+
 const { Option } = Select;
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { authReducer } from '../../redux/authSlice';
 
 const CleanerRegister = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [err, setErr] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
-    setErr((prev) => ({
-      err,
-      message: errorInfo,
-    }));
+    setErr({ err, message: errorInfo });
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" rules={[{ required: true }]} noStyle>
+    <Form.Item
+      name="prefix"
+      rules={[{ required: true, message: 'Выберите префикс!' }]}
+      noStyle
+    >
       <Select style={{ width: 100 }}>
         <Option value="+998">+998</Option>
         <Option value="+996">+996</Option>
@@ -48,14 +37,12 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-
     let pets;
     if (pet === 'indefined' ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
     }
-
     const inputs = {
       name,
       surname,
@@ -65,8 +52,6 @@ const CleanerRegister = () => {
       password,
       pets,
     };
-
-    console.log(import.meta.env.VITE_URL + 'cleaner/register');
 
     const res = await fetch(import.meta.env.VITE_URL + 'cleaner/register', {
       method: 'POST',
@@ -176,8 +161,8 @@ const CleanerRegister = () => {
         </Form.Item>
 
         <Row>
-          <Link style={{ marginLeft: '0px' }} to="/cleanlogin">
-            Уже есть аккаунт?
+          <Link style={{ marginTop: '6px' }} to="/cleanlogin">
+            Уже являетесь клинером?
           </Link>
           <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
             <Button type="primary" size="large" htmlType="submit">
