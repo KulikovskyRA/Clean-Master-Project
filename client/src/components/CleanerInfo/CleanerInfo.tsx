@@ -1,17 +1,3 @@
-const fcleanerData = {
-  id: 1,
-  name: "Test",
-  surname: "Testov",
-  patronymic: "Testovich",
-  phone: "123456789",
-  residency: "Узбекистан",
-  petFriendly: true,
-  ordersCompleted: 18,
-  ordersPlanned: 3,
-  rating: 4.8,
-  income: 456000,
-};
-
 import { Descriptions, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 
@@ -31,6 +17,7 @@ export default function CleanerInfo() {
       }
 
       const result = await response.json();
+    console.log('cleaner data ---------->', result);
       setCleanerData(result);
     } catch (error) {
       console.error("Error:", error);
@@ -56,19 +43,19 @@ export default function CleanerInfo() {
         <Descriptions.Item label="Ф.И.О">
           {cleanerData.name} {cleanerData.patrname} {cleanerData.surname}
         </Descriptions.Item>
-        <Descriptions.Item label="ID">{fcleanerData.id}</Descriptions.Item>
+        <Descriptions.Item label="ID">{cleanerData.id}</Descriptions.Item>
         <Descriptions.Item label="Номер телефона">
           {cleanerData.phoneNumber}
         </Descriptions.Item>
         <Descriptions.Item label="Гражданство">{cleanerData.nation}</Descriptions.Item>
         <Descriptions.Item label="Выполнено уборок">
-          {fcleanerData.ordersCompleted}
+          XXX
         </Descriptions.Item>
         <Descriptions.Item label="Запланировано уборок">
-          {fcleanerData.ordersPlanned}
+          XXX
         </Descriptions.Item>
         <Descriptions.Item label="Доход за всё время">
-          {fcleanerData.income} UZS
+          XXX UZS
         </Descriptions.Item>
       </Descriptions>
     </>
