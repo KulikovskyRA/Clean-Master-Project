@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from "react";
 import { Button, Card, Space } from "antd";
 
@@ -21,6 +22,33 @@ const userData = {
 };
 
 const CleanerOrderPlannedCard = () => {
+  const [plannedOrders, setPlannedOrders] = React.useState([]);
+
+  const fetchPlannedOrders = async () => {
+    try {
+      const response = await fetch(`http://localhost:3500/api/order/planned`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const result = await response.json();
+      setPlannedOrders(result);
+      console.log('planned orders-------->', result);
+      
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  React.useEffect(() => {
+      void fetchPlannedOrders();
+  }, []);
+  
   return (
     <Card
       title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString("ru", {
