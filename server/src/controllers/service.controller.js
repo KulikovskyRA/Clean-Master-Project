@@ -9,10 +9,30 @@ module.exports.servicesAll = async (req, res) => {
   res.json(allServices);
 };
 
+module.exports.singlePriceServices = async (req, res) => {
+  const serviceList = await Service.findAll({
+    where: { single: true, default: false },
+    raw: true,
+    attributes: ['id', 'title', 'singlePrice', 'default', 'single'],
+    order: [['id', 'ASC']],
+  });
+  res.json(serviceList);
+};
+
+module.exports.noSinglePriceServices = async (req, res) => {
+  const serviceList = await Service.findAll({
+    where: { single: false, default: false },
+    raw: true,
+    attributes: ['id', 'title', 'singlePrice', 'default', 'single'],
+    order: [['id', 'ASC']],
+  });
+  res.json(serviceList);
+};
+
 module.exports.serviceEdit = async (req, res) => {
   const { title, price, single } = req.body;
   // console.log(title, price, single);
-
+  
   const service = await Service.findByPk(req.params.id);
   if (title && title !== '') {
     service.title = title;
@@ -23,7 +43,7 @@ module.exports.serviceEdit = async (req, res) => {
   if (typeof single !== 'undefined') {
     service.single = single;
   }
-
+  
   service.save();
   res.sendStatus(200);
 };
