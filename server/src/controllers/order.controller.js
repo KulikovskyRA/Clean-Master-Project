@@ -80,7 +80,7 @@ module.exports.adminTab2Info = async (req, res) => {
   res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
 };
 
-//! переписать на findByPk, это для отображения списка запланированных уборок в ЛК клинера - 
+//! переписать на findByPk, это для отображения списка запланированных уборок в ЛК клинера -
 //! ловить в pages -> Cleaner -> Cleaner.tsx -> <CleanerOrdersTabs /> -> ...
 // module.exports.ordersCleanerPlanned = async (req, res) => {
 //   const cleanerPlannedOrders = await Order.findAll({
