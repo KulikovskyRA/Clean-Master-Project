@@ -4,14 +4,11 @@ import { UserOutlined } from '@ant-design/icons';
 import CleanerOrdersTabs from '../../components/CleanerOrdersTabs/CleanerOrdersTabs';
 import Navbar from '../../components/Navbar/Navbar';
 
-<<<<<<< HEAD
-import styles from './CleanerStyles.module.css';
-import CleanerInfo from '../../components/CleanerInfo/CleanerInfo';
-=======
+
 import styles from "./CleanerStyles.module.css";
 import CleanerInfo from "../../components/CleanerInfo/CleanerInfo";
 import CleanerPhoto from "../../components/CleanerPhoto/CleanerPhoto";
->>>>>>> 0e2f2484989baf3ce3cdcb40a44a9419ea5e366d
+
 
 const Cleaner: React.FC = () => {
   return (
@@ -37,7 +34,7 @@ const Cleaner: React.FC = () => {
           </Divider>
           <div>
             <div className={styles.cleanerAvatarDiv}>
-<<<<<<< HEAD
+
               <Avatar size={150} icon={<UserOutlined />} />
               <Space>
                 {' '}
@@ -45,7 +42,8 @@ const Cleaner: React.FC = () => {
                   Загрузить фото
                 </Button>
               </Space>
-=======
+
+
               <CleanerPhoto/>
               {/*<Avatar size={150} icon={<UserOutlined/>}/>*/}
               {/*<Space>*/}
@@ -54,7 +52,7 @@ const Cleaner: React.FC = () => {
               {/*    Загрузить фото*/}
               {/*  </Button>*/}
               {/*</Space>*/}
->>>>>>> 0e2f2484989baf3ce3cdcb40a44a9419ea5e366d
+
             </div>
             <div className={styles.cleanerInfoDiv}>
               <CleanerInfo/>
