@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { useState } from "react";
+import { futureDates, futureTimes } from './orderdates.js';
 import { Button, Checkbox, Form, Input } from 'antd';
 
+
+console.log(futureDates);
 const OrderForm = () => {
   // const [ roomsCount, setRoomsCount ] = useState(1);
   // const [ bathCount, setBathCount ] = useState(1);
@@ -9,6 +12,8 @@ const OrderForm = () => {
   const [ formData, setFormData ] = useState({
     rooms: 1,
     baths: 1,
+    date: 0,
+    time: '8:00'
     // Add more form fields here
   });
 
@@ -66,6 +71,20 @@ const OrderForm = () => {
       <div onClick={() => handleDecrement('bathCount')}>-</div>
       <input name="baths" type="text" value={formData.baths} onChange={handleChange}/>
       <div onClick={() => handleIncrement('bathCount')}>+</div>
+
+      <label>Когда к вам приехать?</label>
+      <select name="date" onChange={handleChange}>
+        {futureDates.map((el) => {
+          return (<option>{el.toLocaleString("ru", {
+            day: "numeric",
+            month: "long",
+            weekday: "long",
+          })}</option>);
+        })}
+      </select>
+      <select name="time" onChange={handleChange}>
+        {futureTimes.map(el => <option value={el}>{el}</option>)}
+      </select>
 
       <button type="submit">Отправить</button>
     </form>
