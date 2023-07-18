@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const { Router } = require('express');
 
 const express = require('express');
@@ -9,6 +10,7 @@ const {
   deleteOrder,
   updateCleaner,
   adminTab2Info,
+  ordersCleanerPlanned,
   updatePrice,
 } = require('../controllers/order.controller');
 
@@ -16,5 +18,6 @@ module.exports = orderRouter
   .get('/', orders)
   .delete('/:id', deleteOrder)
   .put('/', updateCleaner)
-  .patch('/', updatePrice)
-  .get('/tab2', adminTab2Info);
+  .get('/tab2', adminTab2Info)
+  .get('/planned', ordersCleanerPlanned)
+  .patch('/', updatePrice);

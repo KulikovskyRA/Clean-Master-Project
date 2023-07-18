@@ -30,11 +30,12 @@ const authSlice = createSlice({
       }
 
       if (action.payload.cleaner) {
-        state.cleaner.name = action.payload.admin.name || '';
-        state.cleaner.id = action.payload.admin.id || '';
-        state.cleaner.email = action.payload.admin.email || '';
-        state.cleaner.phoneNumber = action.payload.admin.phoneNumber || '';
-        state.cleaner.img = action.payload.admin.img || '';
+        state.cleaner.name = action.payload.cleaner.name || '';
+        state.cleaner.id = action.payload.cleaner.id || '';
+        state.cleaner.email = action.payload.cleaner.email || '';
+        state.cleaner.phoneNumber = action.payload.cleaner.phoneNumber || '';
+        state.cleaner.img = action.payload.cleaner.img || '';
+
       }
     },
 

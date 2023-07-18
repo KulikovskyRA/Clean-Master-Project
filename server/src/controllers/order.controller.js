@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
 const {
@@ -78,3 +79,23 @@ module.exports.adminTab2Info = async (req, res) => {
 
   res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
 };
+
+//! переписать на findByPk, это для отображения списка запланированных уборок в ЛК клинера - 
+//! ловить в pages -> Cleaner -> Cleaner.tsx -> <CleanerOrdersTabs /> -> ...
+// module.exports.ordersCleanerPlanned = async (req, res) => {
+//   const cleanerPlannedOrders = await Order.findAll({
+//     order: [['id', 'ASC']],
+//     attributes: ['id', 'info', 'address', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+//     include: [
+//       { model: User, attributes: ['userName', 'phoneNumber'] },
+//       {
+//         model: OrderService,
+//         attributes: ['id', 'order_id', 'service_id', 'amount'],
+//         include: {
+//           model: Service,
+//         },
+//       },
+//     ],
+//   });
+//   res.json(cleanerPlannedOrders);
+// };
