@@ -1,4 +1,5 @@
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Typography } from 'antd';
+const { Text } = Typography;
 import { useState, useEffect } from 'react';
 
 export default function CleanerCard({ cleaner }) {
@@ -29,29 +30,34 @@ export default function CleanerCard({ cleaner }) {
         textAlign: 'start',
         marginRight: '10%',
         marginBottom: '10px',
+        paddingLeft: '1%',
       }}
     >
       <Row>
         <Col span={2}>
-          <p>{`id: ${cleaner.id}`}</p>
+          <Text strong>{`id:\u00A0`}</Text>
+          <Text>{`${cleaner.id}`}</Text>
         </Col>
-        <Col span={5}>
-          <p>{`${cleaner.surname} ${cleaner.name} ${cleaner.patrname}`}</p>
+        <Col span={7}>
+          <Text>{`${cleaner.surname} ${cleaner.name} ${cleaner.patrname}`}</Text>
         </Col>
 
         <Col span={3}>
-          <p>{`${cleaner.phoneNumber}`}</p>
-        </Col>
-
-        <Col span={4}>
-          <p>{`Резиденство: ${cleaner.nation}`}</p>
+          <Text>{`${cleaner.phoneNumber}`}</Text>
         </Col>
 
         <Col span={5}>
-          <p>Работает с питомцами: {cleaner.pets ? ' Да' : ' Нет'}</p>
+          <Text strong>{`Резиденство:\u00A0`}</Text>
+          <Text>{`${cleaner.nation}`}</Text>
+        </Col>
+
+        <Col span={5}>
+          <Text strong>{`Работает с питомцами:\u00A0`}</Text>
+          <Text>{cleaner.pets ? ' Да' : ' Нет'}</Text>
         </Col>
         <Col>
-          <p>{`Рейтинг: ${totalRating}`}</p>
+          <Text strong>{`Рейтинг:\u00A0`}</Text>
+          <Text>{`${totalRating}`}</Text>
         </Col>
       </Row>
     </Card>
