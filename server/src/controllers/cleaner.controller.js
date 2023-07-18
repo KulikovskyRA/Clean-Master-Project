@@ -115,7 +115,15 @@ module.exports.cleanerPhoto = async (req, res) => {
         },
       }
     );
-    res.status(200);
+    const result = {
+      name: req.file.filename,
+      status: 'done',
+      url: 'test',
+      thumbUrl: 'test'
+    };
+    res
+      .status(200)
+      .json(result);
     // console.log(updateUser);
   } catch (error) {
     console.log(error);
