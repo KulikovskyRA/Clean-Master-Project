@@ -1,35 +1,46 @@
-import { Descriptions, Divider } from "antd";
-import React from "react";
-
-interface ICleanerData {
-  id: number;
-  name: string;
-  surname: string;
-  patronymic: string;
-  phone: string;
-  residency: string;
-  petFriendly: true;
-  ordersCompleted: number;
-  ordersPlanned: number;
-  rating: number;
-  income: number;
-}
-
-const cleanerData: ICleanerData = {
-  id: 123,
-  name: "Наталья",
-  surname: "Абрикосова",
-  patronymic: "Вячеславовна",
-  phone: "+998 94 720 2280",
+const fcleanerData = {
+  id: 1,
+  name: "Test",
+  surname: "Testov",
+  patronymic: "Testovich",
+  phone: "123456789",
   residency: "Узбекистан",
   petFriendly: true,
   ordersCompleted: 18,
   ordersPlanned: 3,
   rating: 4.8,
-  income: 1254000,
+  income: 456000,
 };
 
+import { Descriptions, Divider } from "antd";
+import React, { useEffect, useState } from "react";
+
 export default function CleanerInfo() {
+  const [cleanerData, setCleanerData] = useState([]);
+
+  const fetchCleanerData = async () => {
+    try {
+      const response = await fetch(`http://localhost:3500/api/cleaner/info`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const result = await response.json();
+      setCleanerData(result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+      void fetchCleanerData();
+  }, []);
+
   return (
     <>
       <Divider orientation="center" orientationMargin="0">
@@ -37,27 +48,27 @@ export default function CleanerInfo() {
       </Divider>
       <Descriptions
         layout="vertical"
-        bordered="true"
-        style={{ width: '150vh' }}
+        bordered={true}
+        style={{ width: "150vh" }}
         column={6}
         contentStyle={{ fontWeight: "bold" }}
       >
         <Descriptions.Item label="Ф.И.О">
-          {cleanerData.name} {cleanerData.patronymic} {cleanerData.surname}
+          {cleanerData.name} {cleanerData.patrname} {cleanerData.surname}
         </Descriptions.Item>
-        <Descriptions.Item label="ID">{cleanerData.id}</Descriptions.Item>
+        <Descriptions.Item label="ID">{fcleanerData.id}</Descriptions.Item>
         <Descriptions.Item label="Номер телефона">
-          {cleanerData.phone}
+          {cleanerData.phoneNumber}
         </Descriptions.Item>
-        <Descriptions.Item label="Гражданство">Узбекистан</Descriptions.Item>
+        <Descriptions.Item label="Гражданство">{cleanerData.nation}</Descriptions.Item>
         <Descriptions.Item label="Выполнено уборок">
-          {cleanerData.ordersCompleted}
+          {fcleanerData.ordersCompleted}
         </Descriptions.Item>
         <Descriptions.Item label="Запланировано уборок">
-          {cleanerData.ordersPlanned}
+          {fcleanerData.ordersPlanned}
         </Descriptions.Item>
         <Descriptions.Item label="Доход за всё время">
-          {cleanerData.income} UZS
+          {fcleanerData.income} UZS
         </Descriptions.Item>
       </Descriptions>
     </>

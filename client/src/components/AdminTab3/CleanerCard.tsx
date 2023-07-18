@@ -1,5 +1,4 @@
-import React from 'react';
-import { Button, Space, Descriptions, Card, Col, Row } from 'antd';
+import { Card, Col, Row } from 'antd';
 import { useState, useEffect } from 'react';
 
 export default function CleanerCard({ cleaner }) {
@@ -58,5 +57,3 @@ export default function CleanerCard({ cleaner }) {
     </Card>
   );
 }
-
-// export default CleanerCard;

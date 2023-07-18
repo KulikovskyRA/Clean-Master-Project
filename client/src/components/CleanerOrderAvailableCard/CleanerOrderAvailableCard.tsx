@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Card, Space } from "antd";
+import { Button, Card } from "antd";
 
 const orderData = {
   id: 456,
