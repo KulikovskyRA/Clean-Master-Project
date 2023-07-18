@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Form, Input, Typography, ConfigProvider, Space } from 'antd';
+import { Button, Form, Input, Typography, ConfigProvider, Row } from 'antd';
 const { Title } = Typography;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { authReducer } from '../../redux/authSlice';
@@ -111,11 +111,22 @@ const AdminLogin = () => {
             />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+          {/* <Form.Item wrapperCol={{ offset: 4 }}>
             <Button type="primary" htmlType="submit">
               Войти в качестве администратора
             </Button>
-          </Form.Item>
+          </Form.Item> */}
+
+          <Row>
+            <Link style={{ marginTop: '3px', marginLeft: '6px' }} to="/">
+              На главную
+            </Link>
+            <Form.Item wrapperCol={{ offset: 3, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Войти в качестве администратора
+              </Button>
+            </Form.Item>
+          </Row>
         </Form>
       </ConfigProvider>
     </div>

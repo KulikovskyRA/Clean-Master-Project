@@ -92,12 +92,7 @@ export default function LandingCleaner() {
                 <br /> и доходами
               </Title>
               <Link to="/cleanlogin">
-                <Button
-                  type="primary"
-                  size="large"
-                  // href="#cleanerRegForm"
-                  // target="_self"
-                >
+                <Button type="primary" size="large">
                   Личный кабинет сотрудника
                 </Button>
               </Link>

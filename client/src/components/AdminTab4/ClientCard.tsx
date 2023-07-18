@@ -1,4 +1,5 @@
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Typography } from 'antd';
+const { Text } = Typography;
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 
@@ -23,29 +24,35 @@ const ClientCard = ({ client }) => {
         textAlign: 'start',
         marginRight: '10%',
         marginBottom: '10px',
+        paddingLeft: '1%',
       }}
     >
       <Row>
-        <Col span={2}>
-          <p>{`id: ${client.id}`}</p>
+        <Col span={3}>
+          <Text strong>{`id:\u00A0`}</Text>
+          <Text>{`${client.id}`}</Text>
         </Col>
-        <Col span={5}>
-          <p>{`Имя: ${client.userName} `}</p>
+        <Col span={3}>
+          <Text strong>{`Имя:\u00A0`}</Text>
+          <Text>{`${client.userName}`}</Text>
         </Col>
 
         <Col span={3}>
-          <p>{`${client.phoneNumber}`}</p>
-        </Col>
-
-        <Col span={4}>
-          <p>{`E-mail: ${client.email}`}</p>
+          <Text>{`${client.phoneNumber}`}</Text>
         </Col>
 
         <Col span={5}>
-          <p>{`Количество заказов: ${client.Orders.length}`}</p>
+          <Text strong>{`E-mail:\u00A0`}</Text>
+          <Text>{`${client.email}`}</Text>
+        </Col>
+
+        <Col span={5}>
+          <Text strong>{`Количество заказов:\u00A0`}</Text>
+          <Text>{`${client.Orders.length}`}</Text>
         </Col>
         <Col>
-          <p>{`Дата последнего заказа: ${lastOrderDate}`}</p>
+          <Text strong>{`Дата последнего заказа:\u00A0`}</Text>
+          <Text>{`${lastOrderDate}`}</Text>
         </Col>
       </Row>
     </Card>

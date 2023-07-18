@@ -1,7 +1,7 @@
-import { Typography, Tabs } from 'antd';
+import { Typography, Tabs, Row, Space, ConfigProvider, Button } from 'antd';
 const { TabPane } = Tabs;
-const { Title } = Typography;
-
+const { Title, Text } = Typography;
+import { useNavigate, Link } from 'react-router-dom';
 import AdminTab2 from '../../components/AdminTab2/AdminTab2';
 import AdminTab1 from '../../components/AdminTab1/AdminTab1';
 import AdminTab3 from '../../components/AdminTab3/AdminTab3';
@@ -9,8 +9,36 @@ import AdminTab4 from '../../components/AdminTab4/AdminTab4';
 
 const Admin = () => {
   return (
-    <div>
-      <Title>Работай, управляй, решай</Title>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: 'black',
+          colorLink: 'black',
+          colorLinkActive: 'black',
+          colorLinkHover: 'gray',
+        },
+      }}
+    >
+      <Space
+        direction="horizontal"
+        style={{
+          width: '100%',
+          justifyContent: 'center',
+          paddingTop: '15px',
+        }}
+      >
+        <Link to="/">
+          <Button type="link">На главную</Button>
+        </Link>
+      </Space>
+
+      <Space
+        direction="horizontal"
+        style={{ width: '100%', justifyContent: 'center' }}
+      >
+        <Title>Работай, управляй, решай</Title>
+      </Space>
+
       <Tabs defaultActiveKey="1" centered style={{ height: 220 }}>
         <TabPane tab={'Заказы'} key="tab1">
           <AdminTab1 />
@@ -25,7 +53,7 @@ const Admin = () => {
           <AdminTab4 />
         </TabPane>
       </Tabs>
-    </div>
+    </ConfigProvider>
   );
 };
 

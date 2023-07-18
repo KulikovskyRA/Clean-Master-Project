@@ -1,4 +1,4 @@
-import { Typography, Card, Row } from 'antd';
+import { Typography, Card, Row, Col } from 'antd';
 const { Title, Text } = Typography;
 import { useState, useEffect } from 'react';
 
@@ -28,25 +28,32 @@ const StatCard = () => {
     <Card
       title="Данные по заказам:"
       style={{
-        marginLeft: '30%',
-        marginRight: '30%',
+        marginLeft: '28%',
+        marginRight: '28%',
       }}
     >
       <Row>
-        <Text>{`Общее количество заказов: ${data.allNumber}`}</Text>
-      </Row>
-      <Row>
-        <Text>{`Количество выполненных заказов: ${data.doneNumber}`}</Text>
-      </Row>
-
-      <Row>
-        <Text>{`Оборот: ${data.oborot}`}</Text>
-      </Row>
-      <Row>
-        <Text>{`Выплаты клинерам: ${data.cleanerSalary}`}</Text>
-      </Row>
-      <Row>
-        <Text>{`Чистая прибыль: ${data.money}`}</Text>
+        <Col span={10}>
+          <Row>
+            <Text strong>{`Общее количество заказов:\u00A0`}</Text>
+            <Text>{`${data.allNumber}`}</Text>
+          </Row>
+          <Row>
+            <Text strong>{`Количество выполненных заказов:\u00A0`}</Text>
+            <Text>{`${data.doneNumber}`}</Text>
+          </Row>
+        </Col>
+        <Col span={10}>
+          <Row>
+            <Text strong>{`Оборот:\u00A0`}</Text>
+            <Text>{`${data.oborot} UZS`}</Text>
+          </Row>
+          <Row>
+            <Text strong>{`Выплаты клинерам:\u00A0`}</Text>
+            <Text>{`${data.cleanerSalary} UZS`}</Text>
+            <Title level={5}>{`Чистая прибыль: ${data.money} UZS`}</Title>
+          </Row>
+        </Col>
       </Row>
     </Card>
   );
