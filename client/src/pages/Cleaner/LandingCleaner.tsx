@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Divider, Row, Space, Typography, ConfigProvider } from 'antd';
 import Accordion from '../../components/LandingCleaner/Accordion';
 import styles from './LandingCleanerStyles.module.css';
@@ -9,6 +8,8 @@ import CleanerRegister from '../../components/CleanerRegister/CleanerRegister';
 import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
+
+import CleanerFooter from '../../components/CleanerFooter/CleanerFooter';
 
 export default function LandingCleaner() {
   return (
@@ -117,9 +118,7 @@ export default function LandingCleaner() {
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
             <CleanerRegister />
           </div>
-          <div className={styles.grayDiv}>
-            ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
-          </div>
+          <CleanerFooter />
         </Space>
       </ConfigProvider>
     </>

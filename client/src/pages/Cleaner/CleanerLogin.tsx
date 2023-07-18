@@ -1,16 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import { Button, Form, Input, Typography, Select } from 'antd';
-
-import styles from './LandingCleanerStyles.module.css';
-
 const { Title } = Typography;
 const { Option } = Select;
 import { LockOutlined } from '@ant-design/icons';
 
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
+import styles from './LandingCleanerStyles.module.css';
 import { authReducer } from '../../redux/authSlice';
+import CleanerFooter from '../../components/CleanerFooter/CleanerFooter';
 
 const CleanerLogin = () => {
   const navigate = useNavigate();
@@ -121,6 +120,7 @@ const CleanerLogin = () => {
           </Form.Item>
         </Form>
       </div>
+      <CleanerFooter />
     </>
   );
 };
