@@ -44,14 +44,13 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-    // console.log(values);
+
     let pets;
     if (pet === "indefined" ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
     }
-    // console.log(pets);
 
     const inputs = {
       name,
@@ -74,7 +73,6 @@ const CleanerRegister = () => {
 
     if (res.ok) {
       const result = await res.json();
-      //   console.log(result);
 
       authReducer({
         type: "cleaner",

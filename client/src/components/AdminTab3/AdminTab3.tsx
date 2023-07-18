@@ -1,8 +1,4 @@
-import React from 'react';
-
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import CleanerCard from './CleanerCard';
 
@@ -22,7 +18,6 @@ const AdminTab3 = () => {
 
         if (resCleanerList.ok) {
           const resultCL = await resCleanerList.json();
-          // console.log(resultCL);
           setCleaners(resultCL);
         }
       })();

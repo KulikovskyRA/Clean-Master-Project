@@ -27,8 +27,6 @@ function App() {
         if (response.ok) {
           const result = await response.json();
 
-          // console.log(result);
-
           if (!result.user && window.location.pathname === '/client') {
             navigate('/login');
           }

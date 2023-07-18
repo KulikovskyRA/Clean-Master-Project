@@ -16,7 +16,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     checkAuthReducer(state, action) {
-      console.log(action.payload);
       if (action.payload.user) {
         state.user.name = action.payload.user.name || '';
         state.user.id = action.payload.user.id || '';
@@ -35,6 +34,8 @@ const authSlice = createSlice({
         state.cleaner.id = action.payload.cleaner.id || '';
         state.cleaner.email = action.payload.cleaner.email || '';
         state.cleaner.phoneNumber = action.payload.cleaner.phoneNumber || '';
+        state.cleaner.img = action.payload.cleaner.img || '';
+
       }
     },
 
@@ -54,6 +55,7 @@ const authSlice = createSlice({
         state.cleaner.id = action.payload.id || '';
         state.cleaner.email = action.payload.email || '';
         state.cleaner.phoneNumber = action.payload.phoneNumber || '';
+        state.cleaner.img = action.payload.img || '';
       }
     },
   },

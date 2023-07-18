@@ -11,6 +11,7 @@ const {
   updateCleaner,
   adminTab2Info,
   ordersCleanerPlanned,
+  updatePrice,
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
@@ -18,4 +19,5 @@ module.exports = orderRouter
   .delete('/:id', deleteOrder)
   .put('/', updateCleaner)
   .get('/tab2', adminTab2Info)
-  .get('/planned', ordersCleanerPlanned);
+  .get('/planned', ordersCleanerPlanned)
+  .patch('/', updatePrice);

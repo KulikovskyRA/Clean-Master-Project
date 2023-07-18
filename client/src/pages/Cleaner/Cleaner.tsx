@@ -5,6 +5,7 @@ import CleanerOrdersTabs from "../../components/CleanerOrdersTabs/CleanerOrdersT
 
 import styles from "./CleanerStyles.module.css";
 import CleanerInfo from "../../components/CleanerInfo/CleanerInfo";
+import CleanerPhoto from "../../components/CleanerPhoto/CleanerPhoto";
 
 const Cleaner: React.FC = () => {
   return (
@@ -30,19 +31,20 @@ const Cleaner: React.FC = () => {
           </Divider>
           <div>
             <div className={styles.cleanerAvatarDiv}>
-              <Avatar size={150} icon={<UserOutlined />} />
-              <Space>
-                {" "}
-                <Button type="default" size="small">
-                  Загрузить фото
-                </Button>
-              </Space>
+              <CleanerPhoto/>
+              {/*<Avatar size={150} icon={<UserOutlined/>}/>*/}
+              {/*<Space>*/}
+              {/*  {" "}*/}
+              {/*  <Button type="default" size="small">*/}
+              {/*    Загрузить фото*/}
+              {/*  </Button>*/}
+              {/*</Space>*/}
             </div>
             <div className={styles.cleanerInfoDiv}>
-              <CleanerInfo />
+              <CleanerInfo/>
             </div>
           </div>
-          <CleanerOrdersTabs />
+          <CleanerOrdersTabs/>
         </div>
         <div className={styles.grayDiv}>
           ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
