@@ -33,7 +33,7 @@
 /*  */
 .slider-container {
   position: relative;
-  width: 87%;
+  width: 80%;
   height: 600px;
   overflow: hidden;
   margin: 0px auto;
@@ -403,8 +403,7 @@ body {
   margin-left: 100px;
   display: flex;
   flex-direction: column;
-  width: 100px;
-
+  width: 250px;
   margin-right: 50px;
   padding-top: 50px;
 }

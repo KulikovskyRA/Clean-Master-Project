@@ -177,7 +177,13 @@ const Paralax = () => {
               </div>
             </div>
           </div>
-          <div className="before">РЕЗУЛЬТАТ ДО И ПОСЛЕ</div>
+          <div id="cleaning-block" className="block">
+            <p>
+              <span className="first-character ny">I</span>{' '}
+              <div className="text">РЕЗУЛЬТАТ ДО И ПОСЛЕ</div>
+            </p>
+          </div>
+
           <br />
           <div className="slider-container" id="sliderContainer">
             <img
@@ -193,7 +199,25 @@ const Paralax = () => {
                 id="sliderHandle"
                 style={{ left: `${sliderPosition}%` }}
               >
-                <div className="title-slider">CLEAN MASTER</div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
+                  className="bi bi-arrows-expand"
+                  viewBox="0 0 16 16"
+                  style={{
+                    color: 'white',
+                    margin: '0px auto',
+
+                    transform: 'rotate(90deg)',
+                  }}
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8ZM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2ZM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10Z"
+                  />
+                </svg>
               </div>
             </div>
             <img
@@ -469,6 +493,15 @@ const Paralax = () => {
             <a className="link-footer" href="#price">
               Цены
             </a>
+            <a className="link-footer" href="*">
+              Договор
+            </a>
+            <a className="link-footer" href="*">
+              Политика конфиденциальности
+            </a>
+            <a className="link-footer" href="*">
+              Правила работы сайта
+            </a>
           </div>
 
           <div className="contact-box">
@@ -482,12 +515,13 @@ const Paralax = () => {
             <a className="link-footer" href="mailto:info@clean-master.com">
               info@clean-master.com
             </a>
+
             <div className="social">
-              <a href="https://www.instagram.com/cleanmastergt/">
-                <img className="soc-png" src="./s1.png" alt="" />
-              </a>
               <a href="https://vk.com/club134865736">
                 <img className="soc-png" src="./s2.png" alt="" />
+              </a>
+              <a href="https://www.instagram.com/cleanmastergt/">
+                <img className="soc-png" src="./s1.png" alt="" />
               </a>
               <a href="https://web.telegram.org/a/#-1751514282">
                 <img className="soc-png" src="./s4.png" alt="" />
