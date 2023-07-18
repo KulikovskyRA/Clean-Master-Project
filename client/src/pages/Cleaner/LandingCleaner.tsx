@@ -6,7 +6,7 @@ import WeOffer from '../../components/LandingCleaner/WeOffer';
 import BecomeACleaner from '../../components/LandingCleaner/BecomeACleaner';
 import { FormOutlined } from '@ant-design/icons';
 import CleanerRegister from '../../components/CleanerRegister/CleanerRegister';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 

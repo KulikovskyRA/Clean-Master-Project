@@ -17,6 +17,9 @@ const CleanerRegister = () => {
 
   const onFinishStatus = (err, errorInfo: any) => {
     setErr({ err, message: errorInfo });
+    setTimeout(() => {
+      setErr({ err: false, message: '' });
+    }, 3000);
   };
 
   const prefixSelector = (

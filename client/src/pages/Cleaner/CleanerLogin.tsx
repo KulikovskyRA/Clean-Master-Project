@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Typography, Select } from 'antd';
+import { Button, Form, Input, Typography, Select } from 'antd';
+
+import styles from './LandingCleanerStyles.module.css';
 
 const { Title } = Typography;
 const { Option } = Select;
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,24 +16,21 @@ const CleanerLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [ err, setErr ] = React.useState({ status: false, message: '' });
+  const [err, setErr] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
-    setErr((prev) => ({
-      err,
-      message: errorInfo,
-    }));
-
-    // setTimeout(() => {
-    //   setErr((prev) => ({
-    //     err: false,
-    //     message: '',
-    //   }));
-    // }, 3000);
+    setErr({ err, message: errorInfo });
+    setTimeout(() => {
+      setErr({ err: false, message: '' });
+    }, 3000);
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" noStyle rules={[ { required: true } ]}>
+    <Form.Item
+      name="prefix"
+      noStyle
+      rules={[{ required: true, message: 'Выберите префикс!' }]}
+    >
       <Select style={{ width: 70 }}>
         <Option value="+998">+998</Option>
         <Option value="+996">+996</Option>
@@ -74,52 +73,55 @@ const CleanerLogin = () => {
 
   return (
     <>
-      <Title>Авторизация клинера</Title>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="off"
-        layout="vertical"
-      >
-        {!err.status && <Form.Item validateStatus="error" help={err.message}/>}
-
-        <Form.Item
-          name="phone"
-          rules={[
-            {
-              required: true,
-              message:
-                'Напиши свою звонилку нормально, если не хочешь потерять работу! ',
-            },
-          ]}
+      <div className={styles.cleanerHeaderDiv}>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          autoComplete="off"
+          layout="vertical"
         >
-          <Input
-            placeholder="Введите номер телефона"
-            addonBefore={prefixSelector}
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
+          {!err.status && (
+            <Form.Item validateStatus="error" help={err.message} />
+          )}
+          <Title>Войдите и зарабатывайте!</Title>
+          <Form.Item
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message:
+                  'Напиши свою звонилку нормально, если не хочешь потерять работу! ',
+              },
+            ]}
+          >
+            <Input
+              placeholder="Введите номер телефона"
+              addonBefore={prefixSelector}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
 
-        <Form.Item
-          name="password"
-          rules={[ { required: true, message: 'Вы забыли ввести пароль!' } ]}
-        >
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon"/>}
-            placeholder="Введите пароль"
-          />
-        </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Введите пароль"
+            />
+          </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </>
   );
 };
