@@ -13,8 +13,6 @@ const Admin = () => {
       theme={{
         token: {
           colorPrimary: 'black',
-          // fontSize: 15,
-
           colorLink: 'black',
           colorLinkActive: 'black',
           colorLinkHover: 'gray',
@@ -27,7 +25,6 @@ const Admin = () => {
           width: '100%',
           justifyContent: 'center',
           paddingTop: '15px',
-          paddingBottom: '-15px',
         }}
       >
         <Link to="/">
