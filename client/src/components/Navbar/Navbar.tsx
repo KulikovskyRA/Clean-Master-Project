@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const Navbar = () => {
   const handleLogout = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
         Личный кабинет
       </Link>
       <button className="logout-btn" onClick={handleLogout}>
-        Выйти
+        <LogoutOutlined style={{ fontSize: '20px' }} />
       </button>
     </div>
   );
