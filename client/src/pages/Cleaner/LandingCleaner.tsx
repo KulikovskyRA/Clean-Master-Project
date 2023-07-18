@@ -101,7 +101,6 @@ export default function LandingCleaner() {
                   Личный кабинет сотрудника
                 </Button>
               </Link>
-
             </div>
             <div
               style={{
@@ -121,10 +120,9 @@ export default function LandingCleaner() {
             <CleanerRegister />
           </div>
 
-<!--           <CleanerFooter /> -->
+          <CleanerFooter />
 
-
-          <section className="footer">
+          {/* <section className="footer">
             <div className="first-box">
               <div className="link-title">Меню</div>
               <a className="link-footer" href="/">
@@ -188,8 +186,7 @@ export default function LandingCleaner() {
                 <img className="pay" src="./p3.png" alt="" />
               </div>
             </div>
-          </section>
-
+          </section> */}
         </Space>
       </ConfigProvider>
     </>
