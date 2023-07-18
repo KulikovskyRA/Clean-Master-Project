@@ -1,19 +1,27 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input, Typography, Select, Divider } from 'antd';
+import React from "react";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Typography,
+  Select,
+  Divider,
+} from "antd";
 const { Title } = Typography;
 const { Option } = Select;
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { authReducer } from '../../redux/authSlice';
+import { authReducer } from "../../redux/authSlice";
 
 const CleanerRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [err, setErr] = React.useState({ status: false, message: '' });
+  const [err, setErr] = React.useState({ status: false, message: "" });
 
   const onFinishStatus = (err, errorInfo: any) => {
     setErr((prev) => ({
@@ -36,14 +44,13 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-    // console.log(values);
+
     let pets;
-    if (pet === 'indefined' ?? !pet.length) {
+    if (pet === "indefined" ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
     }
-    // console.log(pets);
 
     const inputs = {
       name,
@@ -55,37 +62,38 @@ const CleanerRegister = () => {
       pets,
     };
 
-    const res = await fetch(import.meta.env.VITE_URL + 'cleaner/register', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'include',
+    console.log(import.meta.env.VITE_URL + "cleaner/register");
+
+    const res = await fetch(import.meta.env.VITE_URL + "cleaner/register", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(inputs),
     });
 
     if (res.ok) {
       const result = await res.json();
-      //   console.log(result);
 
       authReducer({
-        type: 'cleaner',
+        type: "cleaner",
         name: result.cleaner.name,
         id: result.cleaner.id,
-        email: '',
+        email: "",
         phoneNumber: result.cleaner.phoneNumber,
       });
-      navigate('/cleaner');
+      navigate("/cleaner");
     } else if (res.status === 403) {
-      onFinishStatus(true, 'Клинер с таким номером уже существует');
+      onFinishStatus(true, "Клинер с таким номером уже существует");
     } else {
-      onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
+      onFinishStatus(true, "Произошла ошибка, попробуйте позже");
     }
   };
 
   return (
     <>
       <Divider>
-                <h1>Заявка на сотрудничество</h1>
-              </Divider>
+        <h1>Заявка на сотрудничество</h1>
+      </Divider>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -103,58 +111,52 @@ const CleanerRegister = () => {
           rules={[
             {
               required: true,
-              message:
-                'Введите номер телефона!',
+              message: "Введите номер телефона!",
             },
           ]}
         >
           <Input
             placeholder="Ваш номер телефона"
             addonBefore={prefixSelector}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           />
         </Form.Item>
 
         <Form.Item
           name="name"
-          rules={[{ required: true, message: 'Введите имя!' }]}
+          rules={[{ required: true, message: "Введите имя!" }]}
         >
           <Input placeholder="Ваше имя" />
         </Form.Item>
-
+        <Form.Item
+          name="patrname"
+          rules={[{ required: true, message: "Введите отчество!" }]}
+        >
+          <Input placeholder="Ваше отчество" />
+        </Form.Item>
         <Form.Item
           name="surname"
-          rules={[{ required: true, message: 'Введите фамилию!' }]}
+          rules={[{ required: true, message: "Введите фамилию!" }]}
         >
           <Input placeholder="Ваша фамилия" />
         </Form.Item>
 
         <Form.Item
-          name="patrname"
-          rules={[{ required: true, message: 'Введите отчество!' }]}
-        >
-          <Input placeholder="Ваше отчество" />
-        </Form.Item>
-
-        <Form.Item
           name="nation"
-          rules={[{ required: true, message: 'Введите гражданство!' }]}
+          rules={[{ required: true, message: "Введите гражданство!" }]}
         >
-           <Select
-          placeholder="Ваше гражданство"
-          allowClear
-        >
-          <Option value="male">Узбекистан</Option>
-          <Option value="female">Казахстан</Option>
-          <Option value="other">Кыргызстан</Option>
-          <Option value="other">Таджикистан</Option>
-          <Option value="other">Российская Федерация</Option>
-        </Select>
+          <Select placeholder="Ваше гражданство" allowClear>
+            <Option value="Узбекистан">Узбекистан</Option>
+            <Option value="Казахстан">Казахстан</Option>
+            <Option value="Кыргызстан">Кыргызстан</Option>
+            <Option value="Таджикистан">Таджикистан</Option>
+            <Option value="Российская Федерация">Российская Федерация</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
+          rules={[{ required: true, message: "Вы забыли ввести пароль!" }]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -163,7 +165,7 @@ const CleanerRegister = () => {
         </Form.Item>
         <Form.Item name="pet">
           <Checkbox.Group>
-            <Checkbox value="true" style={{ lineHeight: '32px' }}>
+            <Checkbox value="true" style={{ lineHeight: "32px" }}>
               Могу работать в помещении с домашними животными
             </Checkbox>
           </Checkbox.Group>

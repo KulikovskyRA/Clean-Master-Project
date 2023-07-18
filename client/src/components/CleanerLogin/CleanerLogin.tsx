@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, Typography, Select } from 'antd';
+
 const { Title } = Typography;
 const { Option } = Select;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -13,7 +14,7 @@ const CleanerLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [err, setErr] = React.useState({ status: false, message: '' });
+  const [ err, setErr ] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
     setErr((prev) => ({
@@ -30,10 +31,12 @@ const CleanerLogin = () => {
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" noStyle rules={[{ required: true }]}>
+    <Form.Item name="prefix" noStyle rules={[ { required: true } ]}>
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="+998">+998</Option>
+        <Option value="+996">+996</Option>
+        <Option value="+992">+992</Option>
+        <Option value="+7">+7</Option>
       </Select>
     </Form.Item>
   );
@@ -50,13 +53,13 @@ const CleanerLogin = () => {
 
     if (res.ok) {
       const result = await res.json();
-
       dispatch(
         authReducer({
           type: 'cleaner',
           name: result.name,
           id: result.id,
           email: '',
+          img: result.img,
           phoneNumber: result.phoneNumber,
         })
       );
@@ -82,7 +85,7 @@ const CleanerLogin = () => {
         autoComplete="off"
         layout="vertical"
       >
-        {!err.status && <Form.Item validateStatus="error" help={err.message} />}
+        {!err.status && <Form.Item validateStatus="error" help={err.message}/>}
 
         <Form.Item
           name="phone"
@@ -103,10 +106,10 @@ const CleanerLogin = () => {
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
+          rules={[ { required: true, message: 'Вы забыли ввести пароль!' } ]}
         >
           <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
+            prefix={<LockOutlined className="site-form-item-icon"/>}
             placeholder="Введите пароль"
           />
         </Form.Item>

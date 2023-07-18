@@ -28,7 +28,6 @@ const UserLogin = () => {
         body: JSON.stringify(values),
       });
       const result = await response.json();
-      // console.log(result);
       if (response.ok) {
         dispatch(
           authReducer({

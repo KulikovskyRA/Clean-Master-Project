@@ -1,31 +1,23 @@
-import React from 'react';
-
 import {
-  Divider,
-  Radio,
   Typography,
-  Tabs,
-  Button,
-  Space,
-  Descriptions,
   Card,
-  Col,
   Row,
   Modal,
-  Select,
   Input,
-  InputNumber,
+  Checkbox,
+  Button,
+  Form,
+  Col,
+  Space,
 } from 'antd';
 const { Title, Text } = Typography;
+import StatCard from './StatCard';
 
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 const AdminTab2 = () => {
-  const [data, setData] = useState({});
-
   const [defaults, setDefaults] = useState([]);
   const [extra, setExtra] = useState([]);
 
@@ -33,17 +25,6 @@ const AdminTab2 = () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       (async function (): Promise<void> {
-        const response: Response = await fetch(
-          import.meta.env.VITE_URL + 'order/tab2',
-          {
-            credentials: 'include',
-          }
-        );
-        if (response.ok) {
-          const result = await response.json();
-          setData(result);
-        }
-
         const res: Response = await fetch(
           import.meta.env.VITE_URL + 'service/all',
           {
@@ -63,6 +44,7 @@ const AdminTab2 = () => {
     }
   }, []);
 
+  //! Модалка изменения
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [service, setService] = useState(0);
   const [inputValues, setInputValues] = useState({});
@@ -84,15 +66,27 @@ const AdminTab2 = () => {
       }
     );
     if (res.ok) {
+      const resultService = await res.json();
+
       if (service.default) {
         setDefaults((prev) => {
           const newDefs = prev.map((d) => {
             if (d.id === service.id) {
-              return { ...d, singlePrice: inputValues.price };
+              return { ...resultService };
             }
             return d;
           });
           return newDefs;
+        });
+      } else {
+        setExtra((prev) => {
+          const newEx = prev.map((ex) => {
+            if (ex.id === service.id) {
+              return { ...resultService };
+            }
+            return ex;
+          });
+          return newEx;
         });
       }
     }
@@ -111,10 +105,96 @@ const AdminTab2 = () => {
     setInputValues({});
   };
 
+  const handleDelete = async (id) => {
+    const res: Response = await fetch(
+      import.meta.env.VITE_URL + `service/${id}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      }
+    );
+    if (res.ok) {
+      setExtra((prev) => prev.filter((el) => el.id !== id));
+    }
+  };
+
+  //! Модалка создания
+
+  const onFinish = async (values: any) => {
+    const responseNew: Response = await fetch(
+      import.meta.env.VITE_URL + 'service/new',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(values),
+      }
+    );
+    if (responseNew.ok) {
+      const resNew = await responseNew.json();
+      console.log(resNew);
+      setExtra((prev) => [...prev, resNew]);
+    }
+
+    setIsModalСreateOpen(false);
+  };
+
+  const [isModalСreateOpen, setIsModalСreateOpen] = useState(false);
+
+  const handleСreateCancel = () => {
+    setIsModalСreateOpen(false);
+  };
+
+  const handleСreateOpen = () => {
+    setIsModalСreateOpen(true);
+  };
+
   return (
     <>
+      <StatCard />
+      <Card
+        title="Услуги:"
+        style={{
+          marginLeft: '30%',
+          marginTop: '10px',
+          marginRight: '30%',
+        }}
+      >
+        <Row>
+          <Col span={8}>
+            <Title level={4}>Базовые:</Title>
+
+            {defaults.map((def) => (
+              <Row key={`def${def.id}`}>
+                <Text>{`${def.title}: ${def.singlePrice} UZS     `}</Text>
+                <EditOutlined onClick={() => showModal(def)} />
+              </Row>
+            ))}
+            <Space
+              style={{
+                marginTop: '12px',
+              }}
+            >
+              <Button onClick={handleСreateOpen}>Добавить услугу!</Button>
+            </Space>
+          </Col>
+          <Col>
+            <Title level={4}>Дополнительные:</Title>
+            {extra.map((ex) => (
+              <Row key={`ex${ex.id}`}>
+                <Text>{`${ex.title} ${ex.single ? '(единич)' : ''}: ${
+                  ex.singlePrice
+                } UZS`}</Text>
+                <EditOutlined onClick={() => showModal(ex)} />
+                <DeleteOutlined onClick={() => handleDelete(ex.id)} />
+              </Row>
+            ))}
+          </Col>
+        </Row>
+      </Card>
+
       <Modal
-        title="Изменение "
+        title="Изменение услуги:"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -122,65 +202,76 @@ const AdminTab2 = () => {
         <Input
           name="price"
           onChange={handleChangePrice}
-          style={{ width: 250 }}
+          style={{ width: 450 }}
           placeholder="Введите цену"
           value={inputValues.price}
         />
 
         {!service.default && (
           <>
-            <div>Место под изменение типа</div>
-            {/* <Input
-              name="price"
+            <Input
+              name="title"
               onChange={handleChangePrice}
-              style={{ width: 250 }}
-              placeholder="Введите цену"
-            /> */}
+              style={{ width: 450 }}
+              placeholder="Измените название услуги(если нужно)"
+              value={inputValues.title}
+            />
           </>
         )}
       </Modal>
 
-      <Row
-        align="middle"
-        justify="space-evenly"
-        style={{
-          marginLeft: '15%',
-          textAlign: 'start',
-          marginRight: '15%',
-        }}
+      <Modal
+        title="Cоздать услугу:"
+        open={isModalСreateOpen}
+        onCancel={handleСreateCancel}
+        footer={null}
       >
-        <Card>
-          <Title
-            level={5}
-          >{`Общее количество заказов: ${data.allNumber}`}</Title>
-          <Title
-            level={5}
-          >{`Количество выполненных заказов: ${data.doneNumber}`}</Title>
-          <Title level={5}>{`Оборот: ${data.oborot}`}</Title>
-          <Title level={5}>{`Выплаты клинерам: ${data.cleanerSalary}`}</Title>
-          <Title level={4}>{`Чистая прибыль: ${data.money}`}</Title>
-        </Card>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          autoComplete="off"
+        >
+          <Form.Item
+            name="title"
+            rules={[{ required: true, message: 'Введите название услуги:' }]}
+          >
+            <Input
+              allowClear
+              // name="title"
+              placeholder="Введите название услуги!"
+              // value={inputsCreate.title}
+              // onChange={handleInputsCreate}
+            />
+          </Form.Item>
 
-        <Card>
-          <Title level={2}>Услуги:</Title>
-          <Title level={4}>Базовые:</Title>
+          <Form.Item
+            name="price"
+            rules={[{ required: true, message: 'Введите цену!' }]}
+          >
+            <Input
+              allowClear
+              // name="price"
+              placeholder="Введите цену:"
+              // value={inputsCreate.price}
+              // onChange={handleInputsCreate}
+            />
+          </Form.Item>
 
-          {defaults.map((def) => (
-            <Row key={`def${def.id}`}>
-              <Text>{`${def.title}: ${def.singlePrice} UZS     `}</Text>
-              <EditOutlined onClick={() => showModal(def)} />;
-            </Row>
-          ))}
+          <Form.Item name="singleImp" valuePropName="checked">
+            <Checkbox>Cделать единичной услугой:</Checkbox>
+          </Form.Item>
 
-          <Title level={4}>Дополнительные:</Title>
-          {extra.map((ex) => (
-            <Row key={`ex${ex.id}`}>
-              <Text>{`${ex.title}: ${ex.singlePrice} UZS     `}</Text>
-              <EditOutlined onClick={() => showModal(ex)} />;
-            </Row>
-          ))}
-        </Card>
-      </Row>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };

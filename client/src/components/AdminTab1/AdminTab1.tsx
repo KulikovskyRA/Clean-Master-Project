@@ -1,18 +1,15 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 
-import { Button, Card, Col, Row, Modal, Select } from 'antd';
+import { Button, Card, Col, Row, Modal, Select, Typography, Input } from 'antd';
+const { Title, Text } = Typography;
 
 const { Option } = Select;
 
-const AdminTab1 = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
+const AdminTab1 = () => {
   const [orders, setOrders] = useState([]);
   const [cleaners, setCleaners] = useState([]);
 
@@ -29,7 +26,6 @@ const AdminTab1 = () => {
 
         if (response.ok) {
           const result = await response.json();
-          // console.log(result);
           setOrders(result);
         }
 
@@ -42,7 +38,6 @@ const AdminTab1 = () => {
 
         if (resCleanerList.ok) {
           const resultCL = await resCleanerList.json();
-          // console.log(resultCL);
           setCleaners(resultCL);
         }
       })();
@@ -52,7 +47,6 @@ const AdminTab1 = () => {
   }, []);
 
   const deleteOrder = async (orderId) => {
-    // console.log(orderId);
     const res: Response = await fetch(
       import.meta.env.VITE_URL + `order/${orderId}`,
       {
@@ -74,7 +68,6 @@ const AdminTab1 = () => {
     setIsModalOpen(true);
     setOrderEditId(orderId);
   };
-
   const handleOk = async () => {
     const res: Response = await fetch(import.meta.env.VITE_URL + `order`, {
       method: 'PUT',
@@ -100,39 +93,59 @@ const AdminTab1 = () => {
     setIsModalOpen(false);
     setOrderEditId(0);
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
     setOrderEditId(0);
   };
-
   const handleCleanerId = (value) => {
     setCleanerId(Number(value));
   };
 
+  const [price, setPrice] = useState('');
+  const [isModalPriceOpen, setIsModalPriceOpen] = useState(false);
+
+  const showPriceModal = (orderId) => {
+    setIsModalPriceOpen(true);
+    setOrderEditId(orderId);
+    setPrice('');
+  };
+  const handlePriceCancel = () => {
+    setIsModalPriceOpen(false);
+    setOrderEditId(0);
+  };
+  const handleChangePrice = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPrice(e.target.value);
+    // console.log(price);
+  };
+
+  const handlePriceOk = async () => {
+    const res: Response = await fetch(import.meta.env.VITE_URL + `order`, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        orderEditId,
+        price,
+      }),
+    });
+
+    if (res.ok) {
+      setOrders((prev) => {
+        const newOrders = prev.map((ord) => {
+          if (ord.id === orderEditId) {
+            return { ...ord, price };
+          }
+          return ord;
+        });
+        return newOrders;
+      });
+    }
+
+    setIsModalPriceOpen(false);
+  };
+
   return (
     <>
-      <Modal
-        title="Выберите клинера"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Select
-          style={{ width: 450 }}
-          placeholder="Select a option and change input text above"
-          onChange={handleCleanerId}
-          allowClear
-        >
-          {cleaners.map((cleaner) => (
-            <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
-              {`${cleaner.name}/${cleaner.nation}/Животные? - `}
-              {cleaner.pets ? 'Да' : 'Нет'}
-            </Option>
-          ))}
-        </Select>
-      </Modal>
-
       {orders.map((order) => (
         <Card
           key={`order${order.id}`}
@@ -150,7 +163,7 @@ const AdminTab1 = () => {
               <p>{moment(order.cleaningTime).format('DD.MM.YYYY')}</p>
             </Col>
 
-            <Col span={order.Cleaner ? 11 : 15}>
+            <Col span={12}>
               <p>{`Адрес: ${order.address}`}</p>
               <p>Услуги:</p>
               {order.OrderServices.map((OS) => (
@@ -163,7 +176,9 @@ const AdminTab1 = () => {
                 <p>Заказ выполнен!</p>
                 <p>{`Рейтинг: ${order.rating}`}</p>
               </Col>
-            ) : null}
+            ) : (
+              <Col span={4}>{/* <p>Заказ выполняется.</p> */}</Col>
+            )}
 
             <Col
               style={{
@@ -196,8 +211,44 @@ const AdminTab1 = () => {
               </Row>
             </Col>
           </Row>
+          <Row gutter={16}>
+            <Text>{`Цена: ${order.price}`}</Text>
+            <EditOutlined onClick={() => showPriceModal(order.id)} />
+          </Row>
         </Card>
       ))}
+
+      {/* Модалка изменения цены */}
+      <Modal
+        title="Установите цену:"
+        open={isModalPriceOpen}
+        onOk={handlePriceOk}
+        onCancel={handlePriceCancel}
+      >
+        <Input onChange={handleChangePrice} value={price} />
+      </Modal>
+
+      {/* Модалка выбора клинера */}
+      <Modal
+        title="Выберите клинера:"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Select
+          style={{ width: 450 }}
+          placeholder="Select a option and change input text above"
+          onChange={handleCleanerId}
+          allowClear
+        >
+          {cleaners.map((cleaner) => (
+            <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
+              {`${cleaner.name}/${cleaner.nation}/Животные? - `}
+              {cleaner.pets ? 'Да' : 'Нет'}
+            </Option>
+          ))}
+        </Select>
+      </Modal>
     </>
   );
 };

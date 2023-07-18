@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
 const {
@@ -11,7 +12,7 @@ const {
 module.exports.orders = async (req, res) => {
   const allOrders = await Order.findAll({
     order: [['id', 'ASC']],
-    attributes: ['id', 'cleaningTime', 'address', 'done', 'rating'],
+    attributes: ['id', 'cleaningTime', 'address', 'done', 'rating', 'price'],
     include: [
       { model: Cleaner, attributes: ['name'] },
       { model: User, attributes: ['userName'] },
@@ -47,11 +48,22 @@ module.exports.updateCleaner = async (req, res) => {
   res.json(cleaner.name);
 };
 
+//
+
+module.exports.updatePrice = async (req, res) => {
+  const { orderEditId, price } = req.body;
+  console.log(req.body);
+
+  const order = await Order.findByPk(orderEditId);
+  order.price = Number(price.replace(/\D[^\.]/g, ''));
+  order.save();
+
+  res.sendStatus(200);
+};
+
 module.exports.adminTab2Info = async (req, res) => {
   const allOrders = await Order.findAll({ raw: true, order: [['id', 'ASC']] });
   const done = allOrders.filter((el) => el.done === true);
-  // console.log(allOrders);
-  // console.log(done);
 
   const allNumber = allOrders.length;
   const doneNumber = done.length;
@@ -67,3 +79,23 @@ module.exports.adminTab2Info = async (req, res) => {
 
   res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
 };
+
+//! переписать на findByPk, это для отображения списка запланированных уборок в ЛК клинера - 
+//! ловить в pages -> Cleaner -> Cleaner.tsx -> <CleanerOrdersTabs /> -> ...
+// module.exports.ordersCleanerPlanned = async (req, res) => {
+//   const cleanerPlannedOrders = await Order.findAll({
+//     order: [['id', 'ASC']],
+//     attributes: ['id', 'info', 'address', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+//     include: [
+//       { model: User, attributes: ['userName', 'phoneNumber'] },
+//       {
+//         model: OrderService,
+//         attributes: ['id', 'order_id', 'service_id', 'amount'],
+//         include: {
+//           model: Service,
+//         },
+//       },
+//     ],
+//   });
+//   res.json(cleanerPlannedOrders);
+// };
