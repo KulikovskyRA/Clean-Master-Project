@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Divider, Row, Space, Typography, ConfigProvider } from 'antd';
 import Accordion from '../../components/LandingCleaner/Accordion';
 import styles from './LandingCleanerStyles.module.css';
@@ -10,6 +9,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
+
+import CleanerFooter from '../../components/CleanerFooter/CleanerFooter';
 
 export default function LandingCleaner() {
   return (
@@ -80,7 +81,7 @@ export default function LandingCleaner() {
               }}
             >
               <Divider>
-                <h1>Как стать клинером в CLEAN MASTER</h1>
+                <h1>Как стать клинером в CLEAN MASTER?</h1>
               </Divider>
               <BecomeACleaner />
             </div>
@@ -90,14 +91,17 @@ export default function LandingCleaner() {
                 <br /> и управляйте своим расписанием
                 <br /> и доходами
               </Title>
-              <Button
-                type="primary"
-                size="large"
-                href="#cleanerRegForm"
-                target="_self"
-              >
-                Личный кабинет сорудника
-              </Button>
+              <Link to="/cleanlogin">
+                <Button
+                  type="primary"
+                  size="large"
+                  // href="#cleanerRegForm"
+                  // target="_self"
+                >
+                  Личный кабинет сотрудника
+                </Button>
+              </Link>
+
             </div>
             <div
               style={{
@@ -116,6 +120,9 @@ export default function LandingCleaner() {
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
             <CleanerRegister />
           </div>
+
+<!--           <CleanerFooter /> -->
+
 
           <section className="footer">
             <div className="first-box">
@@ -182,6 +189,7 @@ export default function LandingCleaner() {
               </div>
             </div>
           </section>
+
         </Space>
       </ConfigProvider>
     </>

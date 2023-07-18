@@ -1,37 +1,33 @@
-import React from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Typography,
-  Select,
-  Divider,
-} from "antd";
-const { Title } = Typography;
+import React from 'react';
+import { Button, Checkbox, Form, Input, Select, Divider, Row } from 'antd';
+
 const { Option } = Select;
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined } from '@ant-design/icons';
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link } from 'react-router-dom';
 
-import { authReducer } from "../../redux/authSlice";
+import { useNavigate } from 'react-router-dom';
+
+import { authReducer } from '../../redux/authSlice';
 
 const CleanerRegister = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const [err, setErr] = React.useState({ status: false, message: "" });
+  const [err, setErr] = React.useState({ status: false, message: '' });
 
   const onFinishStatus = (err, errorInfo: any) => {
-    setErr((prev) => ({
-      err,
-      message: errorInfo,
-    }));
+    setErr({ err, message: errorInfo });
+    setTimeout(() => {
+      setErr({ err: false, message: '' });
+    }, 3000);
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" rules={[{ required: true }]} noStyle>
+    <Form.Item
+      name="prefix"
+      rules={[{ required: true, message: 'Выберите префикс!' }]}
+      noStyle
+    >
       <Select style={{ width: 100 }}>
         <Option value="+998">+998</Option>
         <Option value="+996">+996</Option>
@@ -44,14 +40,12 @@ const CleanerRegister = () => {
   const onFinish = async (values: any): Promise<void> => {
     const { name, surname, patrname, prefix, phone, nation, password, pet } =
       values;
-
     let pets;
-    if (pet === "indefined" ?? !pet.length) {
+    if (pet === 'indefined' ?? !pet.length) {
       pets = false;
     } else {
       pets = true;
     }
-
     const inputs = {
       name,
       surname,
@@ -62,12 +56,10 @@ const CleanerRegister = () => {
       pets,
     };
 
-    console.log(import.meta.env.VITE_URL + "cleaner/register");
-
-    const res = await fetch(import.meta.env.VITE_URL + "cleaner/register", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      credentials: "include",
+    const res = await fetch(import.meta.env.VITE_URL + 'cleaner/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(inputs),
     });
 
@@ -75,17 +67,17 @@ const CleanerRegister = () => {
       const result = await res.json();
 
       authReducer({
-        type: "cleaner",
+        type: 'cleaner',
         name: result.cleaner.name,
         id: result.cleaner.id,
-        email: "",
+        email: '',
         phoneNumber: result.cleaner.phoneNumber,
       });
-      navigate("/cleaner");
+      navigate('/cleaner');
     } else if (res.status === 403) {
-      onFinishStatus(true, "Клинер с таким номером уже существует");
+      onFinishStatus(true, 'Клинер с таким номером уже существует');
     } else {
-      onFinishStatus(true, "Произошла ошибка, попробуйте позже");
+      onFinishStatus(true, 'Произошла ошибка, попробуйте позже');
     }
   };
 
@@ -111,39 +103,39 @@ const CleanerRegister = () => {
           rules={[
             {
               required: true,
-              message: "Введите номер телефона!",
+              message: 'Введите номер телефона!',
             },
           ]}
         >
           <Input
             placeholder="Ваш номер телефона"
             addonBefore={prefixSelector}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         </Form.Item>
 
         <Form.Item
           name="name"
-          rules={[{ required: true, message: "Введите имя!" }]}
+          rules={[{ required: true, message: 'Введите имя!' }]}
         >
           <Input placeholder="Ваше имя" />
         </Form.Item>
         <Form.Item
           name="patrname"
-          rules={[{ required: true, message: "Введите отчество!" }]}
+          rules={[{ required: true, message: 'Введите отчество!' }]}
         >
           <Input placeholder="Ваше отчество" />
         </Form.Item>
         <Form.Item
           name="surname"
-          rules={[{ required: true, message: "Введите фамилию!" }]}
+          rules={[{ required: true, message: 'Введите фамилию!' }]}
         >
           <Input placeholder="Ваша фамилия" />
         </Form.Item>
 
         <Form.Item
           name="nation"
-          rules={[{ required: true, message: "Введите гражданство!" }]}
+          rules={[{ required: true, message: 'Введите гражданство!' }]}
         >
           <Select placeholder="Ваше гражданство" allowClear>
             <Option value="Узбекистан">Узбекистан</Option>
@@ -156,7 +148,7 @@ const CleanerRegister = () => {
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Вы забыли ввести пароль!" }]}
+          rules={[{ required: true, message: 'Вы забыли ввести пароль!' }]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -165,16 +157,22 @@ const CleanerRegister = () => {
         </Form.Item>
         <Form.Item name="pet">
           <Checkbox.Group>
-            <Checkbox value="true" style={{ lineHeight: "32px" }}>
+            <Checkbox value="true" style={{ lineHeight: '32px' }}>
               Могу работать в помещении с домашними животными
             </Checkbox>
           </Checkbox.Group>
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" size="large" htmlType="submit">
-            Отправить заявку
-          </Button>
-        </Form.Item>
+
+        <Row>
+          <Link style={{ marginTop: '6px' }} to="/cleanlogin">
+            Уже являетесь клинером?
+          </Link>
+          <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+            <Button type="primary" size="large" htmlType="submit">
+              Отправить заявку
+            </Button>
+          </Form.Item>
+        </Row>
       </Form>
     </>
   );
