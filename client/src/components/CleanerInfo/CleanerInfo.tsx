@@ -1,17 +1,3 @@
-const fcleanerData = {
-  id: 1,
-  name: "Test",
-  surname: "Testov",
-  patronymic: "Testovich",
-  phone: "123456789",
-  residency: "Узбекистан",
-  petFriendly: true,
-  ordersCompleted: 18,
-  ordersPlanned: 3,
-  rating: 4.8,
-  income: 456000,
-};
-
 import { Descriptions, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 

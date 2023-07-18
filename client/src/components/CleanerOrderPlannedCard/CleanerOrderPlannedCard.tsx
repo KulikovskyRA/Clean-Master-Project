@@ -2,93 +2,56 @@
 import * as React from "react";
 import { Button, Card, Space } from "antd";
 
-const orderData = {
-  id: 456,
-  date: new Date(),
-  startTime: new Date(),
-  endTime: new Date(),
-  city: "Ташкент",
-  address: "ул. Ракат 17, кв. 5, 2 этаж",
-  comment: "Пожалуйста не используйте хлорку",
-  additionalService: ["помыть окно"],
-  totalPrice: 1761,
-};
-
-const endTime = new Date(orderData.startTime.getTime() + 3 * 60 * 60 * 1000);
+// const endTime = new Date(orderData.startTime.getTime() + 3 * 60 * 60 * 1000);
 
 const userData = {
   userName: "Пётр",
   phone: "+998 95 678 2345",
 };
 
-const CleanerOrderPlannedCard = () => {
-  const [plannedOrders, setPlannedOrders] = React.useState([]);
-
-  const fetchPlannedOrders = async () => {
-    try {
-      const response = await fetch(`http://localhost:3500/api/order/planned`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-
-      const result = await response.json();
-      setPlannedOrders(result);
-      console.log('planned orders-------->', result);
-      
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  React.useEffect(() => {
-      void fetchPlannedOrders();
-  }, []);
+const CleanerOrderPlannedCard = ({orderData}) => {
+  console.log('orderData------->', orderData);
   
   return (
     <Card
-      title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString("ru", {
+      title={`Заявка # ${orderData.id} (${orderData.cleaningTime.toLocaleString("ru", {
         day: "numeric",
         month: "long",
         weekday: "long",
       })})`}
-      style={{ width: "100%", border: "1px solid" }}
+      style={{ width: "100%", border: "1px solid", marginBottom: "10px" }}
       headStyle={{ backgroundColor: "OldLace" }}
     >
-      <p>
+      {/* <p>
         <b>Время уборки:</b>{" "}
         {orderData.startTime.toLocaleString("ru", {
           hour: "numeric",
           minute: "numeric",
         })}{" "}
         -{" "}
-        {endTime.toLocaleString("ru", {
+        {orderData.endTime.toLocaleString("ru", {
           hour: "numeric",
           minute: "numeric",
         })}
+      </p> */}
+      <p>
+        <b>Адрес: </b>
+        {orderData.address}
       </p>
       <p>
-        <b>Адрес:</b>
-        {`${orderData.city}, ${orderData.address}`}
+        <b>Дополнительные услуги:</b> {orderData.OrderServices}
       </p>
       <p>
-        <b>Дополнительные услуги:</b> {orderData.additionalService}
+        <b>Хозяин квартиры:</b> {orderData.User.userName}
       </p>
       <p>
-        <b>Хозяин квартиры:</b> {userData.userName}
+        <b>Контактный номер:</b> {orderData.User.phoneNumber}
       </p>
       <p>
-        <b>Контактный номер:</b> {userData.phone}
+        <b>Комментарий к заказу:</b> {orderData.info}
       </p>
       <p>
-        <b>Комментарий к заказу:</b> {orderData.comment}
-      </p>
-      <p>
-        <b>Вы заработаете:</b> {Math.floor(orderData.totalPrice * 0.2)} UZS
+        <b>Вы заработаете:</b> {Math.floor(orderData.price * 0.2)} UZS
       </p>
       <Space>
         <Button type="primary" size="medium">

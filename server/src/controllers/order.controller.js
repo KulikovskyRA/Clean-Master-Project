@@ -81,7 +81,7 @@ module.exports.adminTab2Info = async (req, res) => {
 };
 
 module.exports.ordersCleanerPlanned = async (req, res) => {
-  console.log('тук тук в ручку ordersCleanerPlanned!!!');
+  console.log('----------> тук тук в ручку ordersCleanerPlanned!!!');
   const {id} = req.session.cleaner
   const cleanerPlannedOrders = await Order.findAll({
     where: { cleaner_id: id },
