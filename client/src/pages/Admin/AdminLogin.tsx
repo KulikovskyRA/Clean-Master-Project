@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Form,
-  Input,
-  Typography,
-  ConfigProvider,
-  Space,
-  Row,
-} from 'antd';
+import { Button, Form, Input, Typography, ConfigProvider, Row } from 'antd';
 const { Title } = Typography;
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
