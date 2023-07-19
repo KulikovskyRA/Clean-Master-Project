@@ -1,5 +1,5 @@
-import * as React from 'react';
-import CleanerOrderPlannedCard from '../CleanerOrderPlannedCard/CleanerOrderPlannedCard';
+import * as React from "react";
+import CleanerOrderPlannedCard from "../CleanerOrderPlannedCard/CleanerOrderPlannedCard";
 
 const CleanerOrdersPlannedList = () => {
   const [plannedOrders, setPlannedOrders] = React.useState([]);
@@ -18,19 +18,23 @@ const CleanerOrdersPlannedList = () => {
 
       const result = await response.json();
       setPlannedOrders(result);
-      console.log('planned orders-------->', result);
-      
+      console.log("planned orders-------->", result);
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   React.useEffect(() => {
-      void fetchPlannedOrders();
+    void fetchPlannedOrders();
   }, []);
-  
+
   return (
-    <> {plannedOrders.map((card) => (<CleanerOrderPlannedCard orderData={card}/>) )}</>
+    <>
+      {" "}
+      {plannedOrders.map((card) => (
+        <CleanerOrderPlannedCard orderData={card} />
+      ))}
+    </>
   );
 };
 

@@ -25,7 +25,7 @@ const UserOrderPlannedCard = () => {
         weekday: "long",
       })})`}
       style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "#C4E8D4" }}
+      headStyle={{ backgroundColor: "#B4C8DD" }}
     >
       <p>
         <b>Время уборки:</b>{" "}
