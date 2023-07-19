@@ -8,10 +8,12 @@ const orderRouter = express.Router();
 const {
   orders,
   deleteOrder,
-  updateCleaner, 
+  updateCleaner,
   adminTab2Info,
   ordersCleanerPlanned,
   updatePrice,
+  ordersCleanerAvailable,
+  addOrder,
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
@@ -20,4 +22,6 @@ module.exports = orderRouter
   .put('/', updateCleaner)
   .get('/tab2', adminTab2Info)
   .get('/planned', ordersCleanerPlanned)
-  .patch('/', updatePrice);
+  .get('/available', ordersCleanerAvailable)
+  .patch('/', updatePrice)
+  .post('/addorder', addOrder)

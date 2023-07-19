@@ -29,7 +29,7 @@ const UserOrderCompletedCard: React.FC = () => {
         weekday: "long",
       })})`}
       style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "lightGray" }}
+      headStyle={{ backgroundColor: "#EFEBEB" }}
     >
       <p>
         <b>Время уборки:</b>{" "}

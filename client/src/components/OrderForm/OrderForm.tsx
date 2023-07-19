@@ -194,11 +194,21 @@ const OrderForm = () => {
             .map((el) => (
               <div key={`ingle${el.id}`}>
                 <label>{el.title}</label>
-                <input
-                  name={el.id}
-                  type="checkbox"
-                  onChange={handleChangeCheckBox}
-                />
+
+                {formServices[el.id] ? (
+                  <input
+                    name={el.id}
+                    type="checkbox"
+                    onChange={handleChangeCheckBox}
+                    checked
+                  />
+                ) : (
+                  <input
+                    name={el.id}
+                    type="checkbox"
+                    onChange={handleChangeCheckBox}
+                  />
+                )}
               </div>
             ))}
 
@@ -207,6 +217,7 @@ const OrderForm = () => {
             type="text"
             name="info"
             placeholder="Добавьте комментарий"
+            value={formData.info}
           />
         </>
       )}
@@ -219,12 +230,14 @@ const OrderForm = () => {
                 type="text"
                 name="phoneNumber"
                 placeholder="Введите номер телефона"
+                value={formData.phoneNumber}
               />
               <input
                 onChange={handleChange}
                 type="email"
                 name="email"
                 placeholder="Введите email"
+                value={formData.email}
               />
             </>
           )}
@@ -232,18 +245,21 @@ const OrderForm = () => {
             onChange={handleChange}
             type="text"
             name="city"
+            value={formData.city}
             placeholder="Введите город"
           />
           <input
             onChange={handleChange}
             type="text"
             name="street"
+            value={formData.street}
             placeholder="Введите улицу и дом"
           />
           <input
             onChange={handleChange}
             type="text"
             name="flat"
+            value={formData.flat}
             placeholder="Введите номер квартиры"
           />
           <button type="submit">Отправить</button>
