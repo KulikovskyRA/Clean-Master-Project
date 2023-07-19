@@ -16,17 +16,17 @@ interface IUserData {
   email: string;
 }
 
-const userData: IUserData = {
-  name: "Акакий",
-  phone: "+998 94 720 2212",
-  email: "puk@example.com",
-};
 
 export default function UserInfo() {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const user = useSelector((state: RootState) => state.authSlice.user);
 
+  const userData: IUserData = {
+    name: user.name,
+    phone: user.phoneNumber,
+    email: user.email,
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -86,7 +86,7 @@ export default function UserInfo() {
         <Button
           type="default"
           size="small"
-          icon={<FormOutlined />}
+          icon={<FormOutlined/>}
           onClick={showModal}
         >
           Редактировать данные
@@ -124,15 +124,15 @@ export default function UserInfo() {
               },
             ]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
 
           <Form.Item
             label="Телефон"
             name="phoneNumber"
-            rules={[{ required: true, message: "Please input your phone!" }]}
+            rules={[ { required: true, message: "Please input your phone!" } ]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
           <Form.Item
             label="Email"
@@ -145,7 +145,7 @@ export default function UserInfo() {
               },
             ]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
