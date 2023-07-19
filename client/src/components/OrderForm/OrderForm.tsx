@@ -159,29 +159,29 @@ const OrderForm = () => {
           ))
         }
 
-        {/*<label>Количество комнат</label>*/}
-        {/*<div onClick={() => handleDecrement('roomsCount')}>-</div>*/}
-        {/*<input name="rooms" type="text" value={formData.rooms} onChange={handleChange}/>*/}
-        {/*<div onClick={() => handleIncrement('roomsCount')}>+</div>*/}
+        <label>Количество комнат</label>
+        <div onClick={() => handleDecrement('roomsCount')}>-</div>
+        <input name="rooms" type="text" value={formData.rooms} onChange={handleChange}/>
+        <div onClick={() => handleIncrement('roomsCount')}>+</div>
 
-        {/*<label>Количество санузлов</label>*/}
-        {/*<div onClick={() => handleDecrement('bathCount')}>-</div>*/}
-        {/*<input name="baths" type="text" value={formData.baths} onChange={handleChange}/>*/}
-        {/*<div onClick={() => handleIncrement('bathCount')}>+</div>*/}
+        <label>Количество санузлов</label>
+        <div onClick={() => handleDecrement('bathCount')}>-</div>
+        <input name="baths" type="text" value={formData.baths} onChange={handleChange}/>
+        <div onClick={() => handleIncrement('bathCount')}>+</div>
 
-        {/*<label>Когда к вам приехать?</label>*/}
-        {/*<select name="date" onChange={handleChange}>*/}
-        {/*  {futureDates.map((el, i) => {*/}
-        {/*    return (<option key={i} value={el}>{el.toLocaleString("ru", {*/}
-        {/*      day: "numeric",*/}
-        {/*      month: "long",*/}
-        {/*      weekday: "long",*/}
-        {/*    })}</option>);*/}
-        {/*  })}*/}
-        {/*</select>*/}
-        {/*<select name="time" onChange={handleChange}>*/}
-        {/*  {futureTimes.map((el, i) => <option value={el} key={i}>{el}</option>)}*/}
-        {/*</select>*/}
+        <label>Когда к вам приехать?</label>
+        <select name="date" onChange={handleChange}>
+          {futureDates.map((el, i) => {
+            return (<option key={i} value={el}>{el.toLocaleString("ru", {
+              day: "numeric",
+              month: "long",
+              weekday: "long",
+            })}</option>);
+          })}
+        </select>
+        <select name="time" onChange={handleChange}>
+          {futureTimes.map((el, i) => <option value={el} key={i}>{el}</option>)}
+        </select>
       </>}
 
       {(step === 1) &&
