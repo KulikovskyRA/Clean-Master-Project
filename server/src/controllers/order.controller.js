@@ -39,11 +39,11 @@ module.exports.deleteOrder = async (req, res) => {
 
 module.exports.updateCleaner = async (req, res) => {
   const { orderEditId, cleanerId } = req.body;
-  
+
   const order = await Order.findByPk(orderEditId);
   order.cleaner_id = cleanerId;
   order.save();
-  
+
   const cleaner = await Cleaner.findByPk(cleanerId);
   res.json(cleaner.name);
 };
@@ -53,30 +53,30 @@ module.exports.updateCleaner = async (req, res) => {
 module.exports.updatePrice = async (req, res) => {
   const { orderEditId, price } = req.body;
   console.log(req.body);
-  
+
   const order = await Order.findByPk(orderEditId);
   order.price = Number(price.replace(/\D[^\.]/g, ''));
   order.save();
-  
+
   res.sendStatus(200);
 };
 
 module.exports.adminTab2Info = async (req, res) => {
   const allOrders = await Order.findAll({ raw: true, order: [['id', 'ASC']] });
   const done = allOrders.filter((el) => el.done === true);
-  
+
   const allNumber = allOrders.length;
   const doneNumber = done.length;
-  
+
   let oborot = 0;
-  
+
   done.forEach((element) => {
     oborot += element.price;
   });
-  
+
   const cleanerSalary = Math.round(oborot * 0.2);
   const money = oborot - cleanerSalary;
-  
+
   res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
 };
 
@@ -86,7 +86,16 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   const cleanerPlannedOrders = await Order.findAll({
     where: { cleaner_id: id },
     order: [['id', 'ASC']],
-    attributes: ['id', 'info', 'address', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+    attributes: [
+      'id',
+      'info',
+      'address',
+      'cleaningTime',
+      'user_id',
+      'done',
+      'price',
+      'rating',
+    ],
     include: [
       { model: User, attributes: ['userName', 'phoneNumber'] },
       {
@@ -102,6 +111,6 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
 };
 
 module.exports.addOrder = async (req, res) => {
-  console.log(req.body);
+  if (req.session.user) {
+  }
 };
-
