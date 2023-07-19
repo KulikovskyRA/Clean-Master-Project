@@ -155,6 +155,7 @@ module.exports.ordersCleanerAvailable = async (req, res) => {
   });
   console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
   res.json(cleanerAvailableOrders);
+};
 
 module.exports.addOrder = async (req, res) => {
   // console.log(req.body);
