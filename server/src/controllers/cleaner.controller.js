@@ -40,6 +40,7 @@ module.exports.cleanerLogin = async (req, res) => {
 };
 
 module.exports.cleanerRegister = async (req, res) => {
+
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
   try {
@@ -62,6 +63,7 @@ module.exports.cleanerRegister = async (req, res) => {
       phoneNumber,
       pets,
     });
+
 
     const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
 
@@ -96,13 +98,16 @@ module.exports.cleanersList = async (req, res) => {
 };
 
 module.exports.cleanerInfo = async (req, res) => {
+
+  const { id } = req.session.cleaner;
   try {
-    const { id } = req.session.cleaner;
     const getCleaner = await Cleaner.findByPk(id);
     res.json(getCleaner);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
+  
+
 };
 
 module.exports.cleanerPhoto = async (req, res) => {

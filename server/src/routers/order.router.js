@@ -12,6 +12,7 @@ const {
   adminTab2Info,
   ordersCleanerPlanned,
   updatePrice,
+  ordersCleanerAvailable,
   addOrder,
 } = require('../controllers/order.controller');
 
@@ -21,5 +22,7 @@ module.exports = orderRouter
   .put('/', updateCleaner)
   .get('/tab2', adminTab2Info)
   .get('/planned', ordersCleanerPlanned)
+  .get('/available', ordersCleanerAvailable)
   .patch('/', updatePrice)
-  .post('/addorder', addOrder);
+  .post('/addorder', addOrder)
+

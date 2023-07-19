@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, message, Upload } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { UserOutlined, PlusOutlined } from '@ant-design/icons';
 
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import { useSelector } from 'react-redux';
@@ -10,132 +10,68 @@ const { VITE_URL } = import.meta.env;
 
 // console.log(VITE_URL);
 
-const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
 
 const CleanerPhoto = () => {
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
-  const [file, setFile] = useState();
+  const [ imageUrl, setimageUrl ] = useState('');
 
   const cleanerId = useSelector((state) => state.authSlice.cleaner.id);
-  const cleanerImg = useSelector((state) => state.authSlice.cleaner.img);
 
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-  };
+  useEffect(() => {
+    const getUserImage = async () => {
+      try {
+        const response = await fetch(`${VITE_URL}cleaner/info`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+        const result = await response.json();
+        setimageUrl(result.img);
+      } catch (error) {
+        console.log(error);
+      }
 
-  const sendFile = async (file) => {
+    };
+
+    getUserImage();
+  }, []);
+
+  // console.log('CLEANER IMG', cleanerImg);
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    // Perform actions with the selected file
+    console.log('Selected file:', file);
     const formData = new FormData();
-    formData.append('image', file.originFileObj);
-    console.log('FILE', file.originFileObj);
-    console.log(formData);
+    formData.append('image', file);
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         `${VITE_URL}cleaner/updatePhoto/${cleanerId}`,
         formData,
         {
           withCredentials: true,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }
+          headers: { "Content-Type": "multipart/form-data" },
+        },
       );
-      const result = await res.json();
-      return result;
-    } catch (err) {
-      console.log(err);
+      setimageUrl(response.data.name);
+    } catch (error) {
+      console.log(error);
     }
   };
-
-  const handleChange: UploadProps['onChange'] = (
-    info: UploadChangeParam<UploadFile>
-  ) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-        sendFile(info.file);
-      });
-    }
-  };
-
-  // const submit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("avatar", file);
-  //   const val = Object.fromEntries(formData.entries());
-  //   console.log(val);
-  //   console.log(axios);
-  //   try {
-  //     const res = await axios.post(
-  //       `${VITE_URL}cleaner/updatePhoto`,
-  //       formData,
-  //       {
-  //         withCredentials: true,
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //       },
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   return (
     <>
-      {/*<form onSubmit={submit} enctype="multipart/form-data">*/}
-      {/*  <input*/}
-      {/*    filename={file}*/}
-      {/*    onChange={(e) => setFile(e.target.files[0])}*/}
-      {/*    type="file"*/}
-      {/*    accept="image/*"*/}
-      {/*  ></input>*/}
-      {/*  <button type="submit">Submit</button>*/}
-      {/*</form>*/}
+      {imageUrl ?
+        <Avatar size={150} src={`http://localhost:3500/uploads/${imageUrl}`}/>
+        :
+        <Avatar size={150} icon={<UserOutlined/>}/>
+      }
 
-      {cleanerImg ? (
-        <Avatar
-          size={150}
-          src={`http://localhost:3500/uploads/${cleanerImg}`}
-        />
-      ) : (
-        <Upload
-          name="avatar"
-          listType="picture-circle"
-          className="avatar-uploader"
-          showUploadList={false}
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-        >
-          {imageUrl ? (
-            <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-          ) : (
-            uploadButton
-          )}
-        </Upload>
-      )}
+      <input
+        type="file"
+        id="upload-photo"
+        accept="image/*"
+        onChange={handleFileChange}
+      />
     </>
   );
 };

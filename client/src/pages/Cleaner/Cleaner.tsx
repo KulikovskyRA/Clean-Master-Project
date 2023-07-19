@@ -34,25 +34,7 @@ const Cleaner: React.FC = () => {
           </Divider>
           <div>
             <div className={styles.cleanerAvatarDiv}>
-
-              <Avatar size={150} icon={<UserOutlined />} />
-              <Space>
-                {' '}
-                <Button type="default" size="small">
-                  Загрузить фото
-                </Button>
-              </Space>
-
-
               <CleanerPhoto/>
-              {/*<Avatar size={150} icon={<UserOutlined/>}/>*/}
-              {/*<Space>*/}
-              {/*  {" "}*/}
-              {/*  <Button type="default" size="small">*/}
-              {/*    Загрузить фото*/}
-              {/*  </Button>*/}
-              {/*</Space>*/}
-
             </div>
             <div className={styles.cleanerInfoDiv}>
               <CleanerInfo/>
