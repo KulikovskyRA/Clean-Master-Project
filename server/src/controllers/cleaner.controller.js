@@ -16,7 +16,7 @@ module.exports.cleanerLogin = async (req, res) => {
           id: check.id,
           name: check.name,
           phoneNumber: check.phoneNumber,
-
+          
         };
         req.session.cleaner = cleaner;
         res.status(200).json({
@@ -41,7 +41,7 @@ module.exports.cleanerLogin = async (req, res) => {
 };
 
 module.exports.cleanerRegister = async (req, res) => {
-
+  
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
   try {
@@ -64,11 +64,11 @@ module.exports.cleanerRegister = async (req, res) => {
       phoneNumber,
       pets,
     });
-
+    
     
     const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
     
-
+    
     req.session.cleaner = cleaner;
     
     res.json({ cleaner });
@@ -98,13 +98,20 @@ module.exports.cleanersList = async (req, res) => {
 
 module.exports.cleanerInfo = async (req, res) => {
   const { id } = req.session.cleaner;
-  const getCleaner = await Cleaner.findByPk(id);
-  res.json(getCleaner);
+  try {
+    const getCleaner = await Cleaner.findByPk(id);
+    res.json(getCleaner);
+  } catch (error) {
+    console.log(error);
+  }
+  
 };
 
 module.exports.cleanerPhoto = async (req, res) => {
   const img = req.file.filename;
   const id = req.params.id;
+  
+  console.log('FFFFIIIIIIILLLLLEEEE', req.file);
   
   try {
     const updatePhoto = await Cleaner.update(
