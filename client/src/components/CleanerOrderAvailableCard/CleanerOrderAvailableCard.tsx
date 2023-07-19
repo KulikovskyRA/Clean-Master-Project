@@ -1,52 +1,35 @@
-import * as React from "react";
+import React from "react";
 import { Button, Card } from "antd";
-
 import moment from "moment";
 
-const orderData = {
-  id: 456,
-  date: new Date(),
-  starTime: new Date(),
-  endTime: new Date(),
-  city: "Ташкент",
-  address: "ул. Ракат 17, кв. 5, 2 этаж",
-  comment: "Пожалуйста не используйте хлорку",
-  additionalService: ["помыть окно"],
-  totalPrice: 1761,
-};
-
-const userData = {
-  userName: "Пётр",
-  phone: "+998 95 678 2345",
-};
-
-const CleanerOrderAvailableCard: React.FC = () => {
+const CleanerOrderAvailableCard = ({ orderData }) => {
+  console.log("available orderData------->", orderData);
   return (
     <Card
-      title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString("ru", {
-        day: "numeric",
-        month: "long",
-        weekday: "long",
-      })})`}
-      bordered={false}
-      style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "LightGray"}}
+      title={`Заявка # ${orderData.id} (${moment(orderData.cleaningTime).format(
+        "DD.MM.YYYY"
+      )})`}
+      style={{ width: "100%", border: "1px solid", marginBottom: "10px" }}
+      headStyle={{ backgroundColor: "LightGray" }}
     >
       <p>
-        <b>Время уборки:</b>{" "}
-        {orderData.starTime.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
-        })}{" "}
-        -{" "}
-        {orderData.endTime.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
-        })}
+        <b>Время уборки: </b>
+        {`${moment(orderData.cleaningTime).format("HH:mm")} - ${moment(
+          orderData.cleaningTime
+        )
+          .add(3, "hours")
+          .format("HH:mm")}`}
       </p>
-      <p><b>Адрес: </b>{`${orderData.city}, ${orderData.address}`}</p>
-      <p><b>Дополнительные услуги:</b> {orderData.additionalService}</p>
-      <p><b>Вы заработаете:</b> {Math.floor(orderData.totalPrice * 0.2)} UZS</p>
+      <p>
+        <b>Адрес: </b>
+        {orderData.address}
+      </p>
+      <p>
+        <b>Дополнительные услуги:</b> {orderData.OrderServices}
+      </p>
+      <p>
+        <b>Вы заработаете:</b> {Math.floor(orderData.price * 0.2)} UZS
+      </p>
       <Button type="primary" size="medium">
         Выполнить уборку
       </Button>
