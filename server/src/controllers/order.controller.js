@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
+const moment = require('moment');
+
 const {
   Order,
   OrderService,
@@ -86,7 +88,16 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   const cleanerPlannedOrders = await Order.findAll({
     where: { cleaner_id: id },
     order: [['id', 'ASC']],
-    attributes: ['id', 'info', 'address', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+    attributes: [
+      'id',
+      'info',
+      'address',
+      'cleaningTime',
+      'user_id',
+      'done',
+      'price',
+      'rating',
+    ],
     include: [
       { model: User, attributes: ['userName', 'phoneNumber'] },
       {
@@ -101,3 +112,71 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   res.json(cleanerPlannedOrders);
 };
 
+module.exports.addOrder = async (req, res) => {
+  console.log(req.body);
+  const { formData, formServices } = req.body;
+  let user;
+  if (req.session.user) {
+    user = req.session.user;
+  } else {
+    const password = '123';
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    user = await User.create({
+      userName: formData.phoneNumber,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      password: hashPassword,
+      isVerified: false,
+    });
+  }
+
+  const address = formData.city + ', ' + formData.street + ', ' + formData.flat;
+
+  const cleaningTime = new Date(
+    moment(formData.date).format('YYYY-MM-DD') + ' ' + formData.time
+  ).toString();
+
+  // console.log(formData.date, formData.time);
+  // console.log(ordertime);
+
+  const newOrder = await Order.create({
+    info: formData.info,
+    user_id: user.id,
+    address,
+    cleaningTime,
+    done: false,
+  });
+
+  for (let key of Object.keys(formServices)) {
+    if (formServices[key] !== 0) {
+      // console.log(key + ' -> ' + formServices[key]);
+      await OrderService.create({
+        order_id: newOrder.id,
+        service_id: Number(key),
+        amount: formServices[key],
+      });
+    }
+  }
+
+  const orderServices = await OrderService.findAll({
+    raw: true,
+    nest: true,
+    where: { order_id: newOrder.id },
+    attributes: ['amount'],
+    include: {
+      model: Service,
+      attributes: ['singlePrice'],
+    },
+  });
+
+  let price = 0;
+  orderServices.forEach((el) => {
+    price += Number(el.amount) * Number(el.Service.singlePrice);
+  });
+
+  newOrder.price = price;
+  newOrder.save();
+
+  res.sendStatus(200);
+};
