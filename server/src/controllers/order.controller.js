@@ -139,7 +139,7 @@ module.exports.addOrder = async (req, res) => {
 
   // console.log(formData.date, formData.time);
   // console.log(ordertime);
-  //! ЦЕНА БЛЯ
+
   const newOrder = await Order.create({
     info: formData.info,
     user_id: user.id,
@@ -147,4 +147,36 @@ module.exports.addOrder = async (req, res) => {
     cleaningTime,
     done: false,
   });
+
+  for (let key of Object.keys(formServices)) {
+    if (formServices[key] !== 0) {
+      // console.log(key + ' -> ' + formServices[key]);
+      await OrderService.create({
+        order_id: newOrder.id,
+        service_id: Number(key),
+        amount: formServices[key],
+      });
+    }
+  }
+
+  const orderServices = await OrderService.findAll({
+    raw: true,
+    nest: true,
+    where: { order_id: newOrder.id },
+    attributes: ['amount'],
+    include: {
+      model: Service,
+      attributes: ['singlePrice'],
+    },
+  });
+
+  let price = 0;
+
+  orderServices.forEach((el) => {
+    price += Number(el.amount) * Number(el.Service.singlePrice);
+  });
+  order.price = price;
+  order.save();
+
+  res.sendStatus(200);
 };
