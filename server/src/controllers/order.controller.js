@@ -171,12 +171,12 @@ module.exports.addOrder = async (req, res) => {
   });
 
   let price = 0;
-
   orderServices.forEach((el) => {
     price += Number(el.amount) * Number(el.Service.singlePrice);
   });
-  order.price = price;
-  order.save();
+
+  newOrder.price = price;
+  newOrder.save();
 
   res.sendStatus(200);
 };
