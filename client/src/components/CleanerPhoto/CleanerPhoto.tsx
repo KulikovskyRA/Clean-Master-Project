@@ -65,7 +65,6 @@ const CleanerPhoto = () => {
         :
         <Avatar size={150} icon={<UserOutlined/>}/>
       }
-
       <input
         type="file"
         id="upload-photo"

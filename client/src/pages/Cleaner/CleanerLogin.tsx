@@ -113,8 +113,8 @@ const CleanerLogin = () => {
             {!err.status && (
               <Form.Item validateStatus="error" help={err.message} />
             )}
-            <Title style={{ marginLeft: '-20px' }}>
-              Войдите и зарабатывайте!
+            <Title>
+              Авторизация сотрудника
             </Title>
 
             <Form.Item
