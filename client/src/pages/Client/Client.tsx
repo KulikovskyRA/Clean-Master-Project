@@ -60,7 +60,7 @@ const Client: React.FC = () => {
         </div>
         <section className="footer">
           <div className="first-box">
-            <div className="link-title">Меню</div>
+            <div className="link-title">МЕНЮ</div>
             <a className="link-footer" href="/">
               Главная
             </a>
@@ -78,7 +78,7 @@ const Client: React.FC = () => {
           </div>
 
           <div className="contact-box">
-            <div className="link-title">Контакты</div>
+            <div className="link-title">КОНТАКТЫ</div>
             <a className="link-footer" href="tel:8 800-2222-945">
               8 800-2222-945
             </a>
@@ -105,7 +105,7 @@ const Client: React.FC = () => {
           </div>
 
           <div className="three-box">
-            <div className="link-title">Способы оплаты</div>
+            <div className="link-title">СПОСОБЫ ОПЛАТЫ</div>
             <div className="pays-box">
               <img className="pay1" src="./p1.png" alt=""/>
               <img className="pay" src="./p2.png" alt=""/>

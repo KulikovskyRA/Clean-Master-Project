@@ -36,7 +36,7 @@ const Admin = () => {
         direction="horizontal"
         style={{ width: '100%', justifyContent: 'center' }}
       >
-        <Title>Работай, управляй, решай</Title>
+        <Title>У нас тут всё под контролем :)</Title>
       </Space>
 
       <Tabs defaultActiveKey="1" centered style={{ height: 220 }}>

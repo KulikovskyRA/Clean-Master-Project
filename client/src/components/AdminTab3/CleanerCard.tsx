@@ -47,7 +47,7 @@ export default function CleanerCard({ cleaner }) {
         </Col>
 
         <Col span={5}>
-          <Text strong>{`Резиденство:\u00A0`}</Text>
+          <Text strong>{`Гражданство:\u00A0`} </Text>
           <Text>{`${cleaner.nation}`}</Text>
         </Col>
 

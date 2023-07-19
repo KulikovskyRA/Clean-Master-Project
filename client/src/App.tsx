@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-import { authReducer, checkAuthReducer } from './redux/authSlice';
+import { authReducer, checkAuthReducer } from "./redux/authSlice";
 
-import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import { Layout } from 'antd';
-import AppRouter from './components/AppRouter/AppRouter';
-import Paralax from './components/Paralax/Paralax';
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import { Layout } from "antd";
+import AppRouter from "./components/AppRouter/AppRouter";
+import Paralax from "./components/Paralax/Paralax";
 
 function App() {
   const navigate = useNavigate();
@@ -17,25 +17,25 @@ function App() {
     try {
       (async function (): Promise<void> {
         const response: Response = await fetch(
-          import.meta.env.VITE_URL + 'auth',
+          import.meta.env.VITE_URL + "auth",
           {
-            credentials: 'include',
+            credentials: "include",
           }
         );
 
         if (response.ok) {
           const result = await response.json();
 
-          if (!result.user && window.location.pathname === '/client') {
-            navigate('/login');
+          if (!result.user && window.location.pathname === "/client") {
+            navigate("/login");
           }
 
-          if (!result.admin && window.location.pathname === '/admin') {
-            navigate('/adminlogin');
+          if (!result.admin && window.location.pathname === "/admin") {
+            navigate("/adminlogin");
           }
 
-          if (!result.cleaner && window.location.pathname === '/cleaner') {
-            navigate('/cleanlogin');
+          if (!result.cleaner && window.location.pathname === "/cleaner") {
+            navigate("/cleanlogin");
           }
 
           dispatch(checkAuthReducer(result));
@@ -49,11 +49,11 @@ function App() {
   return (
     <div
       style={{
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
       }}
     >
       <AppRouter />
