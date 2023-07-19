@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
+const moment = require('moment');
+
 const {
   Order,
   OrderService,
@@ -111,6 +113,38 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
 };
 
 module.exports.addOrder = async (req, res) => {
+  console.log(req.body);
+  const { formData, formServices } = req.body;
+  let user;
   if (req.session.user) {
+    user = req.session.user;
+  } else {
+    const password = '123';
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    user = await User.create({
+      userName: formData.phoneNumber,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      password: hashPassword,
+      isVerified: false,
+    });
   }
+
+  const address = formData.city + ', ' + formData.street + ', ' + formData.flat;
+
+  const cleaningTime = new Date(
+    moment(formData.date).format('YYYY-MM-DD') + ' ' + formData.time
+  ).toString();
+
+  // console.log(formData.date, formData.time);
+  // console.log(ordertime);
+  //! ЦЕНА БЛЯ
+  const newOrder = await Order.create({
+    info: formData.info,
+    user_id: user.id,
+    address,
+    cleaningTime,
+    done: false,
+  });
 };
