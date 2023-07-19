@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 const OrderForm = () => {
   const navigate = useNavigate();
 
-  // const user = useSelector((state) => state.authSlice.user);
+  const user = useSelector((state) => state.authSlice.user);
 
   const [step, setStep] = useState(0);
   const [services, setServices] = useState([]);
