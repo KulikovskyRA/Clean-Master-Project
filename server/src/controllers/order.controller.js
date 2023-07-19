@@ -132,11 +132,15 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
 module.exports.addOrder = async (req, res) => {
   // console.log(req.body);
   try {
+    //! Вычленяю данные из req.body
     const { formData, formServices } = req.body;
+
     let user;
     if (req.session.user) {
+      //! Проверяю, авторизован ли юзер, если сесси с юзером есть, то беру из сессии юзера, чтобы к нему присоединять order через user_id
       user = req.session.user;
     } else {
+      //! если нет, то создаю юзера
       const password = '123';
       const hashPassword = await bcrypt.hash(password, 10);
 
@@ -147,6 +151,15 @@ module.exports.addOrder = async (req, res) => {
         password: hashPassword,
         isVerified: false,
       });
+
+      //! А затем создаю сессию под него
+      const userSessionData = {
+        id: user.id,
+        userName: user.userName,
+        email: user.email,
+        phone: user.phoneNumber,
+      };
+      req.session.user = userSessionData;
     }
 
     const address =
@@ -156,8 +169,7 @@ module.exports.addOrder = async (req, res) => {
       moment(formData.date).format('YYYY-MM-DD') + ' ' + formData.time
     ).toString();
 
-    // console.log(formData.date, formData.time);
-    // console.log(ordertime);
+    //! Cоздаю заказ под юзера(опрделенного ли созданного)
 
     const newOrder = await Order.create({
       info: formData.info,
@@ -166,6 +178,8 @@ module.exports.addOrder = async (req, res) => {
       cleaningTime,
       done: false,
     });
+
+    //! Через цикл создаю записи в OrderService
 
     for (let key of Object.keys(formServices)) {
       if (formServices[key] !== 0) {
@@ -177,6 +191,8 @@ module.exports.addOrder = async (req, res) => {
         });
       }
     }
+
+    //! Нахожу цену, чтобы её потом записать в заказ
 
     const orderServices = await OrderService.findAll({
       raw: true,

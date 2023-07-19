@@ -110,8 +110,7 @@ const OrderForm = () => {
     );
 
     if (responseAddOrder.ok) {
-      // navigate('/login')
-      console.log('wfw');
+      navigate('/client');
     }
   };
 
