@@ -173,7 +173,7 @@ module.exports.addOrder = async (req, res) => {
 
     const newOrder = await Order.create({
       info: formData.info,
-      user_id: user.id,
+      user_id: Number(user.id),
       address,
       cleaningTime,
       done: false,
@@ -182,12 +182,12 @@ module.exports.addOrder = async (req, res) => {
     //! Через цикл создаю записи в OrderService
 
     for (let key of Object.keys(formServices)) {
-      if (formServices[key] !== 0) {
+      if (formServices[key] > 0) {
         // console.log(key + ' -> ' + formServices[key]);
         await OrderService.create({
-          order_id: newOrder.id,
+          order_id: Number(newOrder.id),
           service_id: Number(key),
-          amount: formServices[key],
+          amount: Number(formServices[key]),
         });
       }
     }
