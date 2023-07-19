@@ -94,14 +94,20 @@ const OrderForm = () => {
     console.log(formServices);
   };
 
-  const handleServicesChange = (e) => {
-    setFormData({ ...formData, services: { [e.target.name]: e.target.value } });
+  const handleChangeCheckBox = (e) => {
+    let count;
+    if (formServices[e.target.name] === 0) {
+      count = 1;
+    } else {
+      count = -1;
+    }
+    setFormServices((prev) => ({ ...prev, [e.target.name]: prev[e.target.name] + count }));
+
+    //console.log(e.target);
+    //setFormServices({ ...formServices, [e.target.name]: e.target.value });
+    console.log(formServices);
   };
 
-  const handleCheckboxChange = (e) => {
-    setFormData({ ...formData, services: { [e.target.name]: e.target.checked } });
-    setIsChecked(true);
-  };
 
   const handleNextStep = () => {
     setStep(step + 1);
@@ -109,7 +115,7 @@ const OrderForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form values:', formData);
+    console.log('Form values:', formData, formServices);
 
   };
 
@@ -180,27 +186,27 @@ const OrderForm = () => {
 
       {(step === 1) &&
         <>
-          {singleServices.map(el => {
-            return (<label>
-              <input
-                type="checkbox"
-                name={el.id}
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />
-              {el.title}
-            </label>);
-          })}
-
-          {noSingleServices.map(el => {
-            return (
+          {services.filter((el) => el.default === false && el.single === false)
+            .map(el => (
               <>
                 <label>{el.title}</label>
-                <div onClick={() => handleDecrement('services')}>-</div>
-                <input name={el.id} type="text" value={formData.services[el.id]} onChange={handleServicesChange}/>
-                <div id={el.id} value={1} onClick={handlePlus}>+</div>
-              </>);
-          })}
+                {(formServices[el.id] > 0) && <div id={el.id} onClick={handleDecrement}>-</div>}
+                <input name={el.id} type="text" value={formServices[el.id]} onChange={handleChangeInput}/>
+                <div id={el.id} onClick={handleIncrement}>+</div>
+              </>
+            ))
+          }
+
+          {services.filter((el) => el.single === true)
+            .map(el => (
+              <>
+                <label>{el.title}</label>
+
+                <input name={el.id} type="checkbox" onChange={handleChangeCheckBox}/>
+
+              </>
+            ))
+          }
 
 
         </>}
