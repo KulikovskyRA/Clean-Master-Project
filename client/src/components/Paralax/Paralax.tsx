@@ -11,7 +11,7 @@ import {
   HeartOutlined,
   GiftOutlined,
 } from '@ant-design/icons';
-import video from '../../../public/vid2.webm';
+import video from '../../../public/vid3.mp4';
 import { Button, Space, ConfigProvider, Divider } from 'antd';
 import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 import Navbar from '../../components/Navbar/Navbar';
