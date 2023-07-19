@@ -6,6 +6,7 @@ import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
+import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 
@@ -24,9 +25,11 @@ const userData: IUserData = {
 };
 
 const Client: React.FC = () => {
+  const user = useSelector((state: RootState) => state.authSlice.user);
+
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <ConfigProvider
         theme={{
           token: {
@@ -45,7 +48,7 @@ const Client: React.FC = () => {
         >
           <div>
             <div className={styles.userInfoDiv}>
-              <Title>Рады видеть вас, {userData.name}!</Title>
+              <Title>Рады видеть вас, {user.name}!</Title>
               <Title level={3}>Пора навести чистоту?</Title>
               <Button type="primary" size="large">
                 Заказать уборку
@@ -53,7 +56,7 @@ const Client: React.FC = () => {
               <Space></Space>
             </div>
           </div>
-          <UserOrdersTabs />
+          <UserOrdersTabs/>
         </div>
         <section className="footer">
           <div className="first-box">
@@ -87,16 +90,16 @@ const Client: React.FC = () => {
             </a>
             <div className="social">
               <a href="https://www.instagram.com/cleanmastergt/">
-                <img className="soc-png" src="./s1.png" alt="" />
+                <img className="soc-png" src="./s1.png" alt=""/>
               </a>
               <a href="https://vk.com/club134865736">
-                <img className="soc-png" src="./s2.png" alt="" />
+                <img className="soc-png" src="./s2.png" alt=""/>
               </a>
               <a href="https://web.telegram.org/a/#-1751514282">
-                <img className="soc-png" src="./s4.png" alt="" />
+                <img className="soc-png" src="./s4.png" alt=""/>
               </a>
               <a className="link-footer" href="https://web.whatsapp.com/">
-                <img className="soc-png" src="./s5.png" alt="" />
+                <img className="soc-png" src="./s5.png" alt=""/>
               </a>
             </div>
           </div>
@@ -104,9 +107,9 @@ const Client: React.FC = () => {
           <div className="three-box">
             <div className="link-title">Способы оплаты</div>
             <div className="pays-box">
-              <img className="pay1" src="./p1.png" alt="" />
-              <img className="pay" src="./p2.png" alt="" />
-              <img className="pay" src="./p3.png" alt="" />
+              <img className="pay1" src="./p1.png" alt=""/>
+              <img className="pay" src="./p2.png" alt=""/>
+              <img className="pay" src="./p3.png" alt=""/>
             </div>
           </div>
         </section>

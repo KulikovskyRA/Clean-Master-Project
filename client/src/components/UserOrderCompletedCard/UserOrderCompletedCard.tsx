@@ -9,7 +9,7 @@ const orderData = {
   city: "Ташкент",
   address: "ул. Ракат 17, кв. 5, 2 этаж",
   comment: "Пожалуйста не используйте хлорку",
-  additionalService: ["помыть окно"],
+  additionalService: [ "помыть окно" ],
   totalPrice: 249000,
 };
 
@@ -19,11 +19,19 @@ const cleanerData = {
   name: 'Айнура',
 };
 
-const UserOrderCompletedCard: React.FC = () => {
+const UserOrderCompletedCard: React.FC = ({ orderData }) => {
+  const { id, address, cleaningTime, OrderServices, info } = orderData;
+  const date = new Date(cleaningTime);
+  const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
+
+  const totalPrice = OrderServices.reduce((accumulator, currentObject) => {
+    return accumulator + (currentObject.Service.singlePrice * currentObject.amount);
+  }, 0);
+
   return (
-    
+
     <Card
-      title={`Заявка # ${orderData.id} (${orderData.date.toLocaleString("ru", {
+      title={`Заявка # ${id} (${date.toLocaleString("ru", {
         day: "numeric",
         month: "long",
         weekday: "long",
@@ -33,7 +41,7 @@ const UserOrderCompletedCard: React.FC = () => {
     >
       <p>
         <b>Время уборки:</b>{" "}
-        {orderData.startTime.toLocaleString("ru", {
+        {date.toLocaleString("ru", {
           hour: "numeric",
           minute: "numeric",
         })}{" "}
@@ -45,16 +53,21 @@ const UserOrderCompletedCard: React.FC = () => {
       </p>
       <p>
         <b>Адрес:</b>
-        {`${orderData.city}, ${orderData.address}`}
+        {`${address}`}
       </p>
       <p>
-        <b>Дополнительные услуги:</b> {orderData.additionalService}
+        <b>Дополнительные услуги:</b>
+        <ul>
+          {OrderServices.map((el, i) => (
+            <li key={i}>{el.Service.title} {el.amount}</li>
+          ))}
+        </ul>
       </p>
       <p>
-        <b>Комментарий к заказу:</b> {orderData.comment}
+        <b>Комментарий к заказу:</b> {info}
       </p>
       <p>
-        <b>Стоимость уборки:</b> {orderData.totalPrice} UZS
+        <b>Стоимость уборки:</b> {totalPrice} UZS
       </p>
 
       {/* <Avatar
