@@ -1,172 +1,273 @@
 import * as React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { futureDates, futureTimes } from './orderdates.js';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 const { VITE_URL } = import.meta.env;
 
+import { useSelector } from 'react-redux';
 
-console.log(futureDates);
+// console.log(futureDates);
 const OrderForm = () => {
-  // const [ roomsCount, setRoomsCount ] = useState(1);
-  // const [ bathCount, setBathCount ] = useState(1);
-  const [ step, setStep ] = useState(0);
-  const [ singleServices, setSingleServices ] = useState([]);
-  const [ noSingleServices, setNoSingleServices ] = useState([]);
+  const navigate = useNavigate();
 
-  const [ formData, setFormData ] = useState({
-    rooms: 1,
-    baths: 1,
+  const user = useSelector((state) => state.authSlice.user);
+
+  const [step, setStep] = useState(0);
+  const [services, setServices] = useState([]);
+  const [formServices, setFormServices] = useState({});
+  const [formData, setFormData] = useState({
     date: 0,
     time: '8:00',
-    // Add more form fields here
   });
 
   useEffect(() => {
-    const singleServicesData = async () => {
+    const getAllServices = async () => {
       try {
-        const response = await fetch(`${VITE_URL}service/singleprice`);
+        const response = await fetch(`${VITE_URL}service/all`);
         const jsonData = await response.json();
-        setSingleServices(jsonData);
+        // console.log(jsonData);
+        setServices(jsonData);
+
+        const initialServices = {};
+        jsonData.forEach((el) => {
+          initialServices[el.id] = 0;
+        });
+
+        setFormServices(initialServices);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    const noSingleServicesData = async () => {
-      try {
-        const response = await fetch(`${VITE_URL}service/nosingleprice`);
-        const jsonData = await response.json();
-        setNoSingleServices(jsonData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    singleServicesData();
-    noSingleServicesData();
+    getAllServices();
   }, []);
 
-  const handleIncrement = (fieldName) => {
-    switch (fieldName) {
-      case 'roomsCount':
-        setFormData((prev) => ({ ...prev, rooms: prev.rooms + 1 }));
-        // setRoomsCount(roomsCount + 1);
-        break;
-      case 'bathCount':
-        setFormData((prev) => ({ ...prev, baths: prev.baths + 1 }));
-        //setBathCount(bathCount + 1);
-        break;
-      case 'services':
-        setFormData((prev) => ({ ...prev, services: {} }));
-        //setBathCount(bathCount + 1);
-        break;
-      default:
-        break;
-    }
+  const handleIncrement = (e) => {
+    setFormServices((prev) => ({
+      ...prev,
+      [e.target.id]: Number(prev[e.target.id]) + 1,
+    }));
+    console.log(formServices);
   };
 
-  const handleDecrement = (fieldName) => {
-    switch (fieldName) {
-      case 'roomsCount':
-        setFormData((prev) => ({ ...prev, rooms: prev.rooms - 1 }));
-        if (formData.rooms <= 1) {
-          setFormData((prev) => ({ ...prev, rooms: 1 }));
-        }
-        break;
-      case 'bathCount':
-        setFormData((prev) => ({ ...prev, baths: prev.baths - 1 }));
-        if (formData.baths <= 1) {
-          setFormData((prev) => ({ ...prev, baths: 1 }));
-        }
-        break;
-      default:
-        break;
-    }
+  const handleDecrement = (e) => {
+    setFormServices((prev) => ({
+      ...prev,
+      [e.target.id]: Number(prev[e.target.id]) - 1,
+    }));
+    console.log(formServices);
   };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
+  };
+
+  const handleChangeInput = (e) => {
+    setFormServices({ ...formServices, [e.target.name]: e.target.value });
+    console.log(formServices);
+  };
+
+  const handleChangeCheckBox = (e) => {
+    let count;
+    if (formServices[e.target.name] === 0) {
+      count = 1;
+    } else {
+      count = -1;
+    }
+    setFormServices((prev) => ({
+      ...prev,
+      [e.target.name]: Number(prev[e.target.name]) + count,
+    }));
   };
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    if (step < 2) {
+      setStep(step + 1);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handlePrevStep = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form values:', formData);
+    // console.log('Form values:', formData, formServices);
+
+    const responseAddOrder = await fetch(
+      import.meta.env.VITE_URL + 'order/addorder',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ formData, formServices }),
+      }
+    );
+
+    if (responseAddOrder.ok) {
+      // navigate('/login')
+      console.log('wfw');
+    }
   };
-
-  // const getSingleServices = async () => {
-  //   const response = await fetch(`${VITE_URL}services/singlePrice`);
-  //   const result = await response.json();
-  //   console.log('SINGLE====>', result);
-  //   return result;
-  // };
-  //
-  //
-  // console.log('SINGLE==+++++==>', getSingleServices);
-
 
   return (
-
     <form onSubmit={handleSubmit}>
-      {(step === 0) && <>
-        <label>Количество комнат</label>
-        <div onClick={() => handleDecrement('roomsCount')}>-</div>
-        <input name="rooms" type="text" value={formData.rooms} onChange={handleChange}/>
-        <div onClick={() => handleIncrement('roomsCount')}>+</div>
-
-        <label>Количество санузлов</label>
-        <div onClick={() => handleDecrement('bathCount')}>-</div>
-        <input name="baths" type="text" value={formData.baths} onChange={handleChange}/>
-        <div onClick={() => handleIncrement('bathCount')}>+</div>
-
-        <label>Когда к вам приехать?</label>
-        <select name="date" onChange={handleChange}>
-          {futureDates.map((el, i) => {
-            return (<option key={i} value={el}>{el.toLocaleString("ru", {
-              day: "numeric",
-              month: "long",
-              weekday: "long",
-            })}</option>);
-          })}
-        </select>
-        <select name="time" onChange={handleChange}>
-          {futureTimes.map((el, i) => <option value={el} key={i}>{el}</option>)}
-        </select>
-      </>}
-
-      {(step === 1) &&
+      {step === 0 && (
         <>
-          {singleServices.map(el => {
-            return (<label>
-              <input
-                type="checkbox"
-                checked={true}
-                // onChange={handleCheckboxChange}
-              />
-              {el.title}
-            </label>);
-          })}
-
-          {noSingleServices.map(el => {
-            return (
-              <>
+          {services
+            .filter((el) => el.default === true)
+            .map((el) => (
+              <div key={`default${el.id}`}>
                 <label>{el.title}</label>
-                <div onClick={() => handleDecrement('services')}>-</div>
-                <input name={el.id} type="text" value={formData.baths} onChange={handleChange}/>
-                <div onClick={() => handleIncrement('services')}>+</div>
-              </>);
-          })}
+                {formServices[el.id] > 0 && (
+                  <div id={el.id} onClick={handleDecrement}>
+                    -
+                  </div>
+                )}
+                <input
+                  name={el.id}
+                  type="text"
+                  value={formServices[el.id]}
+                  onChange={handleChangeInput}
+                />
+                <div id={el.id} onClick={handleIncrement}>
+                  +
+                </div>
+              </div>
+            ))}
 
+          <label>Когда к вам приехать?</label>
+          <select name="date" onChange={handleChange}>
+            {futureDates.map((el, i) => {
+              return (
+                <option key={i} value={el}>
+                  {el.toLocaleString('ru', {
+                    day: 'numeric',
+                    month: 'long',
+                    weekday: 'long',
+                  })}
+                </option>
+              );
+            })}
+          </select>
+          <select name="time" onChange={handleChange}>
+            {futureTimes.map((el, i) => (
+              <option value={el} key={i}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
 
-        </>}
+      {step === 1 && (
+        <>
+          {services
+            .filter((el) => el.default === false && el.single === false)
+            .map((el) => (
+              <div key={`not-single${el.id}`}>
+                <label>{el.title}</label>
+                {formServices[el.id] > 0 && (
+                  <div id={el.id} onClick={handleDecrement}>
+                    -
+                  </div>
+                )}
+                <input
+                  name={el.id}
+                  type="text"
+                  value={formServices[el.id]}
+                  onChange={handleChangeInput}
+                />
+                <div id={el.id} onClick={handleIncrement}>
+                  +
+                </div>
+              </div>
+            ))}
+
+          {services
+            .filter((el) => el.single === true)
+            .map((el) => (
+              <div key={`ingle${el.id}`}>
+                <label>{el.title}</label>
+
+                {formServices[el.id] ? (
+                  <input
+                    name={el.id}
+                    type="checkbox"
+                    onChange={handleChangeCheckBox}
+                    checked
+                  />
+                ) : (
+                  <input
+                    name={el.id}
+                    type="checkbox"
+                    onChange={handleChangeCheckBox}
+                  />
+                )}
+              </div>
+            ))}
+
+          <input
+            onChange={handleChange}
+            type="text"
+            name="info"
+            placeholder="Добавьте комментарий"
+            value={formData.info}
+          />
+        </>
+      )}
+      {step === 2 && (
+        <>
+          {user.id === 0 && (
+            <>
+              <input
+                onChange={handleChange}
+                type="text"
+                name="phoneNumber"
+                placeholder="Введите номер телефона"
+                value={formData.phoneNumber}
+              />
+              <input
+                onChange={handleChange}
+                type="email"
+                name="email"
+                placeholder="Введите email"
+                value={formData.email}
+              />
+            </>
+          )}
+          <input
+            onChange={handleChange}
+            type="text"
+            name="city"
+            value={formData.city}
+            placeholder="Введите город"
+          />
+          <input
+            onChange={handleChange}
+            type="text"
+            name="street"
+            value={formData.street}
+            placeholder="Введите улицу и дом"
+          />
+          <input
+            onChange={handleChange}
+            type="text"
+            name="flat"
+            value={formData.flat}
+            placeholder="Введите номер квартиры"
+          />
+          <button type="submit">Отправить</button>
+        </>
+      )}
+      <div onClick={handlePrevStep}>НАЗАД</div>
       <div onClick={handleNextStep}>ДАЛЕЕ</div>
-      <button type="submit">Отправить</button>
     </form>
-
   );
 };
 

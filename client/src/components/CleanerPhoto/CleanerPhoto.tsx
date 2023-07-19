@@ -1,15 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Avatar, message, Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import { useSelector } from "react-redux";
-
+import { useSelector } from 'react-redux';
 
 const { VITE_URL } = import.meta.env;
 
-console.log(VITE_URL);
+// console.log(VITE_URL);
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -17,15 +16,13 @@ const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-
 const CleanerPhoto = () => {
-  const [ loading, setLoading ] = useState(false);
-  const [ imageUrl, setImageUrl ] = useState<string>();
-  const [ file, setFile ] = useState();
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>();
+  const [file, setFile] = useState();
 
   const cleanerId = useSelector((state) => state.authSlice.cleaner.id);
   const cleanerImg = useSelector((state) => state.authSlice.cleaner.img);
-
 
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -41,7 +38,7 @@ const CleanerPhoto = () => {
 
   const sendFile = async (file) => {
     const formData = new FormData();
-    formData.append("image", file.originFileObj);
+    formData.append('image', file.originFileObj);
     console.log('FILE', file.originFileObj);
     console.log(formData);
     try {
@@ -50,8 +47,8 @@ const CleanerPhoto = () => {
         formData,
         {
           withCredentials: true,
-          headers: { "Content-Type": "multipart/form-data" },
-        },
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }
       );
       const result = await res.json();
       return result;
@@ -60,7 +57,9 @@ const CleanerPhoto = () => {
     }
   };
 
-  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+  const handleChange: UploadProps['onChange'] = (
+    info: UploadChangeParam<UploadFile>
+  ) => {
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
@@ -98,7 +97,7 @@ const CleanerPhoto = () => {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined/> : <PlusOutlined/>}
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
@@ -115,10 +114,12 @@ const CleanerPhoto = () => {
       {/*  <button type="submit">Submit</button>*/}
       {/*</form>*/}
 
-      {cleanerImg ?
-        <Avatar size={150} src={`http://localhost:3500/uploads/${cleanerImg}`}/>
-        :
-
+      {cleanerImg ? (
+        <Avatar
+          size={150}
+          src={`http://localhost:3500/uploads/${cleanerImg}`}
+        />
+      ) : (
         <Upload
           name="avatar"
           listType="picture-circle"
@@ -128,14 +129,15 @@ const CleanerPhoto = () => {
           beforeUpload={beforeUpload}
           onChange={handleChange}
         >
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton}
+          {imageUrl ? (
+            <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+          ) : (
+            uploadButton
+          )}
         </Upload>
-      }
-
-
+      )}
     </>
   );
 };
 
 export default CleanerPhoto;
-

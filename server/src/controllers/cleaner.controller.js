@@ -5,18 +5,17 @@ const { Cleaner, Order, User } = require('../../db/models');
 
 module.exports.cleanerLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
-  
+
   try {
     const check = await Cleaner.findOne({ where: { phoneNumber }, raw: true });
     if (check) {
       const hashPass = await bcrypt.compare(password, check.password);
-      
+
       if (hashPass) {
         const cleaner = {
           id: check.id,
           name: check.name,
           phoneNumber: check.phoneNumber,
-
         };
         req.session.cleaner = cleaner;
         res.status(200).json({
@@ -41,20 +40,19 @@ module.exports.cleanerLogin = async (req, res) => {
 };
 
 module.exports.cleanerRegister = async (req, res) => {
-
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
   try {
     const isCleanerExist =
       (await Cleaner.findOne({ where: { phoneNumber }, raw: true })) !== null;
-    
+
     if (isCleanerExist) {
       res.sendStatus(403);
       return;
     }
-    
+
     const hashPassword = await bcrypt.hash(password, 10);
-    
+
     const cleanerData = await Cleaner.create({
       name,
       surname,
@@ -65,12 +63,10 @@ module.exports.cleanerRegister = async (req, res) => {
       pets,
     });
 
-    
     const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
-    
 
     req.session.cleaner = cleaner;
-    
+
     res.json({ cleaner });
   } catch (error) {
     res.sendStatus(404);
@@ -78,34 +74,41 @@ module.exports.cleanerRegister = async (req, res) => {
 };
 
 module.exports.cleanersList = async (req, res) => {
-  const clList = await Cleaner.findAll({
-    order: [['id', 'ASC']],
-    attributes: [
-      'id',
-      'name',
-      'surname',
-      'patrname',
-      'phoneNumber',
-      'nation',
-      'pets',
-    ],
-    include: { model: Order, attributes: ['rating'] },
-  });
-  
-  res.json(clList);
+  try {
+    const clList = await Cleaner.findAll({
+      order: [['id', 'ASC']],
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'patrname',
+        'phoneNumber',
+        'nation',
+        'pets',
+      ],
+      include: { model: Order, attributes: ['rating'] },
+    });
+
+    res.json(clList);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-
 module.exports.cleanerInfo = async (req, res) => {
-  const { id } = req.session.cleaner;
-  const getCleaner = await Cleaner.findByPk(id);
-  res.json(getCleaner);
+  try {
+    const { id } = req.session.cleaner;
+    const getCleaner = await Cleaner.findByPk(id);
+    res.json(getCleaner);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.cleanerPhoto = async (req, res) => {
   const img = req.file.filename;
   const id = req.params.id;
-  
+
   try {
     const updatePhoto = await Cleaner.update(
       { img },
@@ -119,17 +122,12 @@ module.exports.cleanerPhoto = async (req, res) => {
       name: req.file.filename,
       status: 'done',
       url: 'test',
-      thumbUrl: 'test'
+      thumbUrl: 'test',
     };
-    res
-      .status(200)
-      .json(result);
+    res.status(200).json(result);
     // console.log(updateUser);
   } catch (error) {
     console.log(error);
     res.json(error);
   }
-  
 };
-
-

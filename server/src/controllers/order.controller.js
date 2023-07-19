@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 
 const { Op } = require('sequelize');
+const moment = require('moment');
 
 const {
   Order,
@@ -12,22 +13,26 @@ const {
 } = require('../../db/models');
 
 module.exports.orders = async (req, res) => {
-  const allOrders = await Order.findAll({
-    order: [['id', 'ASC']],
-    attributes: ['id', 'cleaningTime', 'address', 'done', 'rating', 'price'],
-    include: [
-      { model: Cleaner, attributes: ['name'] },
-      { model: User, attributes: ['userName'] },
-      {
-        model: OrderService,
-        attributes: ['id', 'order_id', 'service_id', 'amount'],
-        include: {
-          model: Service,
+  try {
+    const allOrders = await Order.findAll({
+      order: [['id', 'ASC']],
+      attributes: ['id', 'cleaningTime', 'address', 'done', 'rating', 'price'],
+      include: [
+        { model: Cleaner, attributes: ['name'] },
+        { model: User, attributes: ['userName'] },
+        {
+          model: OrderService,
+          attributes: ['id', 'order_id', 'service_id', 'amount'],
+          include: {
+            model: Service,
+          },
         },
-      },
-    ],
-  });
-  res.json(allOrders);
+      ],
+    });
+    res.json(allOrders);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.deleteOrder = async (req, res) => {
@@ -40,46 +45,59 @@ module.exports.deleteOrder = async (req, res) => {
 };
 
 module.exports.updateCleaner = async (req, res) => {
-  const { orderEditId, cleanerId } = req.body;
+  try {
+    const { orderEditId, cleanerId } = req.body;
 
-  const order = await Order.findByPk(orderEditId);
-  order.cleaner_id = cleanerId;
-  order.save();
+    const order = await Order.findByPk(orderEditId);
+    order.cleaner_id = cleanerId;
+    order.save();
 
-  const cleaner = await Cleaner.findByPk(cleanerId);
-  res.json(cleaner.name);
+    const cleaner = await Cleaner.findByPk(cleanerId);
+    res.json(cleaner.name);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.updatePrice = async (req, res) => {
-  const { orderEditId, price } = req.body;
-  console.log(req.body);
+  try {
+    const { orderEditId, price } = req.body;
+    console.log(req.body);
 
-  const order = await Order.findByPk(orderEditId);
-  order.price = Number(price.replace(/\D[^\.]/g, ''));
-  order.save();
+    const order = await Order.findByPk(orderEditId);
+    order.price = Number(price.replace(/\D[^\.]/g, ''));
+    order.save();
 
-  res.sendStatus(200);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.adminTab2Info = async (req, res) => {
-  const allOrders = await Order.findAll({ raw: true, order: [['id', 'ASC']] });
-  const done = allOrders.filter((el) => el.done === true);
+  try {
+    const allOrders = await Order.findAll({
+      raw: true,
+      order: [['id', 'ASC']],
+    });
+    const done = allOrders.filter((el) => el.done === true);
 
-  const allNumber = allOrders.length;
-  const doneNumber = done.length;
+    const allNumber = allOrders.length;
+    const doneNumber = done.length;
 
-  let oborot = 0;
+    let oborot = 0;
 
-  done.forEach((element) => {
-    oborot += element.price;
-  });
+    done.forEach((element) => {
+      oborot += element.price;
+    });
 
-  const cleanerSalary = Math.round(oborot * 0.2);
-  const money = oborot - cleanerSalary;
+    const cleanerSalary = Math.round(oborot * 0.2);
+    const money = oborot - cleanerSalary;
 
-  res.json({
-    allNumber, doneNumber, oborot, cleanerSalary, money,
-  });
+    res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.ordersCleanerPlanned = async (req, res) => {
@@ -88,7 +106,16 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   const cleanerPlannedOrders = await Order.findAll({
     where: { cleaner_id: id },
     order: [['id', 'ASC']],
-    attributes: ['id', 'info', 'address', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+    attributes: [
+      'id',
+      'info',
+      'address',
+      'cleaningTime',
+      'user_id',
+      'done',
+      'price',
+      'rating',
+    ],
     include: [
       { model: User, attributes: ['userName', 'phoneNumber'] },
       {
@@ -128,4 +155,77 @@ module.exports.ordersCleanerAvailable = async (req, res) => {
   });
   console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
   res.json(cleanerAvailableOrders);
+
+module.exports.addOrder = async (req, res) => {
+  // console.log(req.body);
+  try {
+    const { formData, formServices } = req.body;
+    let user;
+    if (req.session.user) {
+      user = req.session.user;
+    } else {
+      const password = '123';
+      const hashPassword = await bcrypt.hash(password, 10);
+
+      user = await User.create({
+        userName: formData.phoneNumber,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        password: hashPassword,
+        isVerified: false,
+      });
+    }
+
+    const address =
+      formData.city + ', ' + formData.street + ', ' + formData.flat;
+
+    const cleaningTime = new Date(
+      moment(formData.date).format('YYYY-MM-DD') + ' ' + formData.time
+    ).toString();
+
+    // console.log(formData.date, formData.time);
+    // console.log(ordertime);
+
+    const newOrder = await Order.create({
+      info: formData.info,
+      user_id: user.id,
+      address,
+      cleaningTime,
+      done: false,
+    });
+
+    for (let key of Object.keys(formServices)) {
+      if (formServices[key] !== 0) {
+        // console.log(key + ' -> ' + formServices[key]);
+        await OrderService.create({
+          order_id: newOrder.id,
+          service_id: Number(key),
+          amount: formServices[key],
+        });
+      }
+    }
+
+    const orderServices = await OrderService.findAll({
+      raw: true,
+      nest: true,
+      where: { order_id: newOrder.id },
+      attributes: ['amount'],
+      include: {
+        model: Service,
+        attributes: ['singlePrice'],
+      },
+    });
+
+    let price = 0;
+    orderServices.forEach((el) => {
+      price += Number(el.amount) * Number(el.Service.singlePrice);
+    });
+
+    newOrder.price = price;
+    newOrder.save();
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
 };
