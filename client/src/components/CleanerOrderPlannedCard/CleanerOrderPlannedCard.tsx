@@ -2,39 +2,28 @@
 import * as React from "react";
 import { Button, Card, Space } from "antd";
 
-// const endTime = new Date(orderData.startTime.getTime() + 3 * 60 * 60 * 1000);
+import moment from "moment";
 
-const userData = {
-  userName: "Пётр",
-  phone: "+998 95 678 2345",
-};
+const CleanerOrderPlannedCard = ({ orderData }) => {
+  console.log("orderData------->", orderData);
 
-const CleanerOrderPlannedCard = ({orderData}) => {
-  console.log('orderData------->', orderData);
-  
   return (
     <Card
-      title={`Заявка # ${orderData.id} (${orderData.cleaningTime.toLocaleString("ru", {
-        day: "numeric",
-        month: "long",
-        weekday: "long",
-      })})`}
+      title={`Заявка # ${orderData.id} (${moment(orderData.cleaningTime).format(
+        "DD.MM.YYYY"
+      )})`}
       style={{ width: "100%", border: "1px solid", marginBottom: "10px" }}
       headStyle={{ backgroundColor: "OldLace" }}
     >
-      {/* <p>
-        <b>Время уборки:</b>{" "}
-        {orderData.startTime.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
-        })}{" "}
-        -{" "}
-        {orderData.endTime.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
-        })}
-      </p> */}
       <p>
+        <p>
+          <b>Время уборки: </b>
+          {`${moment(orderData.cleaningTime).format("HH:mm")} - ${moment(
+            orderData.cleaningTime
+          )
+            .add(3, "hours")
+            .format("HH:mm")}`}
+        </p>
         <b>Адрес: </b>
         {orderData.address}
       </p>

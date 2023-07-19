@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Button, Card } from "antd";
 
+import moment from "moment";
+
 const orderData = {
   id: 456,
   date: new Date(),

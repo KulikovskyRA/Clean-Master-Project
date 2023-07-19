@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 const bcrypt = require('bcrypt');
 
+const { Op } = require('sequelize');
+
 const {
   Order,
   OrderService,
@@ -48,8 +50,6 @@ module.exports.updateCleaner = async (req, res) => {
   res.json(cleaner.name);
 };
 
-//
-
 module.exports.updatePrice = async (req, res) => {
   const { orderEditId, price } = req.body;
   console.log(req.body);
@@ -77,12 +77,14 @@ module.exports.adminTab2Info = async (req, res) => {
   const cleanerSalary = Math.round(oborot * 0.2);
   const money = oborot - cleanerSalary;
 
-  res.json({ allNumber, doneNumber, oborot, cleanerSalary, money });
+  res.json({
+    allNumber, doneNumber, oborot, cleanerSalary, money,
+  });
 };
 
 module.exports.ordersCleanerPlanned = async (req, res) => {
   console.log('----------> тук тук в ручку ordersCleanerPlanned!!!');
-  const {id} = req.session.cleaner
+  const { id } = req.session.cleaner;
   const cleanerPlannedOrders = await Order.findAll({
     where: { cleaner_id: id },
     order: [['id', 'ASC']],
@@ -101,3 +103,29 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   res.json(cleanerPlannedOrders);
 };
 
+module.exports.ordersCleanerAvailable = async (req, res) => {
+  console.log('----------> тук тук в ручку ordersCleanerAvailable!!!');
+  const { id } = req.session.cleaner;
+  const cleanerAvailableOrders = await Order.findAll({
+    raw: true,
+    where: {
+      cleaner_id: {
+        [Op.is]: null,
+      },
+    },
+    order: [['id', 'ASC']],
+    attributes: ['id', 'info', 'address', 'cleaner_id', 'cleaningTime', 'user_id', 'done', 'price', 'rating'],
+    include: [
+      { model: User, attributes: ['userName', 'phoneNumber'] },
+      {
+        model: OrderService,
+        attributes: ['id', 'order_id', 'service_id', 'amount'],
+        include: {
+          model: Service,
+        },
+      },
+    ],
+  });
+  console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
+  res.json(cleanerAvailableOrders);
+};
