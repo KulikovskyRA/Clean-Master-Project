@@ -25,3 +25,4 @@ module.exports = orderRouter
   .get('/available', ordersCleanerAvailable)
   .patch('/', updatePrice)
   .post('/addorder', addOrder)
+
