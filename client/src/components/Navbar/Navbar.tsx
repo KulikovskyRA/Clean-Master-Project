@@ -23,11 +23,12 @@ const Navbar = () => {
       <Link className="nav-link" to="/client">
         Личный кабинет
       </Link>
+
       <button className="logout-btn " onClick={handleLogout}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="22"
+          height="22"
           fill="currentColor"
           className="bi bi-door-closed"
           viewBox="0 0 16 16"

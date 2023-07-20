@@ -11,8 +11,13 @@ import { Link } from 'react-router-dom';
 const { Title } = Typography;
 
 import CleanerFooter from '../../components/CleanerFooter/CleanerFooter';
+import { useEffect } from 'react';
 
 export default function LandingCleaner() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <>
       <Navbar />
@@ -35,7 +40,7 @@ export default function LandingCleaner() {
                 type="primary"
                 size="large"
                 icon={<FormOutlined />}
-                href="#cleanerRegForm"
+                href="/cleanerRegForm"
                 target="_self"
               >
                 Заполнить анкету
@@ -66,7 +71,7 @@ export default function LandingCleaner() {
                 type="primary"
                 size="large"
                 icon={<FormOutlined />}
-                href="#cleanerRegForm"
+                href="/cleanerRegForm"
                 target="_self"
               >
                 Заполнить анкету
@@ -114,8 +119,10 @@ export default function LandingCleaner() {
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
             <CleanerRegister />
           </div>
-          <CleanerFooter />
+
         </Space>
+
+        <CleanerFooter />
       </ConfigProvider>
     </>
   );

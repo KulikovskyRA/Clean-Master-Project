@@ -35,7 +35,6 @@ const authSlice = createSlice({
         state.cleaner.email = action.payload.cleaner.email || '';
         state.cleaner.phoneNumber = action.payload.cleaner.phoneNumber || '';
         state.cleaner.img = action.payload.cleaner.img || '';
-
       }
     },
 

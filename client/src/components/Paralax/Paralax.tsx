@@ -496,6 +496,10 @@ const Paralax = () => {
               Вакансии
             </Link>
 
+            <Link className="link-footer" to="/admin">
+              Сотрудникам
+            </Link>
+
             <a className="link-footer" href="#price">
               Цены
             </a>

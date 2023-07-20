@@ -47,9 +47,9 @@ const CleanerRegister = () => {
       pets = true;
     }
     const inputs = {
+      patrname,
       name,
       surname,
-      patrname,
       phoneNumber: prefix + phone,
       nation,
       password,
@@ -113,7 +113,12 @@ const CleanerRegister = () => {
             style={{ width: '100%' }}
           />
         </Form.Item>
-
+        <Form.Item
+          name="surname"
+          rules={[{ required: true, message: 'Введите фамилию!' }]}
+        >
+          <Input placeholder="Ваша фамилия" />
+        </Form.Item>
         <Form.Item
           name="name"
           rules={[{ required: true, message: 'Введите имя!' }]}
@@ -125,12 +130,6 @@ const CleanerRegister = () => {
           rules={[{ required: true, message: 'Введите отчество!' }]}
         >
           <Input placeholder="Ваше отчество" />
-        </Form.Item>
-        <Form.Item
-          name="surname"
-          rules={[{ required: true, message: 'Введите фамилию!' }]}
-        >
-          <Input placeholder="Ваша фамилия" />
         </Form.Item>
 
         <Form.Item
