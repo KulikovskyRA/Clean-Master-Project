@@ -18,11 +18,12 @@ module.exports = {
           createdAt: Sequelize.DataTypes.NOW().toString(),
           updatedAt: Sequelize.DataTypes.NOW().toString(),
         },
+
         {
           info: 'Подъезд 6, 2 этаж',
           address: 'ул. Ракат 17, кв. 57',
           cleaningTime: Sequelize.DataTypes.NOW().toString(),
-          user_id: 2,
+          user_id: 1,
           cleaner_id: 3,
           price: 299000,
           done: false,
@@ -67,7 +68,7 @@ module.exports = {
           updatedAt: Sequelize.DataTypes.NOW().toString(),
         },
       ],
-      {},
+      {}
     );
   },
 
