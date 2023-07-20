@@ -17,10 +17,10 @@ const {
   userOrders,
   editOrder,
   cancelOrder,
-  repeatOrder
+  repeatOrder,
   takeOrderAsCleaner,
   doneOrder,
-
+  
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
