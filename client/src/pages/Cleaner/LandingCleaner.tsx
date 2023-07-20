@@ -119,6 +119,7 @@ export default function LandingCleaner() {
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
             <CleanerRegister />
           </div>
+
         </Space>
 
         <CleanerFooter />
