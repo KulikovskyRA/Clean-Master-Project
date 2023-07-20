@@ -11,6 +11,7 @@ import {
   Select,
   Row,
   Col,
+  Divider,
 } from 'antd';
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -145,15 +146,20 @@ const OrderForm = () => {
         },
       }}
     >
-      <div style={{ width: 450 }}>
+      <Col style={{ width: 450 }}>
         {step === 0 && (
           <>
             {services
               .filter((el) => el.default === true)
               .map((el) => (
                 <div key={`default${el.id}`}>
-                  <Text>{el.title}</Text>
-                  <Row style={{ marginBottom: 10, marginTop: 3 }}>
+                  <Row justify="center">
+                    <Text>{el.title}</Text>
+                  </Row>
+                  <Row
+                    justify="center"
+                    style={{ marginBottom: 10, marginTop: 3 }}
+                  >
                     <Button.Group>
                       {formServices[el.id] > 0 ? (
                         <Button onClick={() => handleDecrement(el)}>
@@ -173,9 +179,11 @@ const OrderForm = () => {
                 </div>
               ))}
 
-            <Text>Когда к вам приехать?</Text>
-            <Row style={{ marginBottom: 10, marginTop: 3 }}>
-              <select name="date" onChange={handleChange}>
+            <Row justify="center">
+              <Text>Когда к вам приехать?</Text>
+            </Row>
+            <Row justify="center" style={{ marginBottom: 10, marginTop: 3 }}>
+              <select name="date" value={formData.date} onChange={handleChange}>
                 {futureDates.map((el, i) => {
                   return (
                     <option key={i} value={el}>
@@ -188,7 +196,7 @@ const OrderForm = () => {
                   );
                 })}
               </select>
-              <select name="time" onChange={handleChange}>
+              <select value={formData.time} name="time" onChange={handleChange}>
                 {futureTimes.map((el, i) => (
                   <option value={el} key={i}>
                     {el}
@@ -196,10 +204,12 @@ const OrderForm = () => {
                 ))}
               </select>
             </Row>
-            <Button.Group>
-              <Button disabled>НАЗАД</Button>
-              <Button onClick={handleNextStep}>ДАЛЕЕ</Button>
-            </Button.Group>
+            <Row justify="center">
+              <Button.Group>
+                <Button disabled>НАЗАД</Button>
+                <Button onClick={handleNextStep}>ДАЛЕЕ</Button>
+              </Button.Group>
+            </Row>
           </>
         )}
 
@@ -209,8 +219,13 @@ const OrderForm = () => {
               .filter((el) => el.default === false && el.single === false)
               .map((el) => (
                 <div key={`not-single${el.id}`}>
-                  <Text>{el.title}</Text>
-                  <Row style={{ marginBottom: 10, marginTop: 3 }}>
+                  <Row justify="center">
+                    <Text>{el.title}</Text>
+                  </Row>
+                  <Row
+                    justify="center"
+                    style={{ marginBottom: 10, marginTop: 3 }}
+                  >
                     <Button.Group>
                       {formServices[el.id] > 0 ? (
                         <Button onClick={() => handleDecrement(el)}>
@@ -236,96 +251,120 @@ const OrderForm = () => {
               .map((el) => (
                 <div key={`ingle${el.id}`}>
                   {formServices[el.id] ? (
-                    <Checkbox.Group>
-                      <Checkbox
-                        checked
-                        style={{ lineHeight: '32px' }}
-                        onChange={() => handleChangeCheckBox(el)}
-                      >
-                        {el.title}
-                      </Checkbox>
-                    </Checkbox.Group>
+                    <Row justify="center">
+                      <Checkbox.Group>
+                        <Checkbox
+                          checked
+                          style={{ lineHeight: '32px' }}
+                          onChange={() => handleChangeCheckBox(el)}
+                        >
+                          {el.title}
+                        </Checkbox>
+                      </Checkbox.Group>
+                    </Row>
                   ) : (
-                    <Checkbox.Group>
-                      <Checkbox
-                        style={{ lineHeight: '32px' }}
-                        onChange={() => handleChangeCheckBox(el)}
-                      >
-                        {el.title}
-                      </Checkbox>
-                    </Checkbox.Group>
+                    <Row justify="center">
+                      <Checkbox.Group>
+                        <Checkbox
+                          style={{ lineHeight: '32px' }}
+                          onChange={() => handleChangeCheckBox(el)}
+                        >
+                          {el.title}
+                        </Checkbox>
+                      </Checkbox.Group>
+                    </Row>
                   )}
                 </div>
               ))}
-
-            <Input
-              style={{ marginBottom: 10, marginTop: 3 }}
-              onChange={handleChange}
-              type="text"
-              name="info"
-              placeholder="Добавьте комментарий"
-              value={formData.info}
-            />
-            <Button.Group>
-              <Button onClick={handlePrevStep}>НАЗАД</Button>
-              <Button onClick={handleNextStep}>ДАЛЕЕ</Button>
-            </Button.Group>
+            <Row justify="center">
+              <Input.TextArea
+                rows={3}
+                style={{ marginBottom: 10, marginTop: 3, width: '55%' }}
+                onChange={handleChange}
+                type="text"
+                name="info"
+                placeholder="Добавьте комментарий"
+                value={formData.info}
+              />
+            </Row>
+            <Row justify="center">
+              <Button.Group>
+                <Button onClick={handlePrevStep}>НАЗАД</Button>
+                <Button onClick={handleNextStep}>ДАЛЕЕ</Button>
+              </Button.Group>
+            </Row>
           </>
         )}
         {step === 2 && (
           <>
             {user.id === 0 && (
               <>
-                <Input
-                  style={{ marginBottom: 10, marginTop: 10 }}
-                  onChange={handleChange}
-                  type="text"
-                  name="phoneNumber"
-                  placeholder="Введите номер телефона"
-                  value={formData.phoneNumber}
-                />
-                <Input
-                  style={{ marginBottom: 15, marginTop: 3 }}
-                  onChange={handleChange}
-                  type="email"
-                  name="email"
-                  placeholder="Введите email"
-                  value={formData.email}
-                />
+                <Row justify="center">
+                  <Input
+                    style={{ marginBottom: 10, marginTop: 10 }}
+                    onChange={handleChange}
+                    type="text"
+                    name="phoneNumber"
+                    placeholder="Введите номер телефона"
+                    value={formData.phoneNumber}
+                  />
+                </Row>
+                <Row justify="center">
+                  <Input
+                    style={{ marginBottom: 15, marginTop: 3 }}
+                    onChange={handleChange}
+                    type="email"
+                    name="email"
+                    placeholder="Введите email"
+                    value={formData.email}
+                  />
+                </Row>
+                <Divider style={{ marginTop: 0, marginBottom: 2 }} />
               </>
             )}
-            <Input
-              style={{ marginBottom: 5, marginTop: 10 }}
-              onChange={handleChange}
-              type="text"
-              name="city"
-              value={formData.city}
-              placeholder="Введите город"
-            />
-            <Input
-              style={{ marginBottom: 5, marginTop: 3 }}
-              onChange={handleChange}
-              type="text"
-              name="street"
-              value={formData.street}
-              placeholder="Введите улицу и дом"
-            />
-            <Input
-              style={{ marginBottom: 10, marginTop: 3 }}
-              onChange={handleChange}
-              type="text"
-              name="flat"
-              value={formData.flat}
-              placeholder="Введите номер квартиры"
-            />
-            <Button.Group>
-              <Button onClick={handlePrevStep}>НАЗАД</Button>
-              <Button onClick={handleSubmit}>Оформить заказ</Button>
-            </Button.Group>
+            <Row justify="center">
+              <Input
+                style={{ marginBottom: 5, marginTop: 10 }}
+                onChange={handleChange}
+                type="text"
+                name="city"
+                value={formData.city}
+                placeholder="Введите город"
+              />
+            </Row>
+            <Row justify="center">
+              <Input
+                style={{ marginBottom: 5, marginTop: 3 }}
+                onChange={handleChange}
+                type="text"
+                name="street"
+                value={formData.street}
+                placeholder="Введите улицу и дом"
+              />
+            </Row>
+            <Row justify="center">
+              <Input
+                style={{ marginBottom: 10, marginTop: 3 }}
+                onChange={handleChange}
+                type="text"
+                name="flat"
+                value={formData.flat}
+                placeholder="Введите номер квартиры"
+              />
+            </Row>
+            <Row justify="center">
+              <Button.Group>
+                <Button onClick={handlePrevStep}>НАЗАД</Button>
+                <Button onClick={handleSubmit}>Оформить заказ</Button>
+              </Button.Group>
+            </Row>
           </>
         )}
-        <Title>{total}</Title>
-      </div>
+        <Title
+          level={3}
+          style={{ textAlign: 'center' }}
+        >{`Итого: ${total} UZS`}</Title>
+      </Col>
     </ConfigProvider>
   );
 };
