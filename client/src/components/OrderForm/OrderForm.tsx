@@ -71,7 +71,7 @@ const OrderForm = () => {
       ...prev,
       [el.id]: Number(prev[el.id]) + 1,
     }));
-    console.log(formServices);
+    // console.log(formServices);
 
     setTotal((prev) => prev + el.id * prices[el.id]);
   };
@@ -81,14 +81,14 @@ const OrderForm = () => {
       ...prev,
       [el.id]: Number(prev[el.id]) - 1,
     }));
-    console.log(formServices);
+    // console.log(formServices);
     setTotal((prev) => prev - el.id * prices[el.id]);
   };
 
   //! Дата и время
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleChangeCheckBox = (el) => {

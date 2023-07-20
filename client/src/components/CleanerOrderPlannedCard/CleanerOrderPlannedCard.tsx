@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import * as React from "react";
-import { Button, Card, Space } from "antd";
+import * as React from 'react';
+import { Button, Card, Space } from 'antd';
 
-import moment from "moment";
+import moment from 'moment';
 
 const CleanerOrderPlannedCard = ({ orderData }) => {
-  console.log("orderData------->", orderData);
+  // console.log("orderData------->", orderData);
 
   return (
     <Card
       title={`Заявка # ${orderData.id} (${moment(orderData.cleaningTime).format(
-        "DD.MM.YYYY"
+        'DD.MM.YYYY'
       )})`}
-      style={{ width: "100%", border: "1px solid", marginBottom: "10px" }}
-      headStyle={{ backgroundColor: "OldLace" }}
+      style={{ width: '100%', border: '1px solid', marginBottom: '10px' }}
+      headStyle={{ backgroundColor: 'OldLace' }}
     >
       <p>
         <p>
           <b>Время уборки: </b>
-          {`${moment(orderData.cleaningTime).format("HH:mm")} - ${moment(
+          {`${moment(orderData.cleaningTime).format('HH:mm')} - ${moment(
             orderData.cleaningTime
           )
-            .add(3, "hours")
-            .format("HH:mm")}`}
+            .add(3, 'hours')
+            .format('HH:mm')}`}
         </p>
         <b>Адрес: </b>
         {orderData.address}

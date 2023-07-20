@@ -71,7 +71,7 @@ module.exports.updateCleaner = async (req, res) => {
 module.exports.updatePrice = async (req, res) => {
   try {
     const { orderEditId, price } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     const order = await Order.findByPk(orderEditId);
     order.price = Number(price.replace(/\D[^\.]/g, ''));
@@ -177,7 +177,7 @@ module.exports.ordersCleanerAvailable = async (req, res) => {
         },
       ],
     });
-    console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
+    // console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
     res.json(cleanerAvailableOrders);
   } catch (err) {
     console.log(err);

@@ -1,24 +1,24 @@
-import React from "react";
-import { Button, Card } from "antd";
-import moment from "moment";
+import React from 'react';
+import { Button, Card } from 'antd';
+import moment from 'moment';
 
 const CleanerOrderAvailableCard = ({ orderData }) => {
-  console.log("available orderData------->", orderData);
+  // console.log("available orderData------->", orderData);
   return (
     <Card
       title={`Заявка # ${orderData.id} (${moment(orderData.cleaningTime).format(
-        "DD.MM.YYYY"
+        'DD.MM.YYYY'
       )})`}
-      style={{ width: "100%", border: "1px solid", marginBottom: "10px" }}
-      headStyle={{ backgroundColor: "LightGray" }}
+      style={{ width: '100%', border: '1px solid', marginBottom: '10px' }}
+      headStyle={{ backgroundColor: 'LightGray' }}
     >
       <p>
         <b>Время уборки: </b>
-        {`${moment(orderData.cleaningTime).format("HH:mm")} - ${moment(
+        {`${moment(orderData.cleaningTime).format('HH:mm')} - ${moment(
           orderData.cleaningTime
         )
-          .add(3, "hours")
-          .format("HH:mm")}`}
+          .add(3, 'hours')
+          .format('HH:mm')}`}
       </p>
       <p>
         <b>Адрес: </b>

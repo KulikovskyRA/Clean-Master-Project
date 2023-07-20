@@ -1,5 +1,5 @@
-import * as React from "react";
-import CleanerOrderPlannedCard from "../CleanerOrderPlannedCard/CleanerOrderPlannedCard";
+import * as React from 'react';
+import CleanerOrderPlannedCard from '../CleanerOrderPlannedCard/CleanerOrderPlannedCard';
 
 const CleanerOrdersPlannedList = () => {
   const [plannedOrders, setPlannedOrders] = React.useState([]);
@@ -7,20 +7,20 @@ const CleanerOrdersPlannedList = () => {
   const fetchPlannedOrders = async () => {
     try {
       const response = await fetch(`http://localhost:3500/api/order/planned`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
 
       if (!response.ok) {
-        throw new Error("Request failed");
+        throw new Error('Request failed');
       }
 
       const result = await response.json();
       setPlannedOrders(result);
-      console.log("planned orders-------->", result);
+      // console.log("planned orders-------->", result);
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
@@ -30,7 +30,7 @@ const CleanerOrdersPlannedList = () => {
 
   return (
     <>
-      {" "}
+      {' '}
       {plannedOrders.map((card) => (
         <CleanerOrderPlannedCard orderData={card} />
       ))}
