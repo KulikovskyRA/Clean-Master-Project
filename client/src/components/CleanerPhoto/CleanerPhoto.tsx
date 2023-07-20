@@ -60,32 +60,32 @@ const CleanerPhoto = () => {
 
   return (
     <>
-      <Row>
-        {imageUrl ? (
-          <Avatar
-            size={150}
-            src={`http://localhost:3500/uploads/${imageUrl}`}
-          />
-        ) : (
-          <Avatar size={150} icon={<UserOutlined />} />
-        )}
-        <div
-          style={{
-            paddingTop: '55px',
-            paddingLeft: '45px',
-            overflow: 'hidden',
-            width: 150,
-          }}
-        >
-          <input
-            type="file"
-            name="upload-photo"
-            id="upload-photo"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-      </Row>
+      {/* <Row> */}
+      {imageUrl ? (
+        <Avatar size={150} src={`http://localhost:3500/uploads/${imageUrl}`} />
+      ) : (
+        <Avatar size={150} icon={<UserOutlined />} />
+      )}
+      <div
+        style={{
+          // paddingLeft: '45px',
+          // paddingLeft: '45px',
+          marginTop: '15px',
+          paddingLeft: '25px',
+          overflow: 'hidden',
+          width: 150,
+        }}
+      >
+        <input
+          type="file"
+          name="upload-photo"
+          id="upload-photo"
+          accept="image/*"
+          onChange={handleFileChange}
+          // value="wfwef"
+        />
+      </div>
+      {/* </Row> */}
     </>
   );
 };
