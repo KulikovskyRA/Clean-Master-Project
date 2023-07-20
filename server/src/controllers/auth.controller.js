@@ -18,7 +18,7 @@ module.exports.login = async (req, res) => {
         id: userData.id,
         phoneNumber: userData.phoneNumber,
       };
-      
+
       req.session.user = sessionUser;
       console.log('REQSESSSSION', req.session.user);
       res.status(200).json({ user: sessionUser });
@@ -73,7 +73,7 @@ module.exports.register = async (req, res) => {
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
   try {
-    console.log(req.session);
+    // console.log(req.session);
     res.json({
       user: req.session.user,
       admin: req.session.admin,

@@ -40,8 +40,8 @@ const OrderForm = () => {
   const [total, setTotal] = useState(0);
 
   const [formData, setFormData] = useState({
-    date: 0,
-    time: '8:00',
+    date: futureDates[0],
+    time: futureTimes[0],
   });
 
   useEffect(() => {
@@ -76,8 +76,10 @@ const OrderForm = () => {
       [el.id]: Number(prev[el.id]) + 1,
     }));
     console.log(formServices);
+    console.log(total);
+    console.log(el.id);
 
-    setTotal((prev) => prev + el.id * prices[el.id]);
+    setTotal((prev) => prev + prices[el.id]);
   };
 
   const handleDecrement = (el) => {
@@ -85,9 +87,11 @@ const OrderForm = () => {
       ...prev,
       [el.id]: Number(prev[el.id]) - 1,
     }));
-    // console.log(formServices);
-    // console.log(prices);
-    setTotal((prev) => prev - el.id * prices[el.id]);
+    console.log(formServices);
+    console.log(prices);
+    setTotal((prev) => prev - prices[el.id]);
+    console.log(total);
+    console.log(el.id);
   };
 
   //! Дата и время
@@ -200,17 +204,15 @@ const OrderForm = () => {
                   onChange={handleChange}
                   style={{ fontSize: '20px' }}
                 >
-                  {futureDates.map((el, i) => {
-                    return (
-                      <option key={i} value={el}>
-                        {el.toLocaleString('ru', {
-                          day: 'numeric',
-                          month: 'long',
-                          weekday: 'long',
-                        })}
-                      </option>
-                    );
-                  })}
+                  {futureDates.map((el, i) => (
+                    <option key={i} value={el}>
+                      {el.toLocaleString('ru', {
+                        day: 'numeric',
+                        month: 'long',
+                        weekday: 'long',
+                      })}
+                    </option>
+                  ))}
                 </select>
 
                 <select

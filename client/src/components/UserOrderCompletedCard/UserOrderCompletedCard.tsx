@@ -1,37 +1,31 @@
 import * as React from 'react';
-import { Avatar, Button, Card, Space, Select, Modal, Form, } from 'antd';
+import { Avatar, Button, Card, Space, Select, Modal, Form } from 'antd';
 import { futureDates, futureTimes } from '../OrderForm/orderdates.js';
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
+
+import { useNavigate } from 'react-router-dom';
 
 const { VITE_URL } = import.meta.env;
 
-const cleanerData = {
-  name: 'Айнура',
-};
-
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
 
   const dateOptions = futureDates.map((el) => {
-    return (
-      {
-        value: `${el}`,
-        label: el.toLocaleString('ru', {
-          day: 'numeric',
-          month: 'long',
-          weekday: 'long',
-        })
-      }
-
-    );
+    return {
+      value: `${el}`,
+      label: el.toLocaleString('ru', {
+        day: 'numeric',
+        month: 'long',
+        weekday: 'long',
+      }),
+    };
   });
 
   const timeOptions = futureTimes.map((el, i) => ({ label: el, value: el }));
-
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -46,12 +40,18 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
   };
 
   const onFinish = async (values: any) => {
+    const navigate = useNavigate();
     try {
-      const res = await axios.post(`${VITE_URL}order/repeatorder`, { values, OrderServices, address, info }, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${VITE_URL}order/repeatorder`,
+        { values, OrderServices, address, info },
+        {
+          withCredentials: true,
+        }
+      );
       if (res.status === 200) {
         handleOk();
+        navigate(0);
       }
     } catch (error) {
       console.log(error);
@@ -67,28 +67,26 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
     console.log(`selected ${value}`);
   };
 
-
   return (
-
     <Card
-      title={`Заявка # ${id} (${date.toLocaleString("ru", {
-        day: "numeric",
-        month: "long",
-        weekday: "long",
+      title={`Заявка # ${id} (${date.toLocaleString('ru', {
+        day: 'numeric',
+        month: 'long',
+        weekday: 'long',
       })})`}
-      style={{ width: "100%", border: "1px solid" }}
-      headStyle={{ backgroundColor: "#EFEBEB" }}
+      style={{ width: '100%', border: '1px solid' }}
+      headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <p>
-        <b>Время уборки:</b>{" "}
-        {date.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
-        })}{" "}
-        -{" "}
-        {endTime.toLocaleString("ru", {
-          hour: "numeric",
-          minute: "numeric",
+        <b>Время уборки:</b>{' '}
+        {date.toLocaleString('ru', {
+          hour: 'numeric',
+          minute: 'numeric',
+        })}{' '}
+        -{' '}
+        {endTime.toLocaleString('ru', {
+          hour: 'numeric',
+          minute: 'numeric',
         })}
       </p>
       <p>
@@ -98,27 +96,38 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
       <p>
         <b>Основные услуги:</b>
         <ul>
-          {OrderServices
-            .filter(el => el.Service.default === true)
-            .map((el, i) => (
-              <li key={i}>{el.Service.title} {el.amount}</li>
-            ))}
+          {OrderServices.filter((el) => el.Service.default === true).map(
+            (el, i) => (
+              <li key={i}>
+                {el.Service.title} {el.amount}
+              </li>
+            )
+          )}
         </ul>
-        <b>Дополнительные услуги:</b>
-        {console.log('SERVICES!', orderData.OrderServices)}
-        <ul>
-          {OrderServices
-            .filter(el => el.Service.single === false && el.Service.default === false)
-            .map((el, i) => (
-              <li key={i}>{el.Service.title} {el.amount}</li>
-            ))}
 
-          {OrderServices
-            .filter(el => el.Service.single === true && el.Service.default === false)
-            .map((el, i) => (
-              <li key={i}>{el.Service.title}</li>
-            ))}
-        </ul>
+        {OrderServices.length !== 0 && (
+          <>
+            <b>Дополнительные услуги:</b>
+
+            <ul>
+              {OrderServices.filter(
+                (el) =>
+                  el.Service.single === false && el.Service.default === false
+              ).map((el, i) => (
+                <li key={i}>
+                  {el.Service.title} {el.amount}
+                </li>
+              ))}
+
+              {OrderServices.filter(
+                (el) =>
+                  el.Service.single === true && el.Service.default === false
+              ).map((el, i) => (
+                <li key={i}>{el.Service.title}</li>
+              ))}
+            </ul>
+          </>
+        )}
       </p>
       <p>
         <b>Комментарий к заказу:</b> {info}
@@ -145,13 +154,17 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
           Оценить
         </Button>
       </Space>
-      <Modal title={`Заявка # ${id} (${date
-        .toLocaleString("ru", {
-          day: "numeric",
-          month: "long",
-          weekday: "long",
-        })})`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={false}>
-
+      <Modal
+        title={`Заявка # ${id} (${date.toLocaleString('ru', {
+          day: 'numeric',
+          month: 'long',
+          weekday: 'long',
+        })})`}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={false}
+      >
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -162,31 +175,24 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item
-            label="Дата"
-            name="date"
-          >
+          <Form.Item label="Дата" name="date">
             <Select
-              defaultValue={date
-                .toLocaleString("ru", {
-                  day: "numeric",
-                  month: "long",
-                  weekday: "long",
-                })}
+              defaultValue={date.toLocaleString('ru', {
+                day: 'numeric',
+                month: 'long',
+                weekday: 'long',
+              })}
               style={{ width: 120 }}
               onChange={handleChange}
               options={dateOptions}
             />
           </Form.Item>
 
-          <Form.Item
-            label="Время"
-            name="time"
-          >
+          <Form.Item label="Время" name="time">
             <Select
-              defaultValue={date.toLocaleString("ru", {
-                hour: "numeric",
-                minute: "numeric",
+              defaultValue={date.toLocaleString('ru', {
+                hour: 'numeric',
+                minute: 'numeric',
               })}
               style={{ width: 120 }}
               onChange={handleChange}
@@ -194,14 +200,12 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
             />
           </Form.Item>
 
-
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
               Повторить уборку
             </Button>
           </Form.Item>
         </Form>
-
       </Modal>
     </Card>
   );
