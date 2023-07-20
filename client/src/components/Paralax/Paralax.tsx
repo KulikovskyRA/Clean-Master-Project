@@ -19,6 +19,8 @@ import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 import Navbar from '../../components/Navbar/Navbar';
 import { Typography } from 'antd';
 
+import OrderForm from '../OrderForm/OrderForm';
+
 const Paralax = () => {
   useEffect(() => {
     const handleScroll = () => {
@@ -475,6 +477,7 @@ const Paralax = () => {
             </h2>
           </div>
         </section>
+        <OrderForm />
 
         {/* ФУТЕР */}
 
