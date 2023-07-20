@@ -95,8 +95,8 @@ module.exports.cleanersList = async (req, res) => {
 };
 
 module.exports.cleanerInfo = async (req, res) => {
-  const { id } = req.session.cleaner;
   try {
+    const { id } = req.session.cleaner;
     const getCleaner = await Cleaner.findByPk(id);
     res.json(getCleaner);
   } catch (error) {
