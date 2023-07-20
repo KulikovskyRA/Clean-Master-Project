@@ -53,18 +53,11 @@ const UserRegistration: React.FC = () => {
         );
         navigate('/client');
       }
-      // else {
-      //   authReducer({
-      //     type: '',
-      //     name: '',
-      //     id: 0,
-      //     email: '',
-      //   });
 
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
-      setMessage(result.error);
+      // setTimeout(() => {
+      //   setMessage('');
+      // }, 3000);
+      // setMessage(result.error);
     } catch (error) {
       console.log(error);
     }

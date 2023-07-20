@@ -62,13 +62,14 @@ module.exports.cleanerRegister = async (req, res) => {
       pets,
     });
 
-    const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
+    // const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
 
-    req.session.cleaner = cleaner;
+    req.session.cleaner = cleanerData;
 
-    res.json({ cleaner });
+    res.json(cleanerData);
   } catch (error) {
-    res.sendStatus(404);
+    // res.sendStatus(404);
+    console.log(error);
   }
 };
 
@@ -110,6 +111,8 @@ module.exports.cleanerInfo = async (req, res) => {
       ],
       include: [{ model: Order, attributes: ['done', 'price'] }],
     });
+
+    console.log(getCleaner);
     res.json(getCleaner);
   } catch (error) {
     console.log(error);
