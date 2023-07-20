@@ -32,7 +32,10 @@ const CleanerOrdersPlannedList = () => {
     <>
       {' '}
       {plannedOrders.map((card) => (
-        <CleanerOrderPlannedCard orderData={card} />
+        <CleanerOrderPlannedCard
+          key={`plannedcard${card.id}`}
+          orderData={card}
+        />
       ))}
     </>
   );

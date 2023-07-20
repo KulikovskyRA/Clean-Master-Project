@@ -97,7 +97,19 @@ module.exports.cleanersList = async (req, res) => {
 module.exports.cleanerInfo = async (req, res) => {
   try {
     const { id } = req.session.cleaner;
-    const getCleaner = await Cleaner.findByPk(id);
+    const getCleaner = await Cleaner.findByPk(id, {
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'patrname',
+        'phoneNumber',
+        'nation',
+        'pets',
+        'img',
+      ],
+      include: [{ model: Order, attributes: ['done', 'price'] }],
+    });
     res.json(getCleaner);
   } catch (error) {
     console.log(error);

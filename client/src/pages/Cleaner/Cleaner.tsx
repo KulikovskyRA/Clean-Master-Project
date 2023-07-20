@@ -4,6 +4,8 @@ import { UserOutlined } from '@ant-design/icons';
 import CleanerOrdersTabs from '../../components/CleanerOrdersTabs/CleanerOrdersTabs';
 import Navbar from '../../components/Navbar/Navbar';
 
+import { useNavigate, Link } from 'react-router-dom';
+
 import styles from './CleanerStyles.module.css';
 import CleanerInfo from '../../components/CleanerInfo/CleanerInfo';
 import CleanerPhoto from '../../components/CleanerPhoto/CleanerPhoto';
@@ -17,15 +19,30 @@ const Cleaner: React.FC = () => {
           token: {
             colorPrimary: 'black',
             fontSize: 15,
+            colorLink: 'black',
+            colorLinkActive: 'black',
+            colorLinkHover: 'gray',
           },
         }}
       >
+        <Space
+          direction="horizontal"
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            paddingTop: '15px',
+          }}
+        >
+          <Link to="/">
+            <Button type="link">На главную</Button>
+          </Link>
+        </Space>
         <div
           style={{
             width: '80%',
             margin: '0 auto',
             marginBottom: '50px',
-            marginTop: '50px',
+            marginTop: '-30px',
           }}
         >
           <Divider>

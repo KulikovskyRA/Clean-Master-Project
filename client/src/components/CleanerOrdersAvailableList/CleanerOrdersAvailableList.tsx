@@ -35,7 +35,10 @@ const CleanerOrdersAvailableList = () => {
     <>
       {' '}
       {availableOrders.map((card) => (
-        <CleanerOrderAvailableCard orderData={card} />
+        <CleanerOrderAvailableCard
+          key={`availcard${card.id}`}
+          orderData={card}
+        />
       ))}
     </>
   );

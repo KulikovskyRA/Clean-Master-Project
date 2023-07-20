@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 export default function CleanerInfo() {
   const [cleanerData, setCleanerData] = useState([]);
+  const [ordersDone, setOrdersDone] = useState(0);
+  const [ordersPlanned, setOrdersPlanned] = useState(0);
+  const [salary, setSalary] = useState(0);
 
   const fetchCleanerData = async () => {
     try {
@@ -18,7 +21,19 @@ export default function CleanerInfo() {
 
       const result = await response.json();
       // console.log('cleaner data ---------->', result);
+
       setCleanerData(result);
+
+      const done = result.Orders.filter((el) => el.done === true);
+      setOrdersDone(done.length);
+      setOrdersPlanned(result.Orders.length - done.length);
+
+      let salary = 0;
+      done.forEach((el) => {
+        salary += el.price;
+      });
+
+      setSalary(salary);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -50,10 +65,14 @@ export default function CleanerInfo() {
         <Descriptions.Item label="Гражданство">
           {cleanerData.nation}
         </Descriptions.Item>
-        <Descriptions.Item label="Выполнено уборок">XXX</Descriptions.Item>
-        <Descriptions.Item label="Запланировано уборок">XXX</Descriptions.Item>
+        <Descriptions.Item label="Выполнено уборок">
+          {ordersDone}
+        </Descriptions.Item>
+        <Descriptions.Item label="Запланировано уборок">
+          {ordersPlanned}
+        </Descriptions.Item>
         <Descriptions.Item label="Доход за всё время">
-          XXX UZS
+          {salary} UZS
         </Descriptions.Item>
       </Descriptions>
     </>

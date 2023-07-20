@@ -113,7 +113,7 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
   try {
     const { id } = req.session.cleaner;
     const cleanerPlannedOrders = await Order.findAll({
-      where: { cleaner_id: id },
+      where: { cleaner_id: id, done: false },
       order: [['id', 'ASC']],
       attributes: [
         'id',
@@ -276,18 +276,31 @@ module.exports.addOrder = async (req, res) => {
 
 module.exports.takeOrderAsCleaner = async (req, res) => {
   try {
-    console.log('egegerg');
-    console.log(req.params);
+    // console.log('egegerg');
+    // console.log(req.params);
 
     const { orderId } = req.params;
-    // const { orderEditId, cleanerId } = req.body;
+    // console.log(req.session);
+    const cleaner_id = req.session.cleaner.id;
 
-    // const order = await Order.findByPk(orderEditId);
-    // order.cleaner_id = cleanerId;
-    // order.save();
+    const order = await Order.findByPk(orderId);
+    order.cleaner_id = cleaner_id;
+    order.save();
 
-    // const cleaner = await Cleaner.findByPk(cleanerId);
-    // res.json(cleaner.name);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports.doneOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findByPk(orderId);
+    order.done = true;
+    order.save();
+
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
   }
