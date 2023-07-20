@@ -40,10 +40,11 @@ module.exports.logout = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-  const { userName, email, prefix, phone, password } = req.body;
-  const phoneNumber = `+${prefix}${phone}`;
-  const hashedPassword = await bcrypt.hash(password, 10);
   try {
+    const { userName, email, prefix, phone, password } = req.body;
+    const phoneNumber = `+${prefix}${phone}`;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const response = await User.create({
       userName,
       email,
