@@ -15,7 +15,9 @@ const UserOrderPlannedList = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await axios.get(`${VITE_URL}order/`);
+        const res = await axios.get(`${VITE_URL}order/userorders`, {
+          withCredentials: true,
+        });
         setOrders(res.data);
         // Handle the response data
       } catch (error) {
@@ -26,10 +28,9 @@ const UserOrderPlannedList = () => {
     };
     getOrders();
   }, []);
-  console.log(orders);
   return (
     <>
-      {orders.filter(el => el.done == false && el.user_id === userId)
+      {orders.filter(el => el.done == false)
         .map(el => <UserOrderPlannedCard orderData={el} key={el.id}/>)}
     </>);
 };

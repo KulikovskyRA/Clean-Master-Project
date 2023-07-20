@@ -18,8 +18,9 @@ module.exports.login = async (req, res) => {
         id: userData.id,
         phoneNumber: userData.phoneNumber,
       };
-
+      
       req.session.user = sessionUser;
+      console.log('REQSESSSSION', req.session.user);
       res.status(200).json({ user: sessionUser });
     }
   } catch (err) {
@@ -53,7 +54,7 @@ module.exports.register = async (req, res) => {
       isVerified: false,
     });
     const result = response.get({ plain: true });
-
+    
     const userSessionData = {
       id: result.id,
       userName: result.userName,

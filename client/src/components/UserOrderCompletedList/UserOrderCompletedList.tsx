@@ -9,12 +9,14 @@ const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedList = () => {
   const [ orders, setOrders ] = useState([]);
-  const userId = useSelector((state) => state.authSlice.cleaner.id);
+  // console.log('ORDERS=======>', orders);
 
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await axios.get(`${VITE_URL}order/`);
+        const res = await axios.get(`${VITE_URL}order/userorders`, {
+          withCredentials: true,
+        });
         setOrders(res.data);
         // Handle the response data
       } catch (error) {
@@ -27,7 +29,7 @@ const UserOrderCompletedList = () => {
 
   return (
     <>
-      {orders.filter(el => el.done === true && el.user_id === userId)
+      {orders.filter(el => el.done === true)
         .map(el => <UserOrderCompletedCard orderData={el} key={el.id}/>)}
     </>);
 };

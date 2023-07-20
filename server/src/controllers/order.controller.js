@@ -35,6 +35,33 @@ module.exports.orders = async (req, res) => {
   }
 };
 
+module.exports.userOrders = async (req, res) => {
+  console.log(req.session);
+  const { id } = req.session.user;
+  
+  
+  try {
+    const allOrders = await Order.findAll({
+      where: { user_id: id },
+      include: [
+        { model: Cleaner, attributes: ['name'] },
+        { model: User, attributes: ['userName'] },
+        {
+          model: OrderService,
+          attributes: ['id', 'order_id', 'service_id', 'amount'],
+          include: {
+            model: Service,
+          },
+        },
+      ],
+    });
+    console.log(allOrders);
+    res.json(allOrders);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports.deleteOrder = async (req, res) => {
   try {
     await Order.destroy({ where: { id: req.params.id } });
@@ -162,7 +189,7 @@ module.exports.addOrder = async (req, res) => {
   try {
     //! Вычленяю данные из req.body
     const { formData, formServices } = req.body;
-
+    
     let user;
     if (req.session.user) {
       //! Проверяю, авторизован ли юзер, если сесси с юзером есть, то беру из сессии юзера, чтобы к нему присоединять order через user_id
@@ -179,7 +206,7 @@ module.exports.addOrder = async (req, res) => {
         password: hashPassword,
         isVerified: false,
       });
-
+      
       //! А затем создаю сессию под него
       const userSessionData = {
         id: user.id,
@@ -204,22 +231,22 @@ module.exports.addOrder = async (req, res) => {
       cleaningTime,
       done: false,
     });
-
+    
     //! Через цикл создаю записи в OrderService
-
+    
     for (let key of Object.keys(formServices)) {
-      if (formServices[key] > 0) {
+      if (formServices[ key ] > 0) {
         // console.log(key + ' -> ' + formServices[key]);
         await OrderService.create({
           order_id: Number(newOrder.id),
           service_id: Number(key),
-          amount: Number(formServices[key]),
+          amount: Number(formServices[ key ]),
         });
       }
     }
-
+    
     //! Нахожу цену, чтобы её потом записать в заказ
-
+    
     const orderServices = await OrderService.findAll({
       raw: true,
       nest: true,
@@ -243,4 +270,41 @@ module.exports.addOrder = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+module.exports.editOrder = async (req, res) => {
+  const { id } = req.body;
+  
+  const str = req.body.values.date;
+  const myDate = moment(str).format('YYYY-MM-DD');
+  console.log(myDate);
+  const cleaningTime = new Date(moment(myDate + ' ' + req.body.values.time).toString());
+  console.log(cleaningTime);
+  try {
+    const findOrder = await Order.findByPk(id);
+    findOrder.cleaningTime = cleaningTime;
+    findOrder.save();
+    res.json(findOrder);
+    res.end();
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
+
+module.exports.cancelOrder = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const orderToDelete = await Order.findByPk(id);
+    if (!orderToDelete) {
+      console.log('Order not found.');
+      return;
+    }
+    await orderToDelete.destroy();
+    console.log('Order deleted successfully.');
+    res.end();
+  } catch (error) {
+    console.error('Error deleting order:', error);
+  }
+  
 };

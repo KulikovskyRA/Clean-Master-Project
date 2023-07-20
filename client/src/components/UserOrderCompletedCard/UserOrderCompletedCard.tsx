@@ -20,13 +20,9 @@ const cleanerData = {
 };
 
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
-  const { id, address, cleaningTime, OrderServices, info } = orderData;
+  const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
-
-  const totalPrice = OrderServices.reduce((accumulator, currentObject) => {
-    return accumulator + (currentObject.Service.singlePrice * currentObject.amount);
-  }, 0);
 
   return (
 
@@ -56,18 +52,35 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         {`${address}`}
       </p>
       <p>
-        <b>Дополнительные услуги:</b>
+        <b>Основные услуги:</b>
         <ul>
-          {OrderServices.map((el, i) => (
-            <li key={i}>{el.Service.title} {el.amount}</li>
-          ))}
+          {OrderServices
+            .filter(el => el.Service.default === true)
+            .map((el, i) => (
+              <li key={i}>{el.Service.title} {el.amount}</li>
+            ))}
+        </ul>
+        <b>Дополнительные услуги:</b>
+        {console.log('SERVICES!', orderData.OrderServices)}
+        <ul>
+          {OrderServices
+            .filter(el => el.Service.single === false && el.Service.default === false)
+            .map((el, i) => (
+              <li key={i}>{el.Service.title} {el.amount}</li>
+            ))}
+
+          {OrderServices
+            .filter(el => el.Service.single === true && el.Service.default === false)
+            .map((el, i) => (
+              <li key={i}>{el.Service.title}</li>
+            ))}
         </ul>
       </p>
       <p>
         <b>Комментарий к заказу:</b> {info}
       </p>
       <p>
-        <b>Стоимость уборки:</b> {totalPrice} UZS
+        <b>Стоимость уборки:</b> {price} UZS
       </p>
 
       {/* <Avatar
