@@ -54,13 +54,13 @@ module.exports.register = async (req, res) => {
       password: hashedPassword,
       isVerified: false,
     });
-    const result = response.get({ plain: true });
+    // const result = response.get({ plain: true });
 
     const userSessionData = {
-      id: result.id,
-      userName: result.userName,
-      email: result.email,
-      phone: result.phoneNumber,
+      id: response.id,
+      userName: response.userName,
+      email: response.email,
+      phone: response.phoneNumber,
     };
     req.session.user = userSessionData;
     res.status(200).json({ user: userSessionData });

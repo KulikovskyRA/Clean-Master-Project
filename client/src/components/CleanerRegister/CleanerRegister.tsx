@@ -68,10 +68,10 @@ const CleanerRegister = () => {
 
       authReducer({
         type: 'cleaner',
-        name: result.cleaner.name,
-        id: result.cleaner.id,
+        name: result.name,
+        id: result.id,
         email: '',
-        phoneNumber: result.cleaner.phoneNumber,
+        phoneNumber: result.phoneNumber,
       });
       navigate('/cleaner');
     } else if (res.status === 403) {

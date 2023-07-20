@@ -1,6 +1,6 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { futureDates, futureTimes } from "./orderdates.js";
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { futureDates, futureTimes } from './orderdates.js';
 import {
   Button,
   Checkbox,
@@ -11,18 +11,18 @@ import {
   Row,
   Col,
   Divider,
-} from "antd";
+} from 'antd';
 
-import styles from "./OrderFormStyles.module.css";
+import styles from './OrderFormStyles.module.css';
 
 const { Text, Title } = Typography;
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { VITE_URL } = import.meta.env;
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const OrderForm = () => {
   const navigate = useNavigate();
@@ -41,14 +41,14 @@ const OrderForm = () => {
 
   const [formData, setFormData] = useState({
     date: 0,
-    time: "8:00",
+    time: '8:00',
   });
 
   useEffect(() => {
     const getAllServices = async () => {
       try {
         const response = await fetch(`${VITE_URL}service/all`);
-        console.log("------->", response);
+        console.log('------->', response);
         const jsonData = await response.json();
         setServices(jsonData);
 
@@ -60,8 +60,10 @@ const OrderForm = () => {
         });
         setPrices(initialPrices);
         setFormServices(initialServices);
+
+        console.log(prices);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -73,7 +75,7 @@ const OrderForm = () => {
       ...prev,
       [el.id]: Number(prev[el.id]) + 1,
     }));
-    // console.log(formServices);
+    console.log(formServices);
 
     setTotal((prev) => prev + el.id * prices[el.id]);
   };
@@ -84,6 +86,7 @@ const OrderForm = () => {
       [el.id]: Number(prev[el.id]) - 1,
     }));
     // console.log(formServices);
+    // console.log(prices);
     setTotal((prev) => prev - el.id * prices[el.id]);
   };
 
@@ -124,17 +127,17 @@ const OrderForm = () => {
 
   const handleSubmit = async (e) => {
     const responseAddOrder = await fetch(
-      import.meta.env.VITE_URL + "order/addorder",
+      import.meta.env.VITE_URL + 'order/addorder',
       {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        credentials: "include",
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ formData, formServices }),
       }
     );
 
     if (responseAddOrder.ok) {
-      navigate("/client");
+      navigate('/client');
     }
   };
 
@@ -142,14 +145,14 @@ const OrderForm = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "black",
+          colorPrimary: 'black',
           fontSize: 18,
-          colorTextBase: "black",
+          colorTextBase: 'black',
         },
       }}
     >
       <Row justify="center">
-        <Text style={{ fontSize: "40px", fontWeight: "bold" }}>
+        <Text style={{ fontSize: '40px', fontWeight: 'bold' }}>
           ФОРМА ЗАКАЗА
         </Text>
       </Row>
@@ -195,15 +198,15 @@ const OrderForm = () => {
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: '20px' }}
                 >
                   {futureDates.map((el, i) => {
                     return (
                       <option key={i} value={el}>
-                        {el.toLocaleString("ru", {
-                          day: "numeric",
-                          month: "long",
-                          weekday: "long",
+                        {el.toLocaleString('ru', {
+                          day: 'numeric',
+                          month: 'long',
+                          weekday: 'long',
                         })}
                       </option>
                     );
@@ -214,7 +217,7 @@ const OrderForm = () => {
                   value={formData.time}
                   name="time"
                   onChange={handleChange}
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: '20px' }}
                 >
                   {futureTimes.map((el, i) => (
                     <option value={el} key={i}>
@@ -226,7 +229,9 @@ const OrderForm = () => {
               <Row justify="center">
                 <Button.Group size="large">
                   <Button disabled>НАЗАД</Button>
-                  <Button type="primary" onClick={handleNextStep}>ДАЛЕЕ</Button>
+                  <Button type="primary" onClick={handleNextStep}>
+                    ДАЛЕЕ
+                  </Button>
                 </Button.Group>
               </Row>
             </>
@@ -241,8 +246,8 @@ const OrderForm = () => {
                     <Row justify="center">
                       <Text
                         style={{
-                          fontSize: "20px",
-                          fontWeight: "bold",
+                          fontSize: '20px',
+                          fontWeight: 'bold',
                           marginBottom: 35,
                         }}
                       >
@@ -251,23 +256,20 @@ const OrderForm = () => {
                     </Row>
                     <Row justify="start">
                       <Text style={{ marginLeft: 25 }}>{el.title}</Text>
-                      <Button.Group size="small" style={{
+                      <Button.Group
+                        size="small"
+                        style={{
                           marginLeft: 20,
-                        }}>
+                        }}
+                      >
                         {formServices[el.id] > 0 ? (
-                          <Button onClick={() => handleDecrement(el)}>
-                            -
-                          </Button>
+                          <Button onClick={() => handleDecrement(el)}>-</Button>
                         ) : (
-                          <Button disabled>
-                           -
-                          </Button>
+                          <Button disabled>-</Button>
                         )}
                         <Button>{formServices[el.id]}</Button>
 
-                        <Button onClick={() => handleIncrement(el)}>
-                         +
-                        </Button>
+                        <Button onClick={() => handleIncrement(el)}>+</Button>
                       </Button.Group>
                     </Row>
                   </div>
@@ -282,7 +284,7 @@ const OrderForm = () => {
                         <Checkbox.Group>
                           <Checkbox
                             checked
-                            style={{ lineHeight: "32px" }}
+                            style={{ lineHeight: '32px' }}
                             onChange={() => handleChangeCheckBox(el)}
                           >
                             {el.title}
@@ -293,7 +295,7 @@ const OrderForm = () => {
                       <Row justify="start">
                         <Checkbox.Group>
                           <Checkbox
-                            style={{ lineHeight: "32px" }}
+                            style={{ lineHeight: '32px' }}
                             onChange={() => handleChangeCheckBox(el)}
                           >
                             {el.title}
@@ -306,7 +308,7 @@ const OrderForm = () => {
               <Row justify="center">
                 <Input.TextArea
                   rows={3}
-                  style={{ marginBottom: 49, marginTop: 40, width: "100%" }}
+                  style={{ marginBottom: 49, marginTop: 40, width: '100%' }}
                   onChange={handleChange}
                   type="text"
                   name="info"
@@ -317,7 +319,9 @@ const OrderForm = () => {
               <Row justify="center">
                 <Button.Group size="large">
                   <Button onClick={handlePrevStep}>НАЗАД</Button>
-                  <Button type="primary" onClick={handleNextStep}>ДАЛЕЕ</Button>
+                  <Button type="primary" onClick={handleNextStep}>
+                    ДАЛЕЕ
+                  </Button>
                 </Button.Group>
               </Row>
             </>
@@ -385,14 +389,16 @@ const OrderForm = () => {
               <Row justify="center" style={{ marginBottom: 20, marginTop: 50 }}>
                 <Button.Group size="large">
                   <Button onClick={handlePrevStep}>НАЗАД</Button>
-                  <Button type="primary" onClick={handleSubmit}>ОФОРМИТЬ ЗАКАЗ</Button>
+                  <Button type="primary" onClick={handleSubmit}>
+                    ОФОРМИТЬ ЗАКАЗ
+                  </Button>
                 </Button.Group>
               </Row>
             </>
           )}
           <Title
             level={5}
-            style={{ textAlign: "center" }}
+            style={{ textAlign: 'center' }}
           >{`СТОИМОСТЬ УБОРКИ: ${total} UZS`}</Title>
         </Col>
       </div>
