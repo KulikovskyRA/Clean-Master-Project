@@ -407,69 +407,68 @@ const Paralax = () => {
         <div className="border"></div>
 
         <section style={{ background: 'none' }}>
-          <Element name="block" className="block">
-            <div id="price" className="block">
-              <div
-                className={`plan-room-img ${isPlanRoomVisible ? 'show' : ''}`}
-                style={{
-                  backgroundImage:
-                    "url('https://www.pngkit.com/png/full/17-178368_view-more-ouf-ourprojects-construction-house-drawing-png.png')",
-                }}
-              ></div>
-              <p>
-                <span className="first-character ny">I</span>
-                <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
+          <div id="price" className="block">
+            <div
+              className={`plan-room-img ${isPlanRoomVisible ? 'show' : ''}`}
+              style={{
+                backgroundImage:
+                  "url('https://www.pngkit.com/png/full/17-178368_view-more-ouf-ourprojects-construction-house-drawing-png.png')",
+              }}
+            ></div>
+            <p>
+              <span className="first-character ny">I</span>
+              <div className="text">СКОЛЬКО СТОИТ УБОРКА?</div>
 
-                <ul className="list">
-                  <li className="text2">
-                    <div className="room">1 комната</div>
-                    <div className="price-room"> от 249 000 UZS</div>
-                  </li>
-                  <li className="text2">
-                    <div className="room">2 комнаты</div>
-                    <div className="price-room"> от 299 000 UZS</div>
-                  </li>
-                  <li className="text2">
-                    <div className="room">3 комнаты</div>
-                    <div className="price-room">от 349 000 UZS</div>
-                  </li>
-                  <li className="text2">
-                    <div className="room">4+ комнаты</div>
-                    <div className="price-room">от 399 000 UZS</div>
-                  </li>
-                </ul>
-                <br />
-                <br />
+              <ul className="list">
+                <li className="text2">
+                  <div className="room">1 комната</div>
+                  <div className="price-room"> от 249 000 UZS</div>
+                </li>
+                <li className="text2">
+                  <div className="room">2 комнаты</div>
+                  <div className="price-room"> от 299 000 UZS</div>
+                </li>
+                <li className="text2">
+                  <div className="room">3 комнаты</div>
+                  <div className="price-room">от 349 000 UZS</div>
+                </li>
+                <li className="text2">
+                  <div className="room">4+ комнаты</div>
+                  <div className="price-room">от 399 000 UZS</div>
+                </li>
+              </ul>
+              <br />
+              <br />
 
-                <ul style={{ marginTop: '-50px' }}>
-                  <div
-                    className="text"
-                    style={{
-                      marginLeft: '-15px',
-                      fontWeight: 600,
-                      fontSize: '28px',
-                    }}
-                  >
-                    Дополнительные услуги:
-                  </div>
-                  <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
-                  <li className="text3">Уборка балкона +30 000 UZS</li>
-                  <li className="text3">
-                    Помыть внутри холодильника +15 000 UZS
-                  </li>
-                  <li className="text3">Помыть духовку +15 000 UZS</li>
-                  <li className="text3">Помыть микроволновку +10 000 UZS</li>
-                  <li className="text3">Глажка 40 000 UZS за час</li>
-                </ul>
-              </p>
-              <div
-                className={`plan-room-img2 ${isPlanRoom2Visible ? 'show' : ''}`}
-                style={{
-                  backgroundImage: "url('room4.png')",
-                }}
-              ></div>
-            </div>
-          </Element>
+              <ul style={{ marginTop: '-50px' }}>
+                <div
+                  className="text"
+                  style={{
+                    marginLeft: '-15px',
+                    fontWeight: 600,
+                    fontSize: '28px',
+                  }}
+                >
+                  Дополнительные услуги:
+                </div>
+                <li className="text3">Мытье окон +25 000 UZS за одно окно</li>
+                <li className="text3">Уборка балкона +30 000 UZS</li>
+                <li className="text3">
+                  Помыть внутри холодильника +15 000 UZS
+                </li>
+                <li className="text3">Помыть духовку +15 000 UZS</li>
+                <li className="text3">Помыть микроволновку +10 000 UZS</li>
+                <li className="text3">Глажка 40 000 UZS за час</li>
+              </ul>
+            </p>
+            <div
+              className={`plan-room-img2 ${isPlanRoom2Visible ? 'show' : ''}`}
+              style={{
+                backgroundImage: "url('room4.png')",
+              }}
+            ></div>
+          </div>
+
           <div className="border"></div>
           <div className="parallax-two">
             <h2>
@@ -477,7 +476,9 @@ const Paralax = () => {
             </h2>
           </div>
         </section>
-        <OrderForm />
+        <Element name="block" className="block">
+          <OrderForm />
+        </Element>
 
         {/* ФУТЕР */}
 

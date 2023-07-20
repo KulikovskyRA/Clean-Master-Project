@@ -47,6 +47,7 @@ const OrderForm = () => {
     const getAllServices = async () => {
       try {
         const response = await fetch(`${VITE_URL}service/all`);
+        console.log('------->', response);
         const jsonData = await response.json();
         setServices(jsonData);
 
