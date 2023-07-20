@@ -148,7 +148,8 @@ module.exports.ordersCleanerAvailable = async (req, res) => {
   try {
     const { id } = req.session.cleaner;
     const cleanerAvailableOrders = await Order.findAll({
-      raw: true,
+      //! ЗАЧЕМ! Не надо raw: true,
+      // raw: true,
       where: {
         cleaner_id: {
           [Op.is]: null,
@@ -248,8 +249,9 @@ module.exports.addOrder = async (req, res) => {
     //! Нахожу цену, чтобы её потом записать в заказ
 
     const orderServices = await OrderService.findAll({
-      raw: true,
-      nest: true,
+      //! Зачем
+      // raw: true,
+      // nest: true,
       where: { order_id: newOrder.id },
       attributes: ['amount'],
       include: {
@@ -267,6 +269,25 @@ module.exports.addOrder = async (req, res) => {
     newOrder.save();
 
     res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports.takeOrderAsCleaner = async (req, res) => {
+  try {
+    console.log('egegerg');
+    console.log(req.params);
+
+    const { orderId } = req.params;
+    // const { orderEditId, cleanerId } = req.body;
+
+    // const order = await Order.findByPk(orderEditId);
+    // order.cleaner_id = cleanerId;
+    // order.save();
+
+    // const cleaner = await Cleaner.findByPk(cleanerId);
+    // res.json(cleaner.name);
   } catch (err) {
     console.log(err);
   }

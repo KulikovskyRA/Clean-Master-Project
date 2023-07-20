@@ -1,9 +1,22 @@
 import React from 'react';
-import { Button, Card } from 'antd';
+
 import moment from 'moment';
+import { Button, Card, Col, Row, Modal, Select, Typography, Input } from 'antd';
+const { Text } = Typography;
 
 const CleanerOrderAvailableCard = ({ orderData }) => {
-  // console.log("available orderData------->", orderData);
+  console.log('available orderData------->', orderData);
+
+  const acceptOrder = async (orderId) => {
+    const res: Response = await fetch(
+      import.meta.env.VITE_URL + `order/accept/${orderId}`,
+      {
+        method: 'PUT',
+        credentials: 'include',
+      }
+    );
+  };
+
   return (
     <Card
       title={`Заявка # ${orderData.id} (${moment(orderData.cleaningTime).format(
@@ -20,17 +33,32 @@ const CleanerOrderAvailableCard = ({ orderData }) => {
           .add(3, 'hours')
           .format('HH:mm')}`}
       </p>
+
       <p>
         <b>Адрес: </b>
         {orderData.address}
       </p>
-      <p>
-        <b>Дополнительные услуги:</b> {orderData.OrderServices}
-      </p>
+
+      <Text strong style={{ padding: 0, margin: 0 }}>
+        Услуги:
+      </Text>
+      <div style={{ marginLeft: 20 }}>
+        {orderData.OrderServices.map((OS) => (
+          <Row key={`os${OS.id}`}>
+            <Text strong>{`${OS.Service.title}:\u00A0`}</Text>
+            <Text>{`${OS.amount}`}</Text>
+          </Row>
+        ))}
+      </div>
+
       <p>
         <b>Вы заработаете:</b> {Math.floor(orderData.price * 0.2)} UZS
       </p>
-      <Button type="primary" size="medium">
+      <Button
+        onClick={() => acceptOrder(orderData.id)}
+        type="primary"
+        size="medium"
+      >
         Выполнить уборку
       </Button>
     </Card>

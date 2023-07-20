@@ -4,11 +4,10 @@ import { UserOutlined } from '@ant-design/icons';
 import CleanerOrdersTabs from '../../components/CleanerOrdersTabs/CleanerOrdersTabs';
 import Navbar from '../../components/Navbar/Navbar';
 
-
-import styles from "./CleanerStyles.module.css";
-import CleanerInfo from "../../components/CleanerInfo/CleanerInfo";
-import CleanerPhoto from "../../components/CleanerPhoto/CleanerPhoto";
-
+import styles from './CleanerStyles.module.css';
+import CleanerInfo from '../../components/CleanerInfo/CleanerInfo';
+import CleanerPhoto from '../../components/CleanerPhoto/CleanerPhoto';
+import CleanerFooter from '../../components/CleanerFooter/CleanerFooter';
 
 const Cleaner: React.FC = () => {
   return (
@@ -34,17 +33,15 @@ const Cleaner: React.FC = () => {
           </Divider>
           <div>
             <div className={styles.cleanerAvatarDiv}>
-              <CleanerPhoto/>
+              <CleanerPhoto />
             </div>
             <div className={styles.cleanerInfoDiv}>
-              <CleanerInfo/>
+              <CleanerInfo />
             </div>
           </div>
-          <CleanerOrdersTabs/>
+          <CleanerOrdersTabs />
         </div>
-        <div className={styles.grayDiv}>
-          ЗДЕСЬ КАКОЙ-ТО ФУТЕР ДЛЯ КЛИНЕРОВ :)
-        </div>
+        <CleanerFooter />
       </ConfigProvider>
     </>
   );
