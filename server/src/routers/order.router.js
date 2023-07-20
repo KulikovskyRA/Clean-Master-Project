@@ -14,6 +14,8 @@ const {
   updatePrice,
   ordersCleanerAvailable,
   addOrder,
+  takeOrderAsCleaner,
+  doneOrder,
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
@@ -25,4 +27,5 @@ module.exports = orderRouter
   .get('/available', ordersCleanerAvailable)
   .patch('/', updatePrice)
   .post('/addorder', addOrder)
-
+  .put('/accept/:orderId', takeOrderAsCleaner)
+  .put('/done/:orderId', doneOrder);

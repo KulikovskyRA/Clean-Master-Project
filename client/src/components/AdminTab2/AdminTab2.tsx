@@ -132,7 +132,7 @@ const AdminTab2 = () => {
     );
     if (responseNew.ok) {
       const resNew = await responseNew.json();
-      console.log(resNew);
+      // console.log(resNew);
       setExtra((prev) => [...prev, resNew]);
     }
 
