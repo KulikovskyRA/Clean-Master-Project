@@ -10,12 +10,12 @@ const UserOrderPlannedList = () => {
   const [orders, setOrders] = useState([]);
   const userId = useSelector((state) => state.authSlice.cleaner.id);
 
-  // console.log(VITE_URL);
-
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await axios.get(`${VITE_URL}order/`);
+        const res = await axios.get(`${VITE_URL}order/userorders`, {
+          withCredentials: true,
+        });
         setOrders(res.data);
         // Handle the response data
       } catch (error) {
@@ -24,16 +24,13 @@ const UserOrderPlannedList = () => {
     };
     getOrders();
   }, []);
-  // console.log(orders);
+
   return (
     <>
-      {orders
-        .filter((el) => el.done == false && el.user_id === userId)
-        .map((el) => (
-          <UserOrderPlannedCard orderData={el} key={el.id} />
-        ))}
-    </>
-  );
+      {orders.filter(el => el.done == false)
+        .map(el => <UserOrderPlannedCard orderData={el} key={el.id}/>)}
+    </>);
+
 };
 
 export default UserOrderPlannedList;

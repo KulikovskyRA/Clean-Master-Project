@@ -14,18 +14,28 @@ const {
   updatePrice,
   ordersCleanerAvailable,
   addOrder,
+  userOrders,
+  editOrder,
+  cancelOrder,
+  repeatOrder
   takeOrderAsCleaner,
   doneOrder,
+
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
   .get('/', orders)
+  .get('/userorders', userOrders)
+  .delete('/cancelorder/:id', cancelOrder)
   .delete('/:id', deleteOrder)
   .put('/', updateCleaner)
+  .put('/editorder', editOrder)
   .get('/tab2', adminTab2Info)
   .get('/planned', ordersCleanerPlanned)
   .get('/available', ordersCleanerAvailable)
   .patch('/', updatePrice)
   .post('/addorder', addOrder)
+  .post(`/repeatorder`, repeatOrder)
   .put('/accept/:orderId', takeOrderAsCleaner)
   .put('/done/:orderId', doneOrder);
+

@@ -8,13 +8,30 @@ import { useSelector } from 'react-redux';
 const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedList = () => {
-  const [orders, setOrders] = useState([]);
-  const userId = useSelector((state) => state.authSlice.cleaner.id);
+
+  const [ orders, setOrders ] = useState([]);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+
 
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await axios.get(`${VITE_URL}order/`);
+        const res = await axios.get(`${VITE_URL}order/userorders`, {
+          withCredentials: true,
+        });
         setOrders(res.data);
         // Handle the response data
       } catch (error) {
@@ -27,13 +44,10 @@ const UserOrderCompletedList = () => {
 
   return (
     <>
-      {orders
-        .filter((el) => el.done === true && el.user_id === userId)
-        .map((el) => (
-          <UserOrderCompletedCard orderData={el} key={el.id} />
-        ))}
-    </>
-  );
+      {orders.filter(el => el.done === true)
+        .map(el => <UserOrderCompletedCard orderData={el} key={el.id}/>)}
+    </>);
+
 };
 
 export default UserOrderCompletedList;
