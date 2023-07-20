@@ -22,6 +22,7 @@ module.exports.login = async (req, res) => {
       req.session.user = sessionUser;
       console.log('REQSESSSSION', req.session.user);
       res.status(200).json({ user: sessionUser });
+      // console.log(req.session);
     }
   } catch (err) {
     console.log('Ошибка login --->', err);
@@ -41,10 +42,11 @@ module.exports.logout = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-  const { userName, email, prefix, phone, password } = req.body;
-  const phoneNumber = `+${prefix}${phone}`;
-  const hashedPassword = await bcrypt.hash(password, 10);
   try {
+    const { userName, email, prefix, phone, password } = req.body;
+    const phoneNumber = `+${prefix}${phone}`;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const response = await User.create({
       userName,
       email,
@@ -53,26 +55,25 @@ module.exports.register = async (req, res) => {
       password: hashedPassword,
       isVerified: false,
     });
-    const result = response.get({ plain: true });
-    
+
     const userSessionData = {
-      id: result.id,
-      userName: result.userName,
-      email: result.email,
-      phone: result.phoneNumber,
+      id: response.id,
+      userName: response.userName,
+      email: response.email,
+      phone: response.phoneNumber,
     };
     req.session.user = userSessionData;
-    res.status(200).json({ user: userSessionData }).end();
+    res.status(200).json({ user: userSessionData });
   } catch (error) {
     console.log('ERROR====>', error);
     res.status(400).json({ error: 'Пользователь с таким email существует!' });
-    res.end();
   }
 };
 
 // Проверка авторизованности по сессиям
 module.exports.checkSessions = async (req, res) => {
   try {
+    console.log(req.session);
     res.json({
       user: req.session.user,
       admin: req.session.admin,

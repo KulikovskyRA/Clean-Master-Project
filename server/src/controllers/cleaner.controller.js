@@ -4,9 +4,8 @@ const bcrypt = require('bcrypt');
 const { Cleaner, Order, User } = require('../../db/models');
 
 module.exports.cleanerLogin = async (req, res) => {
-  const { phoneNumber, password } = req.body;
-
   try {
+    const { phoneNumber, password } = req.body;
     const check = await Cleaner.findOne({ where: { phoneNumber }, raw: true });
     if (check) {
       const hashPass = await bcrypt.compare(password, check.password);
@@ -40,7 +39,6 @@ module.exports.cleanerLogin = async (req, res) => {
 };
 
 module.exports.cleanerRegister = async (req, res) => {
-
   const { name, surname, patrname, phoneNumber, nation, password, pets } =
     req.body;
   try {
@@ -64,14 +62,14 @@ module.exports.cleanerRegister = async (req, res) => {
       pets,
     });
 
+    // const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
 
-    const cleaner = { name, surname, patrname, nation, phoneNumber, pets };
+    req.session.cleaner = cleanerData;
 
-    req.session.cleaner = cleaner;
-
-    res.json({ cleaner });
+    res.json(cleanerData);
   } catch (error) {
-    res.sendStatus(404);
+    // res.sendStatus(404);
+    console.log(error);
   }
 };
 
@@ -98,23 +96,34 @@ module.exports.cleanersList = async (req, res) => {
 };
 
 module.exports.cleanerInfo = async (req, res) => {
-
-  const { id } = req.session.cleaner;
   try {
-    const getCleaner = await Cleaner.findByPk(id);
+    const { id } = req.session.cleaner;
+    const getCleaner = await Cleaner.findByPk(id, {
+      attributes: [
+        'id',
+        'name',
+        'surname',
+        'patrname',
+        'phoneNumber',
+        'nation',
+        'pets',
+        'img',
+      ],
+      include: [{ model: Order, attributes: ['done', 'price'] }],
+    });
+
+    console.log(getCleaner);
     res.json(getCleaner);
   } catch (error) {
     console.log(error);
   }
-  
-
 };
 
 module.exports.cleanerPhoto = async (req, res) => {
-  const img = req.file.filename;
-  const id = req.params.id;
-
   try {
+    const img = req.file.filename;
+    const id = req.params.id;
+
     const updatePhoto = await Cleaner.update(
       { img },
       {

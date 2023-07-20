@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+.orderFormDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 80px;
+}
