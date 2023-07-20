@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import { authReducer, checkAuthReducer } from "./redux/authSlice";
+
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import { Layout } from "antd";
+import AppRouter from "./components/AppRouter/AppRouter";
+import Paralax from "./components/Paralax/Paralax";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    try {
+      (async function (): Promise<void> {
+        const response: Response = await fetch(
+          import.meta.env.VITE_URL + "auth",
+          {
+            credentials: "include",
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+
+          if (!result.user && window.location.pathname === "/client") {
+            navigate("/login");
+          }
+
+          if (!result.admin && window.location.pathname === "/admin") {
+            navigate("/adminlogin");
+          }
+
+          if (!result.cleaner && window.location.pathname === "/cleaner") {
+            navigate("/cleanlogin");
+          }
+
+          dispatch(checkAuthReducer(result));
+        }
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <AppRouter />
+    </div>
+  );
 }
 
-export default App
+export default App;
