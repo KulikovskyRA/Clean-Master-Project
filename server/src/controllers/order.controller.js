@@ -144,40 +144,44 @@ module.exports.ordersCleanerPlanned = async (req, res) => {
 };
 
 module.exports.ordersCleanerAvailable = async (req, res) => {
-  console.log('----------> тук тук в ручку ordersCleanerAvailable!!!');
-  const { id } = req.session.cleaner;
-  const cleanerAvailableOrders = await Order.findAll({
-    raw: true,
-    where: {
-      cleaner_id: {
-        [Op.is]: null,
-      },
-    },
-    order: [['id', 'ASC']],
-    attributes: [
-      'id',
-      'info',
-      'address',
-      'cleaner_id',
-      'cleaningTime',
-      'user_id',
-      'done',
-      'price',
-      'rating',
-    ],
-    include: [
-      { model: User, attributes: ['userName', 'phoneNumber'] },
-      {
-        model: OrderService,
-        attributes: ['id', 'order_id', 'service_id', 'amount'],
-        include: {
-          model: Service,
+  // console.log('----------> тук тук в ручку ordersCleanerAvailable!!!');
+  try {
+    const { id } = req.session.cleaner;
+    const cleanerAvailableOrders = await Order.findAll({
+      raw: true,
+      where: {
+        cleaner_id: {
+          [Op.is]: null,
         },
       },
-    ],
-  });
-  console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
-  res.json(cleanerAvailableOrders);
+      order: [['id', 'ASC']],
+      attributes: [
+        'id',
+        'info',
+        'address',
+        'cleaner_id',
+        'cleaningTime',
+        'user_id',
+        'done',
+        'price',
+        'rating',
+      ],
+      include: [
+        { model: User, attributes: ['userName', 'phoneNumber'] },
+        {
+          model: OrderService,
+          attributes: ['id', 'order_id', 'service_id', 'amount'],
+          include: {
+            model: Service,
+          },
+        },
+      ],
+    });
+    console.log('cleanerAvailableOrders----->', cleanerAvailableOrders);
+    res.json(cleanerAvailableOrders);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports.addOrder = async (req, res) => {
