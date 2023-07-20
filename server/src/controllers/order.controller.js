@@ -55,7 +55,6 @@ module.exports.userOrders = async (req, res) => {
         },
       ],
     });
-    console.log(allOrders);
     res.json(allOrders);
   } catch (error) {
     console.log(error);
@@ -185,7 +184,7 @@ module.exports.ordersCleanerAvailable = async (req, res) => {
 };
 
 module.exports.addOrder = async (req, res) => {
-  // console.log(req.body);
+  console.log('ADD ORDER', req.body);
   try {
     //! Вычленяю данные из req.body
     const { formData, formServices } = req.body;
@@ -306,5 +305,78 @@ module.exports.cancelOrder = async (req, res) => {
   } catch (error) {
     console.error('Error deleting order:', error);
   }
+  
+};
+
+module.exports.repeatOrder = async (req, res) => {
+  console.log(req.body);
+  const { id } = req.session.user;
+  console.log(req.session.user);
+  
+  const { info, address } = req.body;
+  
+  const str = req.body.values.date;
+  const myDate = moment(str).format('YYYY-MM-DD');
+  console.log(myDate);
+  const cleaningTime = new Date(moment(myDate + ' ' + req.body.values.time).toString());
+  
+  try {
+    const newOrder = await Order.create({
+      info,
+      user_id: Number(id),
+      address,
+      cleaningTime,
+      done: false,
+    });
+    
+    console.log(newOrder);
+    
+    
+    // for (let key of Object.keys(OrderService)) {
+    //   if (formServices[ key ] > 0) {
+    //     // console.log(key + ' -> ' + formServices[key]);
+    //     await OrderService.create({
+    //       order_id: Number(newOrder.id),
+    //       service_id: Number(key),
+    //       amount: Number(formServices[ key ]),
+    //     });
+    //   }
+    // }
+    
+    
+    for (const el of req.body.OrderServices) {
+      await OrderService.create({
+        order_id: newOrder.id,
+        service_id: el.service_id,
+        amount: el.amount,
+      });
+    }
+    
+    const otherOrderServices = await OrderService.findAll({
+      raw: true,
+      nest: true,
+      where: { order_id: newOrder.id },
+      attributes: ['amount'],
+      include: {
+        model: Service,
+        attributes: ['singlePrice'],
+      },
+    });
+    
+    
+    let price = 0;
+    otherOrderServices.forEach((el) => {
+      price += Number(el.amount) * Number(el.Service.singlePrice);
+    });
+    
+    newOrder.price = price;
+    newOrder.save();
+    
+    res.sendStatus(200);
+    
+    res.end();
+  } catch (error) {
+  }
+  
   
 };

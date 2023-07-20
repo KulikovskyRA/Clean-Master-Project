@@ -46,11 +46,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
   const [ cleaningTime, setCleaningTime ] = useState(orderData.cleaningTime);
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
-  console.log('CLEANINGTIME', cleaningTime);
 
-  // const totalPrice = OrderServices.reduce((accumulator, currentObject) => {
-  //   return accumulator + (currentObject.Service.singlePrice * currentObject.amount);
-  // }, 0);
 
   const onFinish = async (values: any) => {
     try {
@@ -60,7 +56,6 @@ const UserOrderPlannedCard = ({ orderData }) => {
         id
       });
       if (res.status === 200) {
-        console.log(res);
         setCleaningTime(res.data.cleaningTime);
         handleOk();
       }

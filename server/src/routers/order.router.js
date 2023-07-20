@@ -17,6 +17,7 @@ const {
   userOrders,
   editOrder,
   cancelOrder,
+  repeatOrder
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
@@ -30,5 +31,6 @@ module.exports = orderRouter
   .get('/planned', ordersCleanerPlanned)
   .get('/available', ordersCleanerAvailable)
   .patch('/', updatePrice)
-  .post('/addorder', addOrder);
+  .post('/addorder', addOrder)
+  .post(`/repeatorder`, repeatOrder);
 

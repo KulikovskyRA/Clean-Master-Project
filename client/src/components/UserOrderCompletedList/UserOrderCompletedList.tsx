@@ -9,7 +9,20 @@ const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedList = () => {
   const [ orders, setOrders ] = useState([]);
-  // console.log('ORDERS=======>', orders);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   useEffect(() => {
     const getOrders = async () => {

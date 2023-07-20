@@ -10,7 +10,6 @@ const UserOrderPlannedList = () => {
   const [ orders, setOrders ] = useState([]);
   const userId = useSelector((state) => state.authSlice.cleaner.id);
 
-  console.log(VITE_URL);
 
   useEffect(() => {
     const getOrders = async () => {

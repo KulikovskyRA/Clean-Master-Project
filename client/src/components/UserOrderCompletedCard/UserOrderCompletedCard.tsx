@@ -1,28 +1,72 @@
 import * as React from 'react';
-import { Avatar, Button, Card, Space } from 'antd';
+import { Avatar, Button, Card, Space, Select, Modal, Form, } from 'antd';
+import { futureDates, futureTimes } from '../OrderForm/orderdates.js';
+import { useState } from "react";
+import axios from "axios";
 
-const orderData = {
-  id: 456,
-  date: new Date(),
-  startTime: new Date(),
-  endTime: new Date(),
-  city: "Ташкент",
-  address: "ул. Ракат 17, кв. 5, 2 этаж",
-  comment: "Пожалуйста не используйте хлорку",
-  additionalService: [ "помыть окно" ],
-  totalPrice: 249000,
-};
-
-const endTime = new Date(orderData.startTime.getTime() + 3 * 60 * 60 * 1000);
+const { VITE_URL } = import.meta.env;
 
 const cleanerData = {
   name: 'Айнура',
 };
 
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
+
+  const dateOptions = futureDates.map((el) => {
+    return (
+      {
+        value: `${el}`,
+        label: el.toLocaleString('ru', {
+          day: 'numeric',
+          month: 'long',
+          weekday: 'long',
+        })
+      }
+
+    );
+  });
+
+  const timeOptions = futureTimes.map((el, i) => ({ label: el, value: el }));
+
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const onFinish = async (values: any) => {
+    try {
+      const res = await axios.post(`${VITE_URL}order/repeatorder`, { values, OrderServices, address, info }, {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        handleOk();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(values, OrderServices);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
 
   return (
 
@@ -94,13 +138,71 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
       />
       <p style={{ marginLeft: "45px", marginTop: "-80px" }}>Ищем клинера</p> */}
       <Space>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={showModal}>
           Повторить уборку
         </Button>
         <Button type="default" size="medium">
           Оценить
         </Button>
       </Space>
+      <Modal title={`Заявка # ${id} (${date
+        .toLocaleString("ru", {
+          day: "numeric",
+          month: "long",
+          weekday: "long",
+        })})`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={false}>
+
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Дата"
+            name="date"
+          >
+            <Select
+              defaultValue={date
+                .toLocaleString("ru", {
+                  day: "numeric",
+                  month: "long",
+                  weekday: "long",
+                })}
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={dateOptions}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Время"
+            name="time"
+          >
+            <Select
+              defaultValue={date.toLocaleString("ru", {
+                hour: "numeric",
+                minute: "numeric",
+              })}
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={timeOptions}
+            />
+          </Form.Item>
+
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Повторить уборку
+            </Button>
+          </Form.Item>
+        </Form>
+
+      </Modal>
     </Card>
   );
 };
