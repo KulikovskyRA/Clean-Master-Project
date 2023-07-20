@@ -23,6 +23,7 @@ const Navbar = () => {
       <Link className="nav-link" to="/client">
         Личный кабинет
       </Link>
+
       <button className="logout-btn " onClick={handleLogout}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
