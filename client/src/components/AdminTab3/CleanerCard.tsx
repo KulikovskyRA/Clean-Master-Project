@@ -6,10 +6,8 @@ export default function CleanerCard({ cleaner }) {
   const [totalRating, setTotalRating] = useState(0);
   useEffect(() => {
     let count = 0;
-    let divider = 0;
 
     const ordersDone = cleaner.Orders.filter((el) => el.rating !== null);
-    console.log(ordersDone);
 
     ordersDone.forEach((el) => {
       count += el.rating;
