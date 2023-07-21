@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Button, Checkbox, Row, Form, Input, ConfigProvider } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { Link } from 'react-router-dom';
 
 const { VITE_URL }: string = import.meta.env;
 
@@ -40,7 +38,7 @@ const UserLogin = () => {
             phoneNumber: result.user.phoneNumber,
           })
         );
-        navigate('/client');
+        navigate(0);
 
         setTimeout(() => {
           setMessage('');
@@ -75,7 +73,7 @@ const UserLogin = () => {
           },
         ]}
       >
-        <Input placeholder="Введите электронную потчу" />
+        <Input placeholder="Введите электронную почту:" />
       </Form.Item>
 
       <Form.Item

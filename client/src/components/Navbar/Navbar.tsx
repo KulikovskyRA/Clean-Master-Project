@@ -83,7 +83,7 @@ const Navbar = () => {
             <>
               <UserRegistration />
               <Button
-                style={{ position: 'absolute', bottom: 45, left: 60 }}
+                style={{ position: 'absolute', bottom: 45, left: 30 }}
                 type="link"
                 onClick={changeModaltoLogin}
               >

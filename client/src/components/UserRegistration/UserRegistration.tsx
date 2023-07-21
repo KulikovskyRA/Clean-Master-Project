@@ -17,14 +17,14 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-const prefixSelector = (
-  <Form.Item name="prefix" noStyle>
-    <Select style={{ width: 70 }}>
-      <Option value="86">+86</Option>
-      <Option value="87">+87</Option>
-    </Select>
-  </Form.Item>
-);
+// const prefixSelector = (
+//   <Form.Item name="prefix" noStyle>
+//     <Select style={{ width: 70 }}>
+//       <Option value="86">+86</Option>
+//       <Option value="87">+87</Option>
+//     </Select>
+//   </Form.Item>
+// );
 
 const UserRegistration: React.FC = () => {
   const [message, setMessage] = useState<messageType>('');
@@ -51,13 +51,13 @@ const UserRegistration: React.FC = () => {
             phoneNumber: result.user.phoneNumber,
           })
         );
-        navigate('/client');
+        navigate(0);
       }
 
-      // setTimeout(() => {
-      //   setMessage('');
-      // }, 3000);
-      // setMessage(result.error);
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+      setMessage(result.error);
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +68,8 @@ const UserRegistration: React.FC = () => {
       name="basic"
       layout="vertical"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
+      // wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 700 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -77,15 +77,15 @@ const UserRegistration: React.FC = () => {
     >
       <h1 className="text-red-600">{message}</h1>
       <Form.Item
-        label="Как Вас зовут?"
+        // label="Как Вас зовут?"
         name="userName"
         rules={[{ required: true, message: 'Пожалуйста, введите Ваше имя!' }]}
       >
-        <Input />
+        <Input placeholder="Пожалуйста, введите Ваше имя:" />
       </Form.Item>
 
       <Form.Item
-        label="E-mail"
+        // label="E-mail"
         name="email"
         rules={[
           {
@@ -95,26 +95,29 @@ const UserRegistration: React.FC = () => {
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Введите электронную почту:" />
       </Form.Item>
 
       <Form.Item
-        label="Телефон"
+        // label="Телефон"
         name="phone"
         rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <InputNumber addonBefore={prefixSelector} style={{ width: '100%' }} />
+        <InputNumber
+          style={{ width: '100%' }}
+          placeholder="Введите номер телефона:"
+        />
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        // label="Password"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Введите пароль:" />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 12, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Зарегистрироваться
         </Button>
