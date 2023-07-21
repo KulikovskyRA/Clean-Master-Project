@@ -30,7 +30,9 @@ const StatCard = () => {
       style={{
         marginLeft: '26%',
         marginRight: '26%',
+        border: '1px solid',
       }}
+      headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <Row>
         <Col span={10}>

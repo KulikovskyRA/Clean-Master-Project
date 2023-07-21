@@ -146,6 +146,7 @@ const AdminTab1 = () => {
 
   return (
     <>
+
       {orders
         .sort(function (x, y) {
           //! Сотрировка по выполненности
@@ -157,15 +158,18 @@ const AdminTab1 = () => {
               'HH:mm:ss DD.MM.YYYY'
             )}`}
             key={`order${order.id}`}
-            style={{
-              marginLeft: '15%',
-              textAlign: 'start',
-              marginRight: '15%',
-              marginBottom: '10px',
-            }}
+                     style={{
+            marginLeft: '15%',
+            textAlign: 'start',
+            marginRight: '15%',
+            marginBottom: '10px',
+            border: '1px solid'
+          }}
+            headStyle={{ backgroundColor: '#EFEBEB' }}
           >
             <Row>
               <Col span={5}>
+
                 <Row>
                   <Text strong>{`Заказчик:\u00A0`}</Text>
                   <Text>{`${order.User.userName}`}</Text>
@@ -281,7 +285,7 @@ const AdminTab1 = () => {
         >
           {cleaners.map((cleaner) => (
             <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
-              {`${cleaner.name} | Работает с питомцами? - `}
+              {`${cleaner.name} ${cleaner.surname} | Работает с питомцами? - `}
               {cleaner.pets ? 'Да' : 'Нет'}
             </Option>
           ))}

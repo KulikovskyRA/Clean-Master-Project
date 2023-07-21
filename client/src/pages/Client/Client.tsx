@@ -1,12 +1,13 @@
-import * as React from 'react';
+import { useState } from "react";
 import styles from './ClientStyles.module.css';
 import Navbar from '../../components/Navbar/Navbar';
-import { Button, Space, ConfigProvider, Divider } from 'antd';
+import { Button, Space, ConfigProvider, Divider, Modal } from 'antd';
 import UserOrdersTabs from '../../components/UserOrdersTabs/UserOrdersTabs';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 import { useSelector } from "react-redux";
+import OrderForm from "../../components/OrderForm/OrderForm";
 
 const { Title } = Typography;
 
@@ -26,9 +27,23 @@ const userData: IUserData = {
 
 const Client: React.FC = () => {
   const user = useSelector((state: RootState) => state.authSlice.user);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} footer={false}>
+        <OrderForm/>
+      </Modal>
       <Navbar/>
       <ConfigProvider
         theme={{
@@ -50,7 +65,7 @@ const Client: React.FC = () => {
             <div className={styles.userInfoDiv}>
               <Title>Рады видеть вас, {user.name}!</Title>
               <Title level={3}>Пора навести чистоту?</Title>
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" onClick={showModal}>
                 Заказать уборку
               </Button>
               <Space></Space>

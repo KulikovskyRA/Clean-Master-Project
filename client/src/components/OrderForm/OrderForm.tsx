@@ -29,17 +29,17 @@ const OrderForm = () => {
 
   const user = useSelector((state) => state.authSlice.user);
 
-  const [formServices, setFormServices] = useState({});
+  const [ formServices, setFormServices ] = useState({});
 
-  const [services, setServices] = useState([]);
+  const [ services, setServices ] = useState([]);
 
-  const [prices, setPrices] = useState({});
+  const [ prices, setPrices ] = useState({});
 
-  const [step, setStep] = useState(0);
+  const [ step, setStep ] = useState(0);
 
-  const [total, setTotal] = useState(0);
+  const [ total, setTotal ] = useState(0);
 
-  const [formData, setFormData] = useState({
+  const [ formData, setFormData ] = useState({
     date: futureDates[0],
     time: futureTimes[0],
   });
@@ -141,7 +141,11 @@ const OrderForm = () => {
     );
 
     if (responseAddOrder.ok) {
-      navigate('/client');
+      if (window.location.pathname === "/client") {
+        navigate(0);
+      } else {
+        navigate('/client');
+      }
     }
   };
 
@@ -157,12 +161,13 @@ const OrderForm = () => {
     >
       <Row justify="center">
         <Text
+          id="formtitel"
           style={{ fontSize: '40px', fontWeight: 'bold', marginBottom: -40 }}
         >
           ФОРМА ЗАКАЗА
         </Text>
       </Row>
-      <div className={styles.orderFormDiv}>
+      <div id="formorder" className={styles.orderFormDiv}>
         <Col style={{ width: 550 }}>
           {step === 0 && (
             <>
@@ -180,16 +185,16 @@ const OrderForm = () => {
                       <Button.Group size="large">
                         {formServices[el.id] > 0 ? (
                           <Button onClick={() => handleDecrement(el)}>
-                            <MinusOutlined />
+                            <MinusOutlined/>
                           </Button>
                         ) : (
                           <Button disabled>
-                            <MinusOutlined />
+                            <MinusOutlined/>
                           </Button>
                         )}
                         <Button>{formServices[el.id]}</Button>
                         <Button onClick={() => handleIncrement(el)}>
-                          <PlusOutlined />
+                          <PlusOutlined/>
                         </Button>
                       </Button.Group>
                     </Row>
@@ -201,6 +206,7 @@ const OrderForm = () => {
               </Row>
               <Row justify="center" style={{ marginBottom: 35, marginTop: 10 }}>
                 <select
+                  id="dateinput"
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
@@ -218,6 +224,7 @@ const OrderForm = () => {
                 </select>
 
                 <select
+                  id="dateinput"
                   value={formData.time}
                   name="time"
                   onChange={handleChange}
@@ -232,7 +239,6 @@ const OrderForm = () => {
               </Row>
               <Row justify="center">
                 <Button.Group size="large">
-                  <Button disabled>НАЗАД</Button>
                   <Button type="primary" onClick={handleNextStep}>
                     ДАЛЕЕ
                   </Button>
@@ -322,8 +328,17 @@ const OrderForm = () => {
               </Row>
               <Row justify="center">
                 <Button.Group size="large">
-                  <Button onClick={handlePrevStep}>НАЗАД</Button>
-                  <Button type="primary" onClick={handleNextStep}>
+                  <Button
+                    style={{ height: '42px', boxSizing: 'box' }}
+                    onClick={handlePrevStep}
+                  >
+                    НАЗАД
+                  </Button>
+                  <Button
+                    style={{ border: 'none' }}
+                    type="primary"
+                    onClick={handleNextStep}
+                  >
                     ДАЛЕЕ
                   </Button>
                 </Button.Group>
@@ -353,7 +368,7 @@ const OrderForm = () => {
                       value={formData.email}
                     />
                   </Row>
-                  <Divider style={{ marginTop: 0, marginBottom: 2 }} />
+                  <Divider style={{ marginTop: 0, marginBottom: 2 }}/>
                 </>
               )}
               <Row justify="center">
@@ -392,7 +407,9 @@ const OrderForm = () => {
               </Row>
               <Row justify="center" style={{ marginBottom: 20, marginTop: 50 }}>
                 <Button.Group size="large">
-                  <Button onClick={handlePrevStep}>НАЗАД</Button>
+                  <Button style={{ height: '42px' }} onClick={handlePrevStep}>
+                    НАЗАД
+                  </Button>
                   <Button type="primary" onClick={handleSubmit}>
                     ОФОРМИТЬ ЗАКАЗ
                   </Button>

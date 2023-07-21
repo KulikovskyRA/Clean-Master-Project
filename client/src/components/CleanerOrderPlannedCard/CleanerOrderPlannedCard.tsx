@@ -71,7 +71,7 @@ const CleanerOrderPlannedCard = ({ orderData }) => {
           </Row>
           <Row>
             <Text strong>{`Вы заработаете:\u00A0`}</Text>
-            <Text> {Math.floor(orderData.price * 0.2)} UZS</Text>
+            <Text> {Math.floor(orderData.price * 0.7)} UZS</Text>
           </Row>
         </Col>
         <Col span={10}>

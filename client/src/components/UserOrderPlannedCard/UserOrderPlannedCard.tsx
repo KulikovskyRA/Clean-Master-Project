@@ -10,18 +10,16 @@ const UserOrderPlannedCard = ({ orderData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  const dateOptions = futureDates.map((el) => {
-    return {
-      value: `${el}`,
-      label: el.toLocaleString('ru', {
-        day: 'numeric',
-        month: 'long',
-        weekday: 'long',
-      }),
-    };
-  });
+  const dateOptions = futureDates.map((el) => ({
+    value: `${el}`,
+    label: el.toLocaleString('ru', {
+      day: 'numeric',
+      month: 'long',
+      weekday: 'long',
+    }),
+  }));
 
-  const timeOptions = futureTimes.map((el, i) => ({ label: el, value: el }));
+  const timeOptions = futureTimes.map((el) => ({ label: el, value: el }));
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,12 +34,12 @@ const UserOrderPlannedCard = ({ orderData }) => {
   };
 
   const { id, address, OrderServices, info, price } = orderData;
-
+  console.log('ORDERDATA|||||||||||', orderData.Cleaner);
   const [cleaningTime, setCleaningTime] = useState(orderData.cleaningTime);
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values) => {
     try {
       const res = await axios.put(`${VITE_URL}order/editorder`, {
         withCredentials: true,
@@ -57,11 +55,11 @@ const UserOrderPlannedCard = ({ orderData }) => {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  const handleChange = (value: string) => {
+  const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
 
@@ -70,7 +68,6 @@ const UserOrderPlannedCard = ({ orderData }) => {
     try {
       const res = await axios.delete(`${VITE_URL}order/cancelorder/${id}`, {
         withCredentials: true,
-        id,
       });
     } catch (error) {
       console.log(error);
@@ -87,7 +84,12 @@ const UserOrderPlannedCard = ({ orderData }) => {
             month: 'long',
             weekday: 'long',
           })})`}
-          style={{ width: '100%', border: '1px solid' }}
+          style={{
+            width: '100%',
+            border: '1px solid',
+            position: 'relative',
+            marginBottom: '10px',
+          }}
           headStyle={{ backgroundColor: '#B4C8DD' }}
         >
           <p>
@@ -117,31 +119,31 @@ const UserOrderPlannedCard = ({ orderData }) => {
                 )
               )}
             </ul>
-
-            {OrderServices.length !== 0 && (
-              <>
-                <b>Дополнительные услуги:</b>
-                <ul>
-                  {OrderServices.filter(
-                    (el) =>
-                      el.Service.single === false &&
-                      el.Service.default === false
-                  ).map((el, i) => (
-                    <li key={i}>
-                      {el.Service.title} {el.amount}
-                    </li>
-                  ))}
-
-                  {OrderServices.filter(
-                    (el) =>
-                      el.Service.single === true && el.Service.default === false
-                  ).map((el, i) => (
-                    <li key={i}>{el.Service.title}</li>
-                  ))}
-                </ul>
-              </>
-            )}
           </p>
+
+          {OrderServices.length !== 0 && (
+            <>
+              <b>Дополнительные услуги:</b>
+              <ul>
+                {OrderServices.filter(
+                  (el) =>
+                    el.Service.single === false && el.Service.default === false
+                ).map((el, i) => (
+                  <li key={i}>
+                    {el.Service.title} {el.amount}
+                  </li>
+                ))}
+
+                {OrderServices.filter(
+                  (el) =>
+                    el.Service.single === true && el.Service.default === false
+                ).map((el, i) => (
+                  <li key={i}>{el.Service.title}</li>
+                ))}
+              </ul>
+            </>
+          )}
+
           <p>
             <b>Комментарий к заказу:</b> {info}
           </p>
@@ -149,21 +151,45 @@ const UserOrderPlannedCard = ({ orderData }) => {
             <b>Стоимость уборки:</b> {price} UZS
           </p>
 
-          {/*<Avatar*/}
-          {/*  style={{*/}
-          {/*    marginLeft: "50px",*/}
-          {/*    marginTop: "-200px",*/}
-          {/*    marginRight: "30px",*/}
-          {/*  }}*/}
-          {/*  size={100}*/}
-          {/*  icon={<UserOutlined/>}*/}
-          {/*/>*/}
-          {/*<p style={{ marginLeft: "45px", marginTop: "-80px" }}>Ищем клинера</p>*/}
+          <div
+            className="avatarDiv"
+            style={{
+              marginLeft: '76%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              top: '55%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            {orderData.Cleaner ? (
+              <>
+                {orderData.Cleaner?.img ? (
+                  <Avatar
+                    size={170}
+                    src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}
+                  />
+                ) : (
+                  <Avatar size={170} icon={<UserOutlined />} />
+                )}
+
+                <p>{orderData.Cleaner.name}</p>
+              </>
+            ) : (
+              <>
+                <Avatar size={170} icon={<UserOutlined />} />
+                <p>Ищем клинера</p>
+              </>
+            )}
+          </div>
+
           <Space>
-            <Button type="primary" size="medium" onClick={showModal}>
+            <Button type="primary" onClick={showModal}>
               Перенести
             </Button>
-            <Button type="default" size="medium" onClick={cancelHandleOrder}>
+            <Button type="default" onClick={cancelHandleOrder}>
               Отменить
             </Button>
           </Space>
@@ -173,7 +199,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
               month: 'long',
               weekday: 'long',
             })})`}
-            open={isModalOpen}
+            visible={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={false}

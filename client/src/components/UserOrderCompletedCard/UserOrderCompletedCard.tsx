@@ -6,12 +6,16 @@ import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
 
+import OrderAsses from '../OrderAsses/OrderAsses';
+import { UserOutlined } from '@ant-design/icons';
+
 const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
   const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
@@ -39,6 +43,18 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const showRatingModal = () => {
+    setIsRatingModalOpen(true);
+  };
+
+  const handleRatingOk = () => {
+    setIsRatingModalOpen(false);
+  };
+
+  const handleRatingCancel = () => {
+    setIsRatingModalOpen(false);
   };
 
   const onFinish = async (values: any) => {
@@ -75,7 +91,12 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         month: 'long',
         weekday: 'long',
       })})`}
-      style={{ width: '100%', border: '1px solid' }}
+      style={{
+        width: '100%',
+        marginBottom: '10px',
+        border: '1px solid',
+        position: 'relative',
+      }}
       headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <p>
@@ -137,21 +158,43 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         <b>Стоимость уборки:</b> {price} UZS
       </p>
 
-      {/* <Avatar
+      <div
+        className="avatarDiv"
         style={{
-          marginLeft: "50px",
-          marginTop: "-200px",
-          marginRight: "30px",
+          marginLeft: '76%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: '55%',
+          transform: 'translateY(-50%)',
         }}
-        size={100}
-        icon={<UserOutlined />}
-      />
-      <p style={{ marginLeft: "45px", marginTop: "-80px" }}>Ищем клинера</p> */}
+      >
+        {orderData.Cleaner ? (
+          <>
+            {orderData.Cleaner?.img ? (
+              <Avatar
+                size={170}
+                src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}
+              />
+            ) : (
+              <Avatar size={170} icon={<UserOutlined />} />
+            )}
+            <p>{orderData.Cleaner.name}</p>
+          </>
+        ) : (
+          <>
+            <Avatar size={170} icon={<UserOutlined />} />
+          </>
+        )}
+      </div>
+
       <Space>
         <Button type="primary" size="medium" onClick={showModal}>
           Повторить уборку
         </Button>
-        <Button type="default" size="medium">
+        <Button type="default" size="medium" onClick={showRatingModal}>
           Оценить
         </Button>
       </Space>
@@ -183,7 +226,7 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
                 month: 'long',
                 weekday: 'long',
               })}
-              style={{ width: 120 }}
+              style={{ width: 250 }}
               onChange={handleChange}
               options={dateOptions}
             />
@@ -207,6 +250,18 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+      <Modal
+        title={`Заявка # ${id} (${date.toLocaleString('ru', {
+          day: 'numeric',
+          month: 'long',
+          weekday: 'long',
+        })})`}
+        open={isRatingModalOpen}
+        onOk={handleRatingOk}
+        onCancel={handleRatingCancel}
+      >
+        <OrderAsses id={id} />
       </Modal>
     </Card>
   );

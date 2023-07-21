@@ -40,7 +40,7 @@ export default function LandingCleaner() {
                 type="primary"
                 size="large"
                 icon={<FormOutlined />}
-                href="/cleanerRegForm"
+                href="#cleanerRegForm"
                 target="_self"
               >
                 Заполнить анкету
@@ -119,7 +119,6 @@ export default function LandingCleaner() {
           <div className={styles.cleanerRegistrationDiv} id="cleanerRegForm">
             <CleanerRegister />
           </div>
-
         </Space>
 
         <CleanerFooter />
