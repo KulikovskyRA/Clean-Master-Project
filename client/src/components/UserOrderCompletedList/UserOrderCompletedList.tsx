@@ -48,6 +48,6 @@ const UserOrderCompletedList = () => {
         .map(el => <UserOrderCompletedCard orderData={el} key={el.id}/>)}
     </>);
 
-};
+}; 
 
 export default UserOrderCompletedList;
