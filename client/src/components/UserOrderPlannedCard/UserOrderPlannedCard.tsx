@@ -7,8 +7,8 @@ import { futureDates, futureTimes } from "../OrderForm/orderdates.js";
 const { VITE_URL } = import.meta.env;
 
 const UserOrderPlannedCard = ({ orderData }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ isVisible, setIsVisible ] = useState(true);
 
   const dateOptions = futureDates.map((el) => ({
     value: `${el}`,
@@ -33,9 +33,10 @@ const UserOrderPlannedCard = ({ orderData }) => {
     setIsModalOpen(false);
   };
 
+
   const { id, address, OrderServices, info, price } = orderData;
 
-  const [cleaningTime, setCleaningTime] = useState(orderData.cleaningTime);
+  const [ cleaningTime, setCleaningTime ] = useState(orderData.cleaningTime);
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
 
@@ -225,6 +226,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
               </Form.Item>
             </Form>
           </Modal>
+
         </Card>
       )}
     </div>

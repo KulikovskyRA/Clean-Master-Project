@@ -29,17 +29,17 @@ const OrderForm = () => {
 
   const user = useSelector((state) => state.authSlice.user);
 
-  const [formServices, setFormServices] = useState({});
+  const [ formServices, setFormServices ] = useState({});
 
-  const [services, setServices] = useState([]);
+  const [ services, setServices ] = useState([]);
 
-  const [prices, setPrices] = useState({});
+  const [ prices, setPrices ] = useState({});
 
-  const [step, setStep] = useState(0);
+  const [ step, setStep ] = useState(0);
 
-  const [total, setTotal] = useState(0);
+  const [ total, setTotal ] = useState(0);
 
-  const [formData, setFormData] = useState({
+  const [ formData, setFormData ] = useState({
     date: futureDates[0],
     time: futureTimes[0],
   });
@@ -141,7 +141,11 @@ const OrderForm = () => {
     );
 
     if (responseAddOrder.ok) {
-      navigate('/client');
+      if (window.location.pathname === "/client") {
+        navigate(0);
+      } else {
+        navigate('/client');
+      }
     }
   };
 
@@ -180,16 +184,16 @@ const OrderForm = () => {
                       <Button.Group size="large">
                         {formServices[el.id] > 0 ? (
                           <Button onClick={() => handleDecrement(el)}>
-                            <MinusOutlined />
+                            <MinusOutlined/>
                           </Button>
                         ) : (
                           <Button disabled>
-                            <MinusOutlined />
+                            <MinusOutlined/>
                           </Button>
                         )}
                         <Button>{formServices[el.id]}</Button>
                         <Button onClick={() => handleIncrement(el)}>
-                          <PlusOutlined />
+                          <PlusOutlined/>
                         </Button>
                       </Button.Group>
                     </Row>
@@ -353,7 +357,7 @@ const OrderForm = () => {
                       value={formData.email}
                     />
                   </Row>
-                  <Divider style={{ marginTop: 0, marginBottom: 2 }} />
+                  <Divider style={{ marginTop: 0, marginBottom: 2 }}/>
                 </>
               )}
               <Row justify="center">

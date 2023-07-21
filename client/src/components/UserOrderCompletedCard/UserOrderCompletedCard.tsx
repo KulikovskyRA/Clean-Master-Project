@@ -5,14 +5,18 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
+
+import OrderAsses from "../OrderAsses/OrderAsses";
 import { UserOutlined } from '@ant-design/icons';
+
 
 const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
   const navigate = useNavigate();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ isRatingModalOpen, setIsRatingModalOpen ] = useState(false);
   const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
@@ -40,6 +44,18 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const showRatingModal = () => {
+    setIsRatingModalOpen(true);
+  };
+
+  const handleRatingOk = () => {
+    setIsRatingModalOpen(false);
+  };
+
+  const handleRatingCancel = () => {
+    setIsRatingModalOpen(false);
   };
 
   const onFinish = async (values: any) => {
@@ -160,8 +176,8 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         <Button type="primary" size="medium" onClick={showModal}>
           Повторить уборку
         </Button>
-        <Button type="default" size="medium">
-          Оценить качество уборки
+        <Button type="default" size="medium" onClick={showRatingModal}>
+          Оценить
         </Button>
       </Space>
       <Modal
@@ -216,6 +232,18 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+      <Modal
+        title={`Заявка # ${id} (${date.toLocaleString('ru', {
+          day: 'numeric',
+          month: 'long',
+          weekday: 'long',
+        })})`}
+        open={isRatingModalOpen}
+        onOk={handleRatingOk}
+        onCancel={handleRatingCancel}
+      >
+        <OrderAsses id={id}/>
       </Modal>
     </Card>
   );
