@@ -29,8 +29,8 @@ const StatCard = () => {
       title="Данные по заказам:"
       style={{
         marginLeft: '26%',
-        marginRight: '28%',
-        border: '1px solid'
+        marginRight: '26%',
+        border: '1px solid',
       }}
       headStyle={{ backgroundColor: '#EFEBEB' }}
     >
