@@ -28,8 +28,8 @@ const StatCard = () => {
     <Card
       title="Данные по заказам:"
       style={{
-        marginLeft: '28%',
-        marginRight: '28%',
+        marginLeft: '26%',
+        marginRight: '26%',
       }}
     >
       <Row>
