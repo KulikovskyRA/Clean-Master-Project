@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
+import { UserOutlined } from '@ant-design/icons';
 
 const { VITE_URL } = import.meta.env;
 
@@ -74,7 +75,7 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         month: 'long',
         weekday: 'long',
       })})`}
-      style={{ width: '100%', }}
+      style={{ width: '100%', marginBottom: "10px", border: "1px solid", position:"relative" }}
       headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <p>
@@ -136,22 +137,30 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         <b>Стоимость уборки:</b> {price} UZS
       </p>
 
-      {/* <Avatar
-        style={{
-          marginLeft: "50px",
-          marginTop: "-200px",
-          marginRight: "30px",
-        }}
-        size={100}
-        icon={<UserOutlined />}
-      />
-      <p style={{ marginLeft: "45px", marginTop: "-80px" }}>Ищем клинера</p> */}
+      <div className="avatarDiv"
+            style={{
+              marginLeft: "76%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+              top: "55%",
+              transform: "translateY(-50%)"
+            }}
+          >
+            <Avatar size={170} icon={<UserOutlined />} />
+            <p>
+ИМЯ КЛИНЕРА
+            </p>
+          </div>
+          
       <Space>
         <Button type="primary" size="medium" onClick={showModal}>
           Повторить уборку
         </Button>
         <Button type="default" size="medium">
-          Оценить
+          Оценить качество уборки
         </Button>
       </Space>
       <Modal
