@@ -157,8 +157,8 @@ const AdminTab2 = () => {
         style={{
           marginLeft: '26%',
           marginTop: '10px',
-          marginRight: '28%',
-          border: '1px solid'
+          marginRight: '26%',
+          border: '1px solid',
         }}
         headStyle={{ backgroundColor: '#EFEBEB' }}
       >
@@ -207,7 +207,7 @@ const AdminTab2 = () => {
           </Col>
         </Row>
       </Card>
-      <div style={{height: '40px'}}></div>
+      <div style={{ height: '40px' }}></div>
 
       <Modal
         title="Изменение услуги:"
