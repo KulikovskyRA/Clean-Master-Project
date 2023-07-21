@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -38,14 +38,8 @@ const UserLogin = () => {
             phoneNumber: result.user.phoneNumber,
           })
         );
-        navigate('/client');
-        // } else {
-        //   authReducer({
-        //     type: '',
-        //     name: '',
-        //     id: 0,
-        //     email: '',
-        //   });
+        navigate(0);
+
         setTimeout(() => {
           setMessage('');
         }, 3000);
@@ -60,8 +54,8 @@ const UserLogin = () => {
     <Form
       name="basic"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
+      // wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 700 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -69,28 +63,27 @@ const UserLogin = () => {
     >
       <h1>{message}</h1>
       <Form.Item
-        label="Email"
+        // label="Email"
         name="email"
         rules={[
           {
             type: 'email',
             required: true,
-            message: 'Please input your username!',
+            message: 'Пожалуйста, введите электронную почту',
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Введите электронную почту:" />
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        // label="Password"
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: 'Вы забыли ввести пароль' }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Введите пароль:" />
       </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 15, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Войти
         </Button>
