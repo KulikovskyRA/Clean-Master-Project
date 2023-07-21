@@ -7,16 +7,19 @@ export default function CleanerCard({ cleaner }) {
   useEffect(() => {
     let count = 0;
     let divider = 0;
-    cleaner.Orders.forEach((el) => {
+
+    const ordersDone = cleaner.Orders.filter((el) => el.rating !== null);
+    console.log(ordersDone);
+
+    ordersDone.forEach((el) => {
       count += el.rating;
-      divider += 1;
     });
 
     let totalRating;
-    if (divider === 0) {
+    if (!ordersDone.length) {
       totalRating = 0;
     } else {
-      totalRating = count / divider;
+      totalRating = count / ordersDone.length;
     }
 
     setTotalRating(totalRating);

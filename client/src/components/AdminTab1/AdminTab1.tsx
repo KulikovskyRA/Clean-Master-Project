@@ -146,110 +146,115 @@ const AdminTab1 = () => {
 
   return (
     <>
-      {orders.map((order) => (
-        <Card
-          title={`Заказ №${order.id}: ${moment(order.cleaningTime).format(
-            'HH:mm:ss DD.MM.YYYY'
-          )}`}
-          key={`order${order.id}`}
-          style={{
-            marginLeft: '15%',
-            textAlign: 'start',
-            marginRight: '15%',
-            marginBottom: '10px',
-          }}
-        >
-          <Row>
-            <Col span={5}>
-              <Row>
-                <Text strong>{`Заказчик:\u00A0`}</Text>
-                <Text>{`${order.User.userName}`}</Text>
-              </Row>
-
-              <Row>
+      {orders
+        .sort(function (x, y) {
+          //! Сотрировка по выполненности
+          return y.done === x.done ? 0 : y.done ? -1 : 1;
+        })
+        .map((order) => (
+          <Card
+            title={`Заказ №${order.id}: ${moment(order.cleaningTime).format(
+              'HH:mm:ss DD.MM.YYYY'
+            )}`}
+            key={`order${order.id}`}
+            style={{
+              marginLeft: '15%',
+              textAlign: 'start',
+              marginRight: '15%',
+              marginBottom: '10px',
+            }}
+          >
+            <Row>
+              <Col span={5}>
                 <Row>
-                  <Text strong>{`Цена:\u00A0`}</Text>
-                  <Text>{`${order.price}`}</Text>
+                  <Text strong>{`Заказчик:\u00A0`}</Text>
+                  <Text>{`${order.User.userName}`}</Text>
                 </Row>
-                <EditOutlined
-                  style={{ marginLeft: '3px' }}
-                  onClick={() => showPriceModal(order.id)}
-                />
-              </Row>
-            </Col>
 
-            <Col span={9}>
-              <Row>
-                <Text strong>{`Адрес:\u00A0`}</Text>
-                <Text>{`${order.address}`}</Text>
-              </Row>
-              <Text strong style={{ padding: 0, margin: 0 }}>
-                Услуги:
-              </Text>
-              <div style={{ marginLeft: 20 }}>
-                {order.OrderServices.map((OS) => (
-                  <Row key={`os${OS.id}`}>
-                    <Text strong>{`${OS.Service.title}:\u00A0`}</Text>
-                    <Text>{`${OS.amount}`}</Text>
-                  </Row>
-                ))}
-              </div>
-            </Col>
-
-            {order.done ? (
-              <Col span={4}>
-                <Text strong>{`Заказ выполнен!`}</Text>
                 <Row>
-                  <Text strong>{`Рейтинг:\u00A0`}</Text>
-                  <Text>{`${order.rating}`}</Text>
-                </Row>
-              </Col>
-            ) : (
-              <Col span={4}>
-                <Text strong>{`Заказ ожидает выполнения`}</Text>
-              </Col>
-            )}
-
-            <Col span={5}>
-              {order.Cleaner ? (
-                <>
                   <Row>
-                    <Text strong>{`Клинер:\u00A0`}</Text>
-                    <Text>{`${order.Cleaner.name}`}</Text>
+                    <Text strong>{`Цена:\u00A0`}</Text>
+                    <Text>{`${order.price}`}</Text>
                   </Row>
+                  <EditOutlined
+                    style={{ marginLeft: '3px' }}
+                    onClick={() => showPriceModal(order.id)}
+                  />
+                </Row>
+              </Col>
 
-                  {!order.done && (
-                    <Button type="dashed" onClick={() => showModal(order.id)}>
-                      Изменить
-                    </Button>
-                  )}
-                </>
+              <Col span={9}>
+                <Row>
+                  <Text strong>{`Адрес:\u00A0`}</Text>
+                  <Text>{`${order.address}`}</Text>
+                </Row>
+                <Text strong style={{ padding: 0, margin: 0 }}>
+                  Услуги:
+                </Text>
+                <div style={{ marginLeft: 20 }}>
+                  {order.OrderServices.map((OS) => (
+                    <Row key={`os${OS.id}`}>
+                      <Text strong>{`${OS.Service.title}:\u00A0`}</Text>
+                      <Text>{`${OS.amount}`}</Text>
+                    </Row>
+                  ))}
+                </div>
+              </Col>
+
+              {order.done ? (
+                <Col span={4}>
+                  <Text strong>{`Заказ выполнен!`}</Text>
+                  <Row>
+                    <Text strong>{`Рейтинг:\u00A0`}</Text>
+                    <Text>{`${order.rating}`}</Text>
+                  </Row>
+                </Col>
               ) : (
-                <>
-                  <Text strong>{`Клинер не назначен!`}</Text>
-                  {!order.done && (
-                    <Button onClick={() => showModal(order.id)}>
-                      Назначить
-                    </Button>
-                  )}
-                </>
+                <Col span={4}>
+                  <Text strong>{`Заказ ожидает выполнения`}</Text>
+                </Col>
               )}
 
-              {!order.done && (
-                <Button
-                  onClick={() => deleteOrder(order.id)}
-                  danger
-                  style={{
-                    margin: '5px',
-                  }}
-                >
-                  Удалить
-                </Button>
-              )}
-            </Col>
-          </Row>
-        </Card>
-      ))}
+              <Col span={5}>
+                {order.Cleaner ? (
+                  <>
+                    <Row>
+                      <Text strong>{`Клинер:\u00A0`}</Text>
+                      <Text>{`${order.Cleaner.name}`}</Text>
+                    </Row>
+
+                    {!order.done && (
+                      <Button type="dashed" onClick={() => showModal(order.id)}>
+                        Изменить
+                      </Button>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Text strong>{`Клинер не назначен!`}</Text>
+                    {!order.done && (
+                      <Button onClick={() => showModal(order.id)}>
+                        Назначить
+                      </Button>
+                    )}
+                  </>
+                )}
+
+                {!order.done && (
+                  <Button
+                    onClick={() => deleteOrder(order.id)}
+                    danger
+                    style={{
+                      margin: '5px',
+                    }}
+                  >
+                    Удалить
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </Card>
+        ))}
 
       {/* Модалка изменения цены */}
       <Modal
@@ -276,7 +281,7 @@ const AdminTab1 = () => {
         >
           {cleaners.map((cleaner) => (
             <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
-              {`${cleaner.name}/${cleaner.nation}/Животные? - `}
+              {`${cleaner.name} | Работает с питомцами? - `}
               {cleaner.pets ? 'Да' : 'Нет'}
             </Option>
           ))}
