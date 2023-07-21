@@ -1,21 +1,21 @@
-import { useState } from "react";
-import axios from "axios";
-import { Avatar, Button, Card, Space, Modal, Form, Input, Select } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { futureDates, futureTimes } from "../OrderForm/orderdates.js";
+import { useState } from 'react';
+import axios from 'axios';
+import { Avatar, Button, Card, Space, Modal, Form, Input, Select } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { futureDates, futureTimes } from '../OrderForm/orderdates.js';
 
 const { VITE_URL } = import.meta.env;
 
 const UserOrderPlannedCard = ({ orderData }) => {
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ isVisible, setIsVisible ] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const dateOptions = futureDates.map((el) => ({
     value: `${el}`,
-    label: el.toLocaleString("ru", {
-      day: "numeric",
-      month: "long",
-      weekday: "long",
+    label: el.toLocaleString('ru', {
+      day: 'numeric',
+      month: 'long',
+      weekday: 'long',
     }),
   }));
 
@@ -33,10 +33,9 @@ const UserOrderPlannedCard = ({ orderData }) => {
     setIsModalOpen(false);
   };
 
-
   const { id, address, OrderServices, info, price } = orderData;
   console.log('ORDERDATA|||||||||||', orderData.Cleaner);
-  const [ cleaningTime, setCleaningTime ] = useState(orderData.cleaningTime);
+  const [cleaningTime, setCleaningTime] = useState(orderData.cleaningTime);
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
 
@@ -57,7 +56,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   const handleChange = (value) => {
@@ -80,24 +79,29 @@ const UserOrderPlannedCard = ({ orderData }) => {
     <div>
       {isVisible && (
         <Card
-          title={`Заявка # ${id} (${date.toLocaleString("ru", {
-            day: "numeric",
-            month: "long",
-            weekday: "long",
+          title={`Заявка # ${id} (${date.toLocaleString('ru', {
+            day: 'numeric',
+            month: 'long',
+            weekday: 'long',
           })})`}
-          style={{ width: "100%", border: "1px solid", position: "relative", marginBottom: "10px" }}
-          headStyle={{ backgroundColor: "#B4C8DD" }}
+          style={{
+            width: '100%',
+            border: '1px solid',
+            position: 'relative',
+            marginBottom: '10px',
+          }}
+          headStyle={{ backgroundColor: '#B4C8DD' }}
         >
           <p>
-            <b>Время уборки:</b>{" "}
-            {date.toLocaleString("ru", {
-              hour: "numeric",
-              minute: "numeric",
-            })}{" "}
-            -{" "}
-            {endTime.toLocaleString("ru", {
-              hour: "numeric",
-              minute: "numeric",
+            <b>Время уборки:</b>{' '}
+            {date.toLocaleString('ru', {
+              hour: 'numeric',
+              minute: 'numeric',
+            })}{' '}
+            -{' '}
+            {endTime.toLocaleString('ru', {
+              hour: 'numeric',
+              minute: 'numeric',
             })}
           </p>
           <p>
@@ -147,33 +151,38 @@ const UserOrderPlannedCard = ({ orderData }) => {
             <b>Стоимость уборки:</b> {price} UZS
           </p>
 
-          <div className="avatarDiv"
-               style={{
-                 marginLeft: "76%",
-                 display: "flex",
-                 flexDirection: "column",
-                 justifyContent: "center",
-                 alignItems: "center",
-                 position: "absolute",
-                 top: "55%",
-                 transform: "translateY(-50%)"
-               }}
+          <div
+            className="avatarDiv"
+            style={{
+              marginLeft: '76%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              top: '55%',
+              transform: 'translateY(-50%)',
+            }}
           >
-            {orderData.Cleaner ?
+            {orderData.Cleaner ? (
               <>
-                <Avatar size={170} src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}/>
-                <p>
-                  {orderData.Cleaner.name}
-                </p>
-              </> :
+                {orderData.Cleaner?.img ? (
+                  <Avatar
+                    size={170}
+                    src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}
+                  />
+                ) : (
+                  <Avatar size={170} icon={<UserOutlined />} />
+                )}
+
+                <p>{orderData.Cleaner.name}</p>
+              </>
+            ) : (
               <>
-                <Avatar size={170} icon={<UserOutlined/>}/>
-                <p>
-                  Ищем клинера
-                </p>
-              </>}
-
-
+                <Avatar size={170} icon={<UserOutlined />} />
+                <p>Ищем клинера</p>
+              </>
+            )}
           </div>
 
           <Space>
@@ -185,10 +194,10 @@ const UserOrderPlannedCard = ({ orderData }) => {
             </Button>
           </Space>
           <Modal
-            title={`Заявка # ${id} (${date.toLocaleString("ru", {
-              day: "numeric",
-              month: "long",
-              weekday: "long",
+            title={`Заявка # ${id} (${date.toLocaleString('ru', {
+              day: 'numeric',
+              month: 'long',
+              weekday: 'long',
             })})`}
             visible={isModalOpen}
             onOk={handleOk}
@@ -207,10 +216,10 @@ const UserOrderPlannedCard = ({ orderData }) => {
             >
               <Form.Item label="Дата" name="date">
                 <Select
-                  defaultValue={date.toLocaleString("ru", {
-                    day: "numeric",
-                    month: "long",
-                    weekday: "long",
+                  defaultValue={date.toLocaleString('ru', {
+                    day: 'numeric',
+                    month: 'long',
+                    weekday: 'long',
                   })}
                   style={{ width: 120 }}
                   onChange={handleChange}
@@ -220,9 +229,9 @@ const UserOrderPlannedCard = ({ orderData }) => {
 
               <Form.Item label="Время" name="time">
                 <Select
-                  defaultValue={date.toLocaleString("ru", {
-                    hour: "numeric",
-                    minute: "numeric",
+                  defaultValue={date.toLocaleString('ru', {
+                    hour: 'numeric',
+                    minute: 'numeric',
                   })}
                   style={{ width: 120 }}
                   onChange={handleChange}
@@ -237,7 +246,6 @@ const UserOrderPlannedCard = ({ orderData }) => {
               </Form.Item>
             </Form>
           </Modal>
-
         </Card>
       )}
     </div>
