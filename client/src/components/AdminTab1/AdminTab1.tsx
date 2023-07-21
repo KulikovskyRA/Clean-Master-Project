@@ -281,7 +281,7 @@ const AdminTab1 = () => {
         >
           {cleaners.map((cleaner) => (
             <Option key={`cleaner${cleaner.id}`} value={cleaner.id}>
-              {`${cleaner.name} | Работает с питомцами? - `}
+              {`${cleaner.name} ${cleaner.surname} | Работает с питомцами? - `}
               {cleaner.pets ? 'Да' : 'Нет'}
             </Option>
           ))}

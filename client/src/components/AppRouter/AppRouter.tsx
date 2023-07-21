@@ -26,8 +26,8 @@ const AppRouter = () => {
         <Route path="/admin" Component={Admin} />
 
         <Route path="/adminlogin" Component={AdminLogin} />
-        <Route path="/register" Component={UserRegistration} />
-        <Route path="/login" Component={UserLogin} />
+        {/* <Route path="/register" Component={UserRegistration} /> */}
+        {/* <Route path="/login" Component={UserLogin} /> */}
 
         <Route path="/cleanlogin" Component={CleanerLogin} />
         {/* <Route path="/cleanregister" Component={CleanerRegister} /> */}

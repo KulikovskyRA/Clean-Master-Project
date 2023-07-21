@@ -1,6 +1,21 @@
 import { Link } from 'react-router-dom';
 import { LogoutOutlined } from '@ant-design/icons';
 
+import { useState, useEffect } from 'react';
+
+import UserLogin from '../UserLogin/UserLogin';
+import UserRegistration from '../UserRegistration/UserRegistration';
+
+import {
+  Button,
+  Checkbox,
+  Row,
+  Form,
+  Input,
+  ConfigProvider,
+  Modal,
+} from 'antd';
+
 const Navbar = () => {
   const handleLogout = () => {
     fetch(import.meta.env.VITE_URL + 'auth/logout', {
@@ -15,14 +30,97 @@ const Navbar = () => {
       });
   };
 
+  const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
+  const [isRegisterState, setIsRegisterState] = useState(false);
+
+  const handleLoginCancel = () => {
+    setIsModalLoginOpen(false);
+  };
+
+  const showLoginModal = () => {
+    setIsModalLoginOpen(true);
+  };
+
+  const changeModaltoRegister = () => {
+    setIsRegisterState(true);
+  };
+
+  const changeModaltoLogin = () => {
+    setIsRegisterState(false);
+  };
+
   return (
     <div className="nav">
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: 'black',
+            fontSize: 18,
+            colorLink: 'black',
+            colorLinkActive: 'black',
+            colorLinkHover: 'gray',
+          },
+        }}
+      >
+        <Modal
+          title="Введите свои данные:"
+          open={isModalLoginOpen}
+          onCancel={handleLoginCancel}
+          footer={null}
+        >
+          {!isRegisterState ? (
+            <>
+              <UserLogin />
+              <Button
+                style={{ position: 'absolute', bottom: 45, left: 60 }}
+                type="link"
+                onClick={changeModaltoRegister}
+              >
+                Нет аккаунта? Создать!
+              </Button>
+            </>
+          ) : (
+            <>
+              <UserRegistration />
+              <Button
+                style={{ position: 'absolute', bottom: 45, left: 60 }}
+                type="link"
+                onClick={changeModaltoLogin}
+              >
+                У меня уже есть аккаунт!
+              </Button>
+            </>
+          )}
+        </Modal>
+      </ConfigProvider>
+
       <Link className="nav-link" to="/">
         На главную
       </Link>
       <Link className="nav-link" to="/client">
         Личный кабинет
       </Link>
+
+      <ConfigProvider
+        theme={{
+          token: {
+            fontSize: 16,
+            // fontWeight: 600,
+            fontFamily: 'Roboto',
+            colorLink: 'black',
+            colorLinkActive: 'black',
+            colorLinkHover: 'black',
+          },
+        }}
+      >
+        <Button
+          type="link"
+          style={{ fontWeight: 600, paddingLeft: 0, paddingRight: 0 }}
+          onClick={showLoginModal}
+        >
+          Войти!
+        </Button>
+      </ConfigProvider>
 
       <button className="logout-btn " onClick={handleLogout}>
         <svg
