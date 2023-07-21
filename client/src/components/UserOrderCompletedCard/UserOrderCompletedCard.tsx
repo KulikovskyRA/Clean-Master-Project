@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const { VITE_URL } = import.meta.env;
 
 const UserOrderCompletedCard: React.FC = ({ orderData }) => {
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id, address, cleaningTime, OrderServices, info, price } = orderData;
   const date = new Date(cleaningTime);
@@ -40,7 +42,6 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
   };
 
   const onFinish = async (values: any) => {
-    const navigate = useNavigate();
     try {
       const res = await axios.post(
         `${VITE_URL}order/repeatorder`,
