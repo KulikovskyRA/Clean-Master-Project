@@ -52,7 +52,7 @@ const UserRegistration: React.FC = () => {
             phoneNumber: result.user.phoneNumber,
           })
         );
-        navigate('/client');
+        navigate(0);
       }
     } catch (error) {
       console.log(error);
