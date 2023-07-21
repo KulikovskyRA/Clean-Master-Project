@@ -45,7 +45,7 @@ module.exports.orders = async (req, res) => {
 };
 
 module.exports.userOrders = async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
 
   try {
     const { id } = req.session.user;
