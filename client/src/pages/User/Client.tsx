@@ -9,7 +9,7 @@ interface IUserData {
   email: string;
 }
 
-const userData: IUserData = {
+const userData: IUserData = { 
   name: 'Валентина',
   phone: '+7 000 000 00 00',
   email: 'email@example.com',

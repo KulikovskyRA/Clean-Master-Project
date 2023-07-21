@@ -74,7 +74,7 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         month: 'long',
         weekday: 'long',
       })})`}
-      style={{ width: '100%', border: '1px solid' }}
+      style={{ width: '100%', }}
       headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <p>

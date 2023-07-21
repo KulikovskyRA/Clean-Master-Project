@@ -31,6 +31,7 @@ export default function CleanerCard({ cleaner }) {
         marginRight: '10%',
         marginBottom: '10px',
         paddingLeft: '1%',
+        border: '1px solid'
       }}
     >
       <Row>

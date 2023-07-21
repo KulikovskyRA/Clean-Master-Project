@@ -157,7 +157,9 @@ const AdminTab1 = () => {
             textAlign: 'start',
             marginRight: '15%',
             marginBottom: '10px',
+            border: '1px solid'
           }}
+          headStyle={{ backgroundColor: '#EFEBEB' }}
         >
           <Row>
             <Col span={5}>
