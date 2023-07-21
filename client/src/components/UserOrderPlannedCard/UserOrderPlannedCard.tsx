@@ -35,7 +35,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
 
 
   const { id, address, OrderServices, info, price } = orderData;
-
+  console.log('ORDERDATA|||||||||||', orderData.Cleaner);
   const [ cleaningTime, setCleaningTime ] = useState(orderData.cleaningTime);
   const date = new Date(cleaningTime);
   const endTime = new Date(date.getTime() + 3 * 60 * 60 * 1000);
@@ -85,7 +85,7 @@ const UserOrderPlannedCard = ({ orderData }) => {
             month: "long",
             weekday: "long",
           })})`}
-          style={{ width: "100%", border: "1px solid", position:"relative", marginBottom: "10px" }}
+          style={{ width: "100%", border: "1px solid", position: "relative", marginBottom: "10px" }}
           headStyle={{ backgroundColor: "#B4C8DD" }}
         >
           <p>
@@ -148,21 +148,32 @@ const UserOrderPlannedCard = ({ orderData }) => {
           </p>
 
           <div className="avatarDiv"
-            style={{
-              marginLeft: "76%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "absolute",
-              top: "55%",
-              transform: "translateY(-50%)"
-            }}
+               style={{
+                 marginLeft: "76%",
+                 display: "flex",
+                 flexDirection: "column",
+                 justifyContent: "center",
+                 alignItems: "center",
+                 position: "absolute",
+                 top: "55%",
+                 transform: "translateY(-50%)"
+               }}
           >
-            <Avatar size={170} icon={<UserOutlined />} />
-            <p>
-              Ищем клинера
-            </p>
+            {orderData.Cleaner ?
+              <>
+                <Avatar size={170} src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}/>
+                <p>
+                  {orderData.Cleaner.name}
+                </p>
+              </> :
+              <>
+                <Avatar size={170} icon={<UserOutlined/>}/>
+                <p>
+                  Ищем клинера
+                </p>
+              </>}
+
+
           </div>
 
           <Space>

@@ -48,11 +48,16 @@ module.exports.userOrders = async (req, res) => {
   // console.log(req.session);
   
   try {
-    const { id } = req.session.user;
+    const id = req?.session?.user?.id ?? 0;
+
+    if (!id) {
+      return res.sendStatus(403);
+    }
+
     const allOrders = await Order.findAll({
       where: { user_id: id },
       include: [
-        { model: Cleaner, attributes: ['name'] },
+        { model: Cleaner, attributes: ['name', 'img'] },
         { model: User, attributes: ['userName'] },
         {
           model: OrderService,

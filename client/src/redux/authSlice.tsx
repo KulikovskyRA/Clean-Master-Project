@@ -16,11 +16,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     checkAuthReducer(state, action) {
+      // console.log(action.payload);
       if (action.payload.user) {
-        state.user.name = action.payload.user.name || '';
+        state.user.name = action.payload.user.userName || '';
         state.user.id = action.payload.user.id || '';
         state.user.email = action.payload.user.email || '';
-        state.user.phoneNumber = action.payload.user.phoneNumber || '';
+        state.user.phoneNumber = action.payload.user.phone || '';
       }
       if (action.payload.admin) {
         state.admin.name = action.payload.admin.name || '';
