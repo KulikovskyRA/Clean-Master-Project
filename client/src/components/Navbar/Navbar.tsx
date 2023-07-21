@@ -111,7 +111,7 @@ const Navbar = () => {
             style={{ fontWeight: 600, paddingLeft: 0, paddingRight: 0 }}
             onClick={showLoginModal}
           >
-            Войти!
+            Войти в личный кабинет
           </Button>
         </ConfigProvider>
       ) : (
