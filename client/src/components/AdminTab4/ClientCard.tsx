@@ -25,6 +25,7 @@ const ClientCard = ({ client }) => {
         marginRight: '10%',
         marginBottom: '10px',
         paddingLeft: '1%',
+        border: '1px solid'
       }}
     >
       <Row>
