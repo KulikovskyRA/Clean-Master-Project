@@ -20,24 +20,13 @@ module.exports.login = async (req, res) => {
       };
 
       req.session.user = sessionUser;
-      console.log('REQSESSSSION', req.session.user);
+      // console.log('REQSESSSSION', req.session.user);
       res.status(200).json({ user: sessionUser });
       // console.log(req.session);
     }
   } catch (err) {
     console.log('Ошибка login --->', err);
     res.status(400).json({ error: 'error' });
-  }
-};
-
-module.exports.logout = async (req, res) => {
-  try {
-    req.session.destroy(() => {
-      res.clearCookie('CleanMasterCookie');
-      res.json({ status: 'ok' });
-    });
-  } catch (error) {
-    res.sendStatus(400);
   }
 };
 
@@ -63,6 +52,8 @@ module.exports.register = async (req, res) => {
       phone: response.phoneNumber,
     };
 
+    req.session.user = userSessionData;
+
     res.status(200).json({ user: userSessionData });
   } catch (error) {
     console.log('ERROR====>', error);
@@ -81,5 +72,16 @@ module.exports.checkSessions = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+  }
+};
+
+module.exports.logout = async (req, res) => {
+  try {
+    req.session.destroy(() => {
+      res.clearCookie('CleanMasterCookie');
+      res.json({ status: 'ok' });
+    });
+  } catch (error) {
+    res.sendStatus(400);
   }
 };

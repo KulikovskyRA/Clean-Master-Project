@@ -25,9 +25,9 @@ function App() {
           const result = await response.json();
 
           //! НЕ НАДО!!!!!
-          // if (!result.user && window.location.pathname === '/client') {
-          //   navigate('/');
-          // }
+          if (!result.user && window.location.pathname === '/client') {
+            navigate('/');
+          }
 
           if (!result.admin && window.location.pathname === '/admin') {
             navigate('/adminlogin');

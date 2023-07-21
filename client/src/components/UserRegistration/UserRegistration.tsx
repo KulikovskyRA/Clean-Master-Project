@@ -40,7 +40,7 @@ const UserRegistration: React.FC = () => {
         body: JSON.stringify(values),
       });
       const result = await response.json();
-      // console.log(result);
+      console.log(result);
 
       if (response.ok) {
         dispatch(
@@ -54,11 +54,6 @@ const UserRegistration: React.FC = () => {
         );
         navigate('/client');
       }
-
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
-      setMessage(result.error);
     } catch (error) {
       console.log(error);
     }
