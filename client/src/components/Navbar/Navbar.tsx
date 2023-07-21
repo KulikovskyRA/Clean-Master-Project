@@ -3,20 +3,16 @@ import { LogoutOutlined } from '@ant-design/icons';
 
 import { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import UserLogin from '../UserLogin/UserLogin';
 import UserRegistration from '../UserRegistration/UserRegistration';
 
-import {
-  Button,
-  Checkbox,
-  Row,
-  Form,
-  Input,
-  ConfigProvider,
-  Modal,
-} from 'antd';
+import { Button, ConfigProvider, Modal } from 'antd';
 
 const Navbar = () => {
+  const user = useSelector((state) => state.authSlice.user);
+
   const handleLogout = () => {
     fetch(import.meta.env.VITE_URL + 'auth/logout', {
       method: 'GET',
@@ -97,30 +93,32 @@ const Navbar = () => {
       <Link className="nav-link" to="/">
         На главную
       </Link>
-      <Link className="nav-link" to="/client">
-        Личный кабинет
-      </Link>
 
-      <ConfigProvider
-        theme={{
-          token: {
-            fontSize: 16,
-            // fontWeight: 600,
-            fontFamily: 'Roboto',
-            colorLink: 'black',
-            colorLinkActive: 'black',
-            colorLinkHover: 'black',
-          },
-        }}
-      >
-        <Button
-          type="link"
-          style={{ fontWeight: 600, paddingLeft: 0, paddingRight: 0 }}
-          onClick={showLoginModal}
+      {user.id === 0 ? (
+        <ConfigProvider
+          theme={{
+            token: {
+              fontSize: 16,
+              fontFamily: 'Roboto',
+              colorLink: 'black',
+              colorLinkActive: 'black',
+              colorLinkHover: 'black',
+            },
+          }}
         >
-          Войти!
-        </Button>
-      </ConfigProvider>
+          <Button
+            type="link"
+            style={{ fontWeight: 600, paddingLeft: 0, paddingRight: 0 }}
+            onClick={showLoginModal}
+          >
+            Войти!
+          </Button>
+        </ConfigProvider>
+      ) : (
+        <Link className="nav-link" to="/client">
+          Личный кабинет
+        </Link>
+      )}
 
       <button className="logout-btn " onClick={handleLogout}>
         <svg
