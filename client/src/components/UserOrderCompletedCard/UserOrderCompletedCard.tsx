@@ -92,7 +92,7 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
         month: 'long',
         weekday: 'long',
       })})`}
-      style={{ width: '100%', marginBottom: "10px", border: "1px solid", position:"relative" }}
+      style={{ width: '100%', marginBottom: "10px", border: "1px solid", position: "relative" }}
       headStyle={{ backgroundColor: '#EFEBEB' }}
     >
       <p>
@@ -155,23 +155,30 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
       </p>
 
       <div className="avatarDiv"
-            style={{
-              marginLeft: "76%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "absolute",
-              top: "55%",
-              transform: "translateY(-50%)"
-            }}
-          >
-            <Avatar size={170} icon={<UserOutlined />} />
+           style={{
+             marginLeft: "76%",
+             display: "flex",
+             flexDirection: "column",
+             justifyContent: "center",
+             alignItems: "center",
+             position: "absolute",
+             top: "55%",
+             transform: "translateY(-50%)"
+           }}
+      >
+        {orderData.Cleaner ?
+          <>
+            <Avatar size={170} src={`http://localhost:3500/uploads/${orderData.Cleaner.img}`}/>
             <p>
-ИМЯ КЛИНЕРА
+              {orderData.Cleaner.name}
             </p>
-          </div>
-          
+          </> :
+          <>
+            <Avatar size={170} icon={<UserOutlined/>}/>
+
+          </>}
+      </div>
+
       <Space>
         <Button type="primary" size="medium" onClick={showModal}>
           Повторить уборку
