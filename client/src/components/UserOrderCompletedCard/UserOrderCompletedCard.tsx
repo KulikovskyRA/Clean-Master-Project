@@ -191,7 +191,7 @@ const UserOrderCompletedCard: React.FC = ({ orderData }) => {
                 month: 'long',
                 weekday: 'long',
               })}
-              style={{ width: 120 }}
+              style={{ width: 250 }}
               onChange={handleChange}
               options={dateOptions}
             />
