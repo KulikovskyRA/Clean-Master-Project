@@ -40,6 +40,7 @@ const UserRegistration: React.FC = () => {
         body: JSON.stringify(values),
       });
       const result = await response.json();
+      // console.log(result);
 
       if (response.ok) {
         dispatch(
@@ -51,7 +52,7 @@ const UserRegistration: React.FC = () => {
             phoneNumber: result.user.phoneNumber,
           })
         );
-        navigate(0);
+        navigate('/client');
       }
 
       setTimeout(() => {
@@ -103,7 +104,7 @@ const UserRegistration: React.FC = () => {
         name="phone"
         rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <InputNumber
+        <Input
           style={{ width: '100%' }}
           placeholder="Введите номер телефона:"
         />

@@ -62,7 +62,7 @@ module.exports.register = async (req, res) => {
       email: response.email,
       phone: response.phoneNumber,
     };
-    console.log(userSessionData);
+
     res.status(200).json({ user: userSessionData });
   } catch (error) {
     console.log('ERROR====>', error);
