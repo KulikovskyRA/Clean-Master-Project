@@ -114,7 +114,7 @@ const OrderForm = () => {
 
     setTotal((prev) => prev + count * prices[el.id]);
 
-    console.log(formServices);
+    // console.log(formServices);
   };
 
   const handleNextStep = () => {
@@ -156,7 +156,9 @@ const OrderForm = () => {
       }}
     >
       <Row justify="center">
-        <Text style={{ fontSize: '40px', fontWeight: 'bold' }}>
+        <Text
+          style={{ fontSize: '40px', fontWeight: 'bold', marginBottom: -40 }}
+        >
           ФОРМА ЗАКАЗА
         </Text>
       </Row>
@@ -169,7 +171,7 @@ const OrderForm = () => {
                 .map((el) => (
                   <div key={`default${el.id}`}>
                     <Row justify="center">
-                      <Text>{el.title}</Text>
+                      <Title>{el.title}</Title>
                     </Row>
                     <Row
                       justify="center"
@@ -257,12 +259,11 @@ const OrderForm = () => {
                       </Text>
                     </Row>
                     <Row justify="start">
-                      <Text style={{ marginLeft: 25 }}>{el.title}</Text>
                       <Button.Group
                         size="small"
-                        style={{
-                          marginLeft: 20,
-                        }}
+                        // style={{
+                        //   marginLeft: 20,
+                        // }}
                       >
                         {formServices[el.id] > 0 ? (
                           <Button onClick={() => handleDecrement(el)}>-</Button>
@@ -273,6 +274,7 @@ const OrderForm = () => {
 
                         <Button onClick={() => handleIncrement(el)}>+</Button>
                       </Button.Group>
+                      <Text style={{ marginLeft: 10 }}>{el.title}</Text>
                     </Row>
                   </div>
                 ))}
@@ -310,7 +312,7 @@ const OrderForm = () => {
               <Row justify="center">
                 <Input.TextArea
                   rows={3}
-                  style={{ marginBottom: 49, marginTop: 40, width: '100%' }}
+                  style={{ marginBottom: 25, marginTop: 25, width: '100%' }}
                   onChange={handleChange}
                   type="text"
                   name="info"

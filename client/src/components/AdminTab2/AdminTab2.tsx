@@ -155,7 +155,7 @@ const AdminTab2 = () => {
       <Card
         title="Услуги:"
         style={{
-          marginLeft: '28%',
+          marginLeft: '26%',
           marginTop: '10px',
           marginRight: '28%',
           border: '1px solid'
@@ -164,7 +164,7 @@ const AdminTab2 = () => {
       >
         <Row>
           <Col span={10}>
-            <Title level={4} style={{ marginTop: 0 }}>
+            <Title level={5} style={{ marginTop: 0 }}>
               Базовые:
             </Title>
 
@@ -186,12 +186,12 @@ const AdminTab2 = () => {
             </Space>
           </Col>
           <Col>
-            <Title level={4} style={{ marginTop: 0 }}>
+            <Title level={5} style={{ marginTop: 0 }}>
               Дополнительные:
             </Title>
             {extra.map((ex) => (
               <Row key={`ex${ex.id}`}>
-                <Text>{`${ex.title} ${ex.single ? '(единич)' : ''}: ${
+                <Text>{`${ex.title}${ex.single ? '*' : ''}: ${
                   ex.singlePrice
                 } UZS`}</Text>
                 <EditOutlined
