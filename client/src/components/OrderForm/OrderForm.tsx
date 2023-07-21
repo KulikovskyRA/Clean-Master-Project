@@ -157,12 +157,13 @@ const OrderForm = () => {
     >
       <Row justify="center">
         <Text
+          id="formtitel"
           style={{ fontSize: '40px', fontWeight: 'bold', marginBottom: -40 }}
         >
           ФОРМА ЗАКАЗА
         </Text>
       </Row>
-      <div className={styles.orderFormDiv}>
+      <div id="formorder" className={styles.orderFormDiv}>
         <Col style={{ width: 550 }}>
           {step === 0 && (
             <>
@@ -201,6 +202,7 @@ const OrderForm = () => {
               </Row>
               <Row justify="center" style={{ marginBottom: 35, marginTop: 10 }}>
                 <select
+                  id="dateinput"
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
@@ -218,6 +220,7 @@ const OrderForm = () => {
                 </select>
 
                 <select
+                  id="dateinput"
                   value={formData.time}
                   name="time"
                   onChange={handleChange}
@@ -232,7 +235,6 @@ const OrderForm = () => {
               </Row>
               <Row justify="center">
                 <Button.Group size="large">
-                  <Button disabled>НАЗАД</Button>
                   <Button type="primary" onClick={handleNextStep}>
                     ДАЛЕЕ
                   </Button>
@@ -322,8 +324,17 @@ const OrderForm = () => {
               </Row>
               <Row justify="center">
                 <Button.Group size="large">
-                  <Button onClick={handlePrevStep}>НАЗАД</Button>
-                  <Button type="primary" onClick={handleNextStep}>
+                  <Button
+                    style={{ height: '42px', boxSizing: 'box' }}
+                    onClick={handlePrevStep}
+                  >
+                    НАЗАД
+                  </Button>
+                  <Button
+                    style={{ border: 'none' }}
+                    type="primary"
+                    onClick={handleNextStep}
+                  >
                     ДАЛЕЕ
                   </Button>
                 </Button.Group>
@@ -392,7 +403,9 @@ const OrderForm = () => {
               </Row>
               <Row justify="center" style={{ marginBottom: 20, marginTop: 50 }}>
                 <Button.Group size="large">
-                  <Button onClick={handlePrevStep}>НАЗАД</Button>
+                  <Button style={{ height: '42px' }} onClick={handlePrevStep}>
+                    НАЗАД
+                  </Button>
                   <Button type="primary" onClick={handleSubmit}>
                     ОФОРМИТЬ ЗАКАЗ
                   </Button>

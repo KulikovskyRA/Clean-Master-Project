@@ -682,6 +682,26 @@ body {
 .plan-room-img.show {
   transform: translateX(0);
 }
+#formorder {
+  width: 800px;
+  margin: 0px auto;
+  margin-top: 40px;
+  height: 600px;
+}
+#dateinput:nth-child(1) {
+  padding-left: 5px;
+
+  height: 50px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-right: none;
+}
+#dateinput:nth-child(2) {
+  padding-left: 5px;
+  height: 50px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
 
 .plan-room-img2 {
   background-image: url('room4.png');
@@ -729,6 +749,16 @@ body {
     padding: 40px;
     width: 620px;
   }
+  .three-box {
+    width: 100%;
+    display: none;
+  }
+  #formorder {
+    width: 100%;
+  }
+  body {
+    overflow-x: hidden;
+  }
 }
 @media screen and (max-width: 767px) {
   #parallax-world-of-ugg .block {
@@ -763,11 +793,15 @@ body {
     display: none;
   }
   .list {
-    width: 200px;
+    width: 100%;
   }
+
   .footer {
-    flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+  }
+  .three-box {
+    display: none;
   }
   .pay {
     display: none;
@@ -787,12 +821,99 @@ body {
   .sec-title {
     font-size: 24px;
   }
+  #formorder {
+    width: 100%;
+  }
+  .section {
+    width: 100%;
+    border: none;
+  }
+  .box-top {
+    width: 100%;
+    justify-content: left;
+  }
+  body {
+    overflow-x: hidden;
+  }
 }
 
 @media screen and (max-width: 479px) {
   #parallax-world-of-ugg .block {
     padding: 30px 15px;
     width: 290px;
+  }
+
+  .slider-container {
+    display: none;
+  }
+  .before {
+    display: none;
+  }
+  .text {
+    font-size: 18px;
+  }
+  .plan-room-img2 {
+    display: none;
+  }
+  .plan-room-img {
+    display: none;
+  }
+  .list {
+    width: 100%;
+
+    margin: 0;
+  }
+
+  .footer {
+    justify-content: left;
+    margin-left: 0px;
+    width: 100%;
+  }
+  .first-box {
+    margin-left: 15px;
+  }
+  .soc-png {
+    width: 20px;
+    display: none;
+  }
+  .three-box {
+    display: none;
+  }
+  .pay {
+    display: none;
+  }
+  .pay1 {
+    display: none;
+  }
+  .box-top {
+    margin: 5px;
+    width: 100%;
+
+    display: flex;
+    margin-left: 0px;
+    padding-left: 0px;
+    flex-wrap: wrap;
+  }
+
+  .main-title {
+    font-size: 38px;
+  }
+  .sec-title {
+    font-size: 24px;
+  }
+  #formorder {
+    width: 100%;
+  }
+  .section {
+    display: none;
+  }
+  #formtitel {
+    width: 100%;
+    padding-left: 60px;
+  }
+  .box-top {
+    width: 100%;
+    justify-content: left;
   }
 }
 
