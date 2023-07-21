@@ -20,7 +20,7 @@ const {
   repeatOrder,
   takeOrderAsCleaner,
   doneOrder,
-  
+  assesOrder,
 } = require('../controllers/order.controller');
 
 module.exports = orderRouter
@@ -37,5 +37,6 @@ module.exports = orderRouter
   .post('/addorder', addOrder)
   .post(`/repeatorder`, repeatOrder)
   .put('/accept/:orderId', takeOrderAsCleaner)
-  .put('/done/:orderId', doneOrder);
+  .put('/done/:orderId', doneOrder)
+  .put('/assesorder', assesOrder);
 
